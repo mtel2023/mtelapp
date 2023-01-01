@@ -4,6 +4,7 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:mtelapp/screens/mape_screen.dart';
 import 'package:mtelapp/screens/marketi_screen.dart';
+import 'package:mtelapp/screens/meni1_screen.dart';
 
 class BottomNavigationScreen extends StatefulWidget {
   const BottomNavigationScreen({super.key});
@@ -18,7 +19,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
     MapeScreen(),
     MapeScreen(),
     MapeScreen(),
-    MapeScreen(),
+    Meni1Screen(),
   ];
 
   int _selectedIndex = 0;
@@ -36,9 +37,6 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
           color: Colors.white,
-          // border: Border(
-          //   top: BorderSide(color: Colors.grey),
-          // ),
           boxShadow: [
             BoxShadow(
               color: Colors.grey,
