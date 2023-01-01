@@ -3,7 +3,10 @@ import 'package:iconsax/iconsax.dart';
 
 class CustomAppBar extends StatelessWidget {
   final String pageTitle;
-  const CustomAppBar({required this.pageTitle});
+  final IconData prvaIkonica;
+  final IconData drugaIkonica;
+  final Function funkcija;
+  const CustomAppBar({required this.pageTitle, required this.prvaIkonica, required this.drugaIkonica, required this.funkcija});
 
   @override
   Widget build(BuildContext context) {
@@ -15,8 +18,14 @@ class CustomAppBar extends StatelessWidget {
         children: [
           Row(
             children: [
-              Icon(
-                Iconsax.home,
+              SizedBox(
+                height: 30,
+                width: 25,
+                child: IconButton(
+                  padding: EdgeInsets.zero,
+                  onPressed: () => funkcija(),
+                  icon: Icon(prvaIkonica),
+                ),
               ),
               Icon(
                 Icons.chevron_right_outlined,
@@ -31,7 +40,7 @@ class CustomAppBar extends StatelessWidget {
           IconButton(
             onPressed: () {},
             icon: Icon(
-              Iconsax.shopping_cart,
+              drugaIkonica,
               size: 34,
             ),
           ),
