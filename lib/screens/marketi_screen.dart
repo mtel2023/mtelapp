@@ -15,6 +15,9 @@ class MarketiScreen extends StatelessWidget {
           // custom app bar
           SafeArea(
             child: CustomAppBar(
+              funkcija: () {},
+              prvaIkonica: Iconsax.home,
+              drugaIkonica: Iconsax.shopping_cart,
               pageTitle: 'Marketi',
             ),
           ),

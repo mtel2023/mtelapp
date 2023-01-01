@@ -50,7 +50,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
         child: GNav(
           onTabChange: _selectPage,
           selectedIndex: _selectedIndex,
-          tabBackgroundColor: Color.fromRGBO(85, 74, 240, 1),
+          tabBackgroundColor: Theme.of(context).primaryColor,
           // backgroundColor: Colors.grey.shade500,
           activeColor: Colors.white,
           color: Colors.black,
