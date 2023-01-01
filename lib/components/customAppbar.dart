@@ -17,7 +17,6 @@ class CustomAppBar extends StatelessWidget {
             children: [
               Icon(
                 Iconsax.home,
-                color: Colors.grey,
               ),
               Icon(
                 Icons.chevron_right_outlined,
@@ -25,10 +24,7 @@ class CustomAppBar extends StatelessWidget {
               ),
               Text(
                 pageTitle,
-                style: TextStyle(
-                  fontWeight: FontWeight.w500,
-                  fontSize: 22,
-                ),
+                style: TextStyle(fontWeight: FontWeight.w500, fontSize: 22, color: Colors.grey),
               ),
             ],
           ),

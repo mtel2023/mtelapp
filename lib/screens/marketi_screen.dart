@@ -24,7 +24,7 @@ class MarketiScreen extends StatelessWidget {
             child: Column(
               children: [
                 // search bar
-                SearchBar(hintText: 'Pretražite market'),
+                SearchBar(hintText: 'Pretražite market...'),
                 SizedBox(height: 20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
