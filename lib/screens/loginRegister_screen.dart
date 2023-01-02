@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mtelapp/components/button.dart';
 
-class LoginRegisterPage extends StatelessWidget {
-  const LoginRegisterPage({super.key});
+class LoginRegisterScreen extends StatelessWidget {
+  const LoginRegisterScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

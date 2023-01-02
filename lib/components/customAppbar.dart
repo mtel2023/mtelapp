@@ -6,7 +6,8 @@ class CustomAppBar extends StatelessWidget {
   final IconData prvaIkonica;
   final IconData drugaIkonica;
   final Function funkcija;
-  const CustomAppBar({required this.pageTitle, required this.prvaIkonica, required this.drugaIkonica, required this.funkcija});
+  final bool isBlack;
+  const CustomAppBar({required this.pageTitle, required this.prvaIkonica, required this.drugaIkonica, required this.funkcija, required this.isBlack});
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +34,11 @@ class CustomAppBar extends StatelessWidget {
               ),
               Text(
                 pageTitle,
-                style: TextStyle(fontWeight: FontWeight.w500, fontSize: 22, color: Colors.grey),
+                style: TextStyle(
+                  fontWeight: FontWeight.w500,
+                  fontSize: 22,
+                  color: (isBlack) ? Colors.black : Colors.grey,
+                ),
               ),
             ],
           ),

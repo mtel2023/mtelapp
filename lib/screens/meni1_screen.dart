@@ -27,6 +27,7 @@ class Meni1Screen extends StatelessWidget {
             prvaIkonica: Iconsax.home,
             drugaIkonica: Iconsax.shopping_cart,
             pageTitle: 'Meni',
+            isBlack: false,
           ),
         ),
         Container(
