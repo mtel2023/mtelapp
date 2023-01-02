@@ -42,7 +42,7 @@ class LoginRegisterScreen extends StatelessWidget {
             //register button
             Buttons(
               ButtonText: 'Register',
-              color: Color.fromRGBO(85, 74, 240, 1),
+              color: Theme.of(context).primaryColor,
               textColor: Colors.white,
             ),
           ],

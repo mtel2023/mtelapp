@@ -7,7 +7,8 @@ class CustomAppBar extends StatelessWidget {
   final IconData drugaIkonica;
   final Function funkcija;
   final bool isBlack;
-  const CustomAppBar({required this.pageTitle, required this.prvaIkonica, required this.drugaIkonica, required this.funkcija, required this.isBlack});
+  final bool isChevron;
+  const CustomAppBar({required this.pageTitle, required this.prvaIkonica, required this.drugaIkonica, required this.funkcija, required this.isBlack, required this.isChevron});
 
   @override
   Widget build(BuildContext context) {
@@ -28,10 +29,12 @@ class CustomAppBar extends StatelessWidget {
                   icon: Icon(prvaIkonica),
                 ),
               ),
-              Icon(
-                Icons.chevron_right_outlined,
-                color: Colors.grey,
-              ),
+              if (isChevron)
+                Icon(
+                  Icons.chevron_right_outlined,
+                  color: Colors.grey,
+                ),
+              if (!isChevron) SizedBox(width: 5),
               Text(
                 pageTitle,
                 style: TextStyle(

@@ -19,6 +19,7 @@ class Meni1Screen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final medijakveri = MediaQuery.of(context);
     return Column(
       children: [
         SafeArea(
@@ -28,16 +29,17 @@ class Meni1Screen extends StatelessWidget {
             drugaIkonica: Iconsax.shopping_cart,
             pageTitle: 'Meni',
             isBlack: false,
+            isChevron: true,
           ),
         ),
         Container(
-          margin: const EdgeInsets.symmetric(horizontal: 30),
+          margin: EdgeInsets.symmetric(horizontal: medijakveri.size.width * 0.07),
           child: Column(
             children: [
               InkWell(
                 onTap: () => prebaciEkran(context),
                 child: Container(
-                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  padding: EdgeInsets.symmetric(vertical: medijakveri.size.height * 0.02),
                   decoration: BoxDecoration(
                     color: Theme.of(context).primaryColor,
                     borderRadius: BorderRadius.circular(20),
@@ -56,7 +58,8 @@ class Meni1Screen extends StatelessWidget {
                       Row(
                         children: [
                           Container(
-                            padding: const EdgeInsets.all(15),
+                            padding: EdgeInsets.all(medijakveri.size.longestSide * 0.017),
+                            // padding: EdgeInsets.all(15),
                             decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(20),
@@ -66,7 +69,7 @@ class Meni1Screen extends StatelessWidget {
                               style: TextStyle(fontSize: 35),
                             ),
                           ),
-                          SizedBox(width: 15),
+                          SizedBox(width: medijakveri.size.width * 0.035),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -77,11 +80,18 @@ class Meni1Screen extends StatelessWidget {
                                   fontSize: 22,
                                 ),
                               ),
-                              Text(
-                                'Marko Marković',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 22,
+                              Container(
+                                width: medijakveri.size.width * 0.4,
+                                height: 35,
+                                child: FittedBox(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    'Marko Marković',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 22,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ],
@@ -97,12 +107,12 @@ class Meni1Screen extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(height: 30),
+              SizedBox(height: medijakveri.size.height * 0.025),
               Kartica(
                 ikonica: Iconsax.setting_2,
                 tekst: 'Podešavanja',
               ),
-              SizedBox(height: 25),
+              SizedBox(height: medijakveri.size.height * 0.025),
               Kartica(
                 ikonica: Iconsax.document_text_1,
                 tekst: 'Prijavite poslovnicu',

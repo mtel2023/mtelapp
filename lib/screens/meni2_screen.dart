@@ -9,15 +9,15 @@ import 'package:mtelapp/screens/loginRegister_screen.dart';
 class Meni2Screen extends StatelessWidget {
   const Meni2Screen({super.key});
 
-  Widget meniPolje(String label, String hintText) {
+  Widget meniPolje(String label, String hintText, MediaQueryData medijakveri) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 30),
+      margin: EdgeInsets.symmetric(horizontal: medijakveri.size.width * 0.07),
       child: Column(
         children: [
           Row(
             children: [
               Container(
-                margin: EdgeInsets.all(5),
+                margin: EdgeInsets.only(left: medijakveri.size.width * 0.01, bottom: medijakveri.size.height * 0.01),
                 child: Text(
                   label,
                   style: TextStyle(
@@ -28,24 +28,24 @@ class Meni2Screen extends StatelessWidget {
             ],
           ),
           Container(
-            margin: const EdgeInsets.only(bottom: 15),
-            height: 60,
+            margin: EdgeInsets.only(bottom: medijakveri.size.height * 0.019),
+            height: medijakveri.size.height * 0.066,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
               color: Colors.white,
               boxShadow: [
                 BoxShadow(
-                  color: Colors.grey,
-                  spreadRadius: 2,
-                  blurRadius: 6,
-                  offset: Offset(0, 4), // changes position of shadow
+                  color: Colors.grey.withOpacity(0.7),
+                  spreadRadius: medijakveri.size.width * 0.001,
+                  blurRadius: 4,
+                  offset: Offset(0, medijakveri.size.height * 0.005), // changes position of shadow
                 ),
               ],
             ),
             child: Row(
               children: [
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  padding: EdgeInsets.symmetric(horizontal: medijakveri.size.width * 0.04),
                   child: Text(
                     hintText,
                     style: TextStyle(fontSize: 16, color: Colors.grey),
@@ -61,6 +61,7 @@ class Meni2Screen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final medijakveri = MediaQuery.of(context);
     return Scaffold(
       body: Column(
         children: [
@@ -69,26 +70,27 @@ class Meni2Screen extends StatelessWidget {
               funkcija: () {
                 Navigator.pop(context);
               },
-              prvaIkonica: Iconsax.back_square,
+              prvaIkonica: Iconsax.arrow_circle_left,
               drugaIkonica: Iconsax.edit,
               pageTitle: 'Nazad',
               isBlack: true,
+              isChevron: false,
             ),
           ),
-          meniPolje('Ime', 'Marko'),
-          meniPolje('Prezime', 'Marković'),
-          meniPolje('Email', 'markomarkovic@gmail.com'),
-          meniPolje('Telefon', '+382 068 666 666'),
-          SizedBox(height: 110),
+          meniPolje('Ime', 'Marko', medijakveri),
+          meniPolje('Prezime', 'Marković', medijakveri),
+          meniPolje('Email', 'markomarkovic@gmail.com', medijakveri),
+          meniPolje('Telefon', '+382 068 666 666', medijakveri),
+          SizedBox(height: medijakveri.size.height * 0.07),
           Container(
-            padding: EdgeInsets.all(20),
-            margin: EdgeInsets.symmetric(horizontal: 30),
+            padding: EdgeInsets.symmetric(vertical: medijakveri.size.height * 0.023),
+            margin: EdgeInsets.symmetric(horizontal: medijakveri.size.width * 0.07),
             decoration: BoxDecoration(
               color: Colors.white,
               border: Border.all(
                 color: Colors.grey,
               ),
-              borderRadius: BorderRadius.circular(27),
+              borderRadius: BorderRadius.circular(20),
             ),
             child: Center(
               child: Text(
@@ -107,11 +109,11 @@ class Meni2Screen extends StatelessWidget {
               Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => LoginRegisterScreen()), (Route<dynamic> route) => false);
             },
             child: Container(
-              padding: EdgeInsets.all(20),
-              margin: EdgeInsets.symmetric(horizontal: 30),
+              padding: EdgeInsets.symmetric(vertical: medijakveri.size.height * 0.023),
+              margin: EdgeInsets.symmetric(horizontal: medijakveri.size.width * 0.07),
               decoration: BoxDecoration(
                 color: Color.fromARGB(255, 236, 30, 30),
-                borderRadius: BorderRadius.circular(27),
+                borderRadius: BorderRadius.circular(20),
               ),
               child: Center(
                 child: Text(

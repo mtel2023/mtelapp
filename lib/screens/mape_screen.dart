@@ -17,6 +17,7 @@ class MapeScreen extends StatelessWidget {
             drugaIkonica: Iconsax.shopping_cart,
             pageTitle: 'Mape',
             isBlack: false,
+            isChevron: true,
           ),
         ),
         Container(

@@ -20,6 +20,7 @@ class MarketiScreen extends StatelessWidget {
               drugaIkonica: Iconsax.shopping_cart,
               pageTitle: 'Marketi',
               isBlack: false,
+              isChevron: true,
             ),
           ),
 
