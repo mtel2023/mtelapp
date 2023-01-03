@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mtelapp/components/customAppbar.dart';
 import 'package:mtelapp/screens/bottomNavigation_screen.dart';
+import 'package:mtelapp/screens/meni2_screen.dart';
+import 'package:mtelapp/screens/meni4_screen.dart';
 
 void main() => runApp(MyApp());
 
