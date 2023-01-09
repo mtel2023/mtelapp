@@ -4,17 +4,18 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:mtelapp/components/customAppbar.dart';
 
-class Meni4Screen extends StatefulWidget {
-  const Meni4Screen({super.key});
+class Meni3Screen extends StatefulWidget {
+  const Meni3Screen({super.key});
 
   @override
-  State<Meni4Screen> createState() => _Meni4ScreenState();
+  State<Meni3Screen> createState() => _Meni3ScreenState();
 }
 
-class _Meni4ScreenState extends State<Meni4Screen> {
-  final _oldPasswordController = TextEditingController();
-  final _newPasswordController = TextEditingController();
-  final _confirmPasswordController = TextEditingController();
+class _Meni3ScreenState extends State<Meni3Screen> {
+  final _nameController = TextEditingController();
+  final _surnameController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _phoneController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -43,19 +44,22 @@ class _Meni4ScreenState extends State<Meni4Screen> {
                   Column(
                     children: [
                       inputFile(
-                          textlabel: "Trenutna šifra",
-                          label: "***************",
-                          obscureText: true,
-                          controller: _oldPasswordController),
+                          textlabel: "Ime",
+                          label: "Ime",
+                          controller: _nameController),
                       inputFile(
-                          textlabel: "Nova šifra",
-                          label: "***************",
-                          controller: _newPasswordController),
+                          textlabel: "Prezime",
+                          label: "Prezime",
+                          controller: _surnameController),
                       inputFile(
-                          textlabel: "Potvrdite šifru",
-                          label: "***************",
+                          textlabel: "Email",
+                          label: "Email",
                           keyboardType: TextInputType.emailAddress,
-                          controller: _confirmPasswordController),
+                          controller: _emailController),
+                      inputFile(
+                          textlabel: "Telefon",
+                          label: "Telefon",
+                          controller: _phoneController)
                     ],
                   )
                 ],
@@ -68,8 +72,7 @@ class _Meni4ScreenState extends State<Meni4Screen> {
   }
 }
 
-Widget inputFile(
-    {textlabel, obscureText = false, label, keyboardType, controller}) {
+Widget inputFile({textlabel, label, keyboardType, controller}) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -86,7 +89,6 @@ Widget inputFile(
         child: TextField(
           controller: controller,
           keyboardType: keyboardType,
-          obscureText: obscureText,
           decoration: InputDecoration(
               filled: true,
               fillColor: Colors.white,
