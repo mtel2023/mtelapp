@@ -50,11 +50,12 @@ class _Meni4ScreenState extends State<Meni4Screen> {
                       inputFile(
                           textlabel: "Nova šifra",
                           label: "***************",
+                          obscureText: true,
                           controller: _newPasswordController),
                       inputFile(
                           textlabel: "Potvrdite šifru",
                           label: "***************",
-                          keyboardType: TextInputType.emailAddress,
+                          obscureText: true,
                           controller: _confirmPasswordController),
                     ],
                   )
