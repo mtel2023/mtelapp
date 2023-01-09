@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:mtelapp/components/customAppbar.dart';
 
@@ -59,6 +60,7 @@ class _Meni3ScreenState extends State<Meni3Screen> {
                       inputFile(
                           textlabel: "Telefon",
                           label: "Telefon",
+                          keyboardType: TextInputType.number,
                           controller: _phoneController)
                     ],
                   )
