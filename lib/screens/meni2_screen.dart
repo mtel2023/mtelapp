@@ -69,6 +69,99 @@ class Meni2Screen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final medijakveri = MediaQuery.of(context);
+    _showModal(context) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+            title: Center(
+              child: Padding(
+                padding: const EdgeInsets.only(top: 28.0),
+                child: Text(
+                  'Da li ste sigurni?',
+                  style: TextStyle(fontSize: 24),
+                ),
+              ),
+            ),
+            content: Padding(
+              padding: const EdgeInsets.only(top: 66.0, bottom: 66),
+              child: Text(
+                'Deaktivacijom računa brišu se svi Vaši podaci. Deaktivaciju računa nije moguće opozvati.',
+                style: TextStyle(fontSize: 14, color: Colors.grey[700]),
+                textAlign: TextAlign.center,
+              ),
+            ),
+            actions: [
+              InkWell(
+                onTap: () {
+                  Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(
+                          builder: (context) => LoginRegisterScreen()),
+                      (Route<dynamic> route) => false);
+                },
+                child: Container(
+                  padding: EdgeInsets.symmetric(
+                      vertical: medijakveri.size.height * 0.020),
+                  margin: EdgeInsets.symmetric(
+                      horizontal: medijakveri.size.width * 0.009),
+                  decoration: BoxDecoration(
+                    color: Color.fromARGB(255, 236, 30, 30),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Center(
+                    child: Text(
+                      'Deaktiviraj',
+                      style: TextStyle(
+                        //fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 28),
+                child: Container(
+                  padding: EdgeInsets.symmetric(
+                      vertical: MediaQuery.of(context).size.height * 0.020),
+                  margin: EdgeInsets.symmetric(
+                      horizontal: MediaQuery.of(context).size.width * 0.009),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    border: Border.all(
+                      color: Colors.grey,
+                    ),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: InkWell(
+                    onTap: (() {
+                      Navigator.of(context).pop();
+                    }),
+                    child: Center(
+                      child: Text(
+                        'Otkaži',
+                        style: TextStyle(
+                          //fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              )
+            ],
+          );
+        },
+      );
+    }
+
     return Scaffold(
       body: Column(
         children: [
@@ -122,10 +215,7 @@ class Meni2Screen extends StatelessWidget {
           SizedBox(height: 20),
           InkWell(
             onTap: () {
-              Navigator.of(context).pushAndRemoveUntil(
-                  MaterialPageRoute(
-                      builder: (context) => LoginRegisterScreen()),
-                  (Route<dynamic> route) => false);
+              _showModal(context);
             },
             child: Container(
               padding: EdgeInsets.symmetric(
