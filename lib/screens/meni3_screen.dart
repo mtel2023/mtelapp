@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:mtelapp/components/customAppbar.dart';
+import 'package:mtelapp/screens/meni4_screen.dart';
 
 class Meni3Screen extends StatefulWidget {
+  static const routeName = '/meni3';
   const Meni3Screen({super.key});
 
   @override
@@ -33,6 +35,7 @@ class _Meni3ScreenState extends State<Meni3Screen> {
               pageTitle: 'Nazad',
               isBlack: true,
               isChevron: false,
+              funkcija2: () {},
             ),
           ),
           SingleChildScrollView(
@@ -44,24 +47,10 @@ class _Meni3ScreenState extends State<Meni3Screen> {
                 children: [
                   Column(
                     children: [
-                      inputFile(
-                          textlabel: "Ime",
-                          label: "Ime",
-                          controller: _nameController),
-                      inputFile(
-                          textlabel: "Prezime",
-                          label: "Prezime",
-                          controller: _surnameController),
-                      inputFile(
-                          textlabel: "Email",
-                          label: "Email",
-                          keyboardType: TextInputType.emailAddress,
-                          controller: _emailController),
-                      inputFile(
-                          textlabel: "Telefon",
-                          label: "Telefon",
-                          keyboardType: TextInputType.number,
-                          controller: _phoneController)
+                      inputFile(textlabel: "Ime", label: "Ime", controller: _nameController),
+                      inputFile(textlabel: "Prezime", label: "Prezime", controller: _surnameController),
+                      inputFile(textlabel: "Email", label: "Email", keyboardType: TextInputType.emailAddress, controller: _emailController),
+                      inputFile(textlabel: "Telefon", label: "Telefon", keyboardType: TextInputType.number, controller: _phoneController)
                     ],
                   )
                 ],
@@ -95,12 +84,8 @@ Widget inputFile({textlabel, label, keyboardType, controller}) {
               filled: true,
               fillColor: Colors.white,
               hintText: label,
-              enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.white),
-                  borderRadius: BorderRadius.circular(20)),
-              border: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.white),
-                  borderRadius: BorderRadius.circular(20))),
+              enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.white), borderRadius: BorderRadius.circular(20)),
+              border: OutlineInputBorder(borderSide: BorderSide(color: Colors.white), borderRadius: BorderRadius.circular(20))),
         ),
       ),
       SizedBox(

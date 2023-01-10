@@ -2,19 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:mtelapp/components/customAppbar.dart';
 import 'package:mtelapp/components/kartica.dart';
+import 'package:mtelapp/screens/korpa_screen.dart';
 import 'package:mtelapp/screens/meni2_screen.dart';
 
 class Meni1Screen extends StatelessWidget {
   const Meni1Screen({super.key});
 
   void prebaciEkran(ctx) {
-    Navigator.of(ctx).push(
-      MaterialPageRoute(
-        builder: (_) {
-          return Meni2Screen();
-        },
-      ),
-    );
+    Navigator.of(ctx).pushNamed(Meni2Screen.routeName);
   }
 
   @override
@@ -30,6 +25,9 @@ class Meni1Screen extends StatelessWidget {
             pageTitle: 'Meni',
             isBlack: false,
             isChevron: true,
+            funkcija2: () {
+              Navigator.of(context).pushNamed(KorpaScreen.routeName);
+            },
           ),
         ),
         Container(

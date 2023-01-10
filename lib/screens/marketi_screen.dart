@@ -3,6 +3,7 @@ import 'package:iconsax/iconsax.dart';
 import 'package:mtelapp/components/customAppbar.dart';
 import 'package:mtelapp/components/search_bar.dart';
 import 'package:mtelapp/main.dart';
+import 'package:mtelapp/screens/korpa_screen.dart';
 
 class MarketiScreen extends StatelessWidget {
   const MarketiScreen({super.key});
@@ -21,6 +22,9 @@ class MarketiScreen extends StatelessWidget {
               pageTitle: 'Marketi',
               isBlack: false,
               isChevron: true,
+              funkcija2: () {
+                Navigator.of(context).pushNamed(KorpaScreen.routeName);
+              },
             ),
           ),
 
