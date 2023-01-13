@@ -28,10 +28,12 @@ class _Meni4ScreenState extends State<Meni4Screen> {
                 Navigator.pop(context);
               },
               prvaIkonica: Iconsax.arrow_circle_left,
+              prvaIkonicaSize: 34,
               drugaIkonica: Iconsax.tick_circle,
-              pageTitle: 'Nazad',
+              pageTitle: 'Šifra',
               isBlack: true,
               isChevron: false,
+              isCenter: true,
               funkcija2: () {},
             ),
           ),

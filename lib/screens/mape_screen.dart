@@ -19,6 +19,7 @@ class MapeScreen extends StatelessWidget {
             pageTitle: 'Mape',
             isBlack: false,
             isChevron: true,
+            isCenter: false,
             funkcija2: () {
               Navigator.of(context).pushNamed(KorpaScreen.routeName);
             },
