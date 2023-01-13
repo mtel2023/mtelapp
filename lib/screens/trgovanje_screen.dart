@@ -2,25 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:mtelapp/components/customAppbar.dart';
 import 'package:mtelapp/components/search_bar.dart';
-import 'package:mtelapp/main.dart';
 import 'package:mtelapp/screens/korpa_screen.dart';
 
-class MarketiScreen extends StatelessWidget {
-  const MarketiScreen({super.key});
+class TrgovanjeScreen extends StatelessWidget {
+  const TrgovanjeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     final medijakveri = MediaQuery.of(context);
+
     return SingleChildScrollView(
       child: Column(
         children: [
-          // custom app bar
           SafeArea(
             child: CustomAppBar(
               funkcija: () {},
               prvaIkonica: Iconsax.home,
               drugaIkonica: Iconsax.shopping_cart,
-              pageTitle: 'Marketi',
+              pageTitle: 'Trgovanje',
               isBlack: false,
               isChevron: true,
               isCenter: false,
@@ -29,19 +28,17 @@ class MarketiScreen extends StatelessWidget {
               },
             ),
           ),
-
           Container(
             margin: EdgeInsets.symmetric(horizontal: medijakveri.size.width * 0.07),
             child: Column(
               children: [
-                // search bar
-                SearchBar(hintText: 'Pretražite market...'),
+                SearchBar(hintText: 'Pretražite proizvod...'),
                 SizedBox(height: (medijakveri.size.height - medijakveri.padding.top) * 0.02),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Marketi',
+                      'Poslednje trgovanje',
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.w500,
@@ -58,8 +55,6 @@ class MarketiScreen extends StatelessWidget {
                     ),
                   ],
                 ),
-                Image.asset('assets/icons/Voli.png'),
-                Image.asset('assets/icons/Franca.png'),
               ],
             ),
           ),

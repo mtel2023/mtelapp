@@ -5,6 +5,7 @@ import 'package:iconsax/iconsax.dart';
 import 'package:mtelapp/screens/mape_screen.dart';
 import 'package:mtelapp/screens/marketi_screen.dart';
 import 'package:mtelapp/screens/meni1_screen.dart';
+import 'package:mtelapp/screens/trgovanje_screen.dart';
 
 class BottomNavigationScreen extends StatefulWidget {
   const BottomNavigationScreen({super.key});
@@ -17,7 +18,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
   final List<Widget> _pages = [
     MarketiScreen(),
     MapeScreen(),
-    MapeScreen(),
+    TrgovanjeScreen(),
     MapeScreen(),
     Meni1Screen(),
   ];

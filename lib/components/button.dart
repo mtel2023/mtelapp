@@ -5,12 +5,7 @@ class Buttons extends StatelessWidget {
   final color;
   final textColor;
 
-  const Buttons(
-      {super.key,
-      required this.ButtonText,
-      this.color,
-      required this.textColor});
-  //const Buttons({super.key});
+  const Buttons({super.key, required this.ButtonText, this.color, required this.textColor});
 
   @override
   Widget build(BuildContext context) {
@@ -26,8 +21,7 @@ class Buttons extends StatelessWidget {
       child: Center(
         child: Text(
           ButtonText,
-          style: TextStyle(
-              fontWeight: FontWeight.bold, fontSize: 18, color: textColor),
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: textColor),
         ),
       ),
     );
