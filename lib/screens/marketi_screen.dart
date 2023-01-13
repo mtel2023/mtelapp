@@ -3,7 +3,9 @@ import 'package:iconsax/iconsax.dart';
 import 'package:mtelapp/components/customAppbar.dart';
 import 'package:mtelapp/components/search_bar.dart';
 import 'package:mtelapp/main.dart';
+import 'package:mtelapp/providers/proizvod_provider.dart';
 import 'package:mtelapp/screens/korpa_screen.dart';
+import 'package:provider/provider.dart';
 
 class MarketiScreen extends StatelessWidget {
   const MarketiScreen({super.key});
@@ -48,7 +50,9 @@ class MarketiScreen extends StatelessWidget {
                       ),
                     ),
                     TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Provider.of<Proizvodi>(context, listen: false).addProizvod('Smoki flips sa kikirikijem 225 g Soko Štark', 1.69, 'https://voli.me/storage/images/products/57349/57349_1.jpg');
+                      },
                       child: Text(
                         'Pogledaj sve',
                         style: TextStyle(
