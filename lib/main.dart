@@ -5,6 +5,7 @@ import 'package:mtelapp/screens/korpa_screen.dart';
 import 'package:mtelapp/screens/meni2_screen.dart';
 import 'package:mtelapp/screens/meni3_screen.dart';
 import 'package:mtelapp/screens/meni4_screen.dart';
+import 'package:mtelapp/screens/podesavanja_screen.dart';
 
 void main() => runApp(MyApp());
 
@@ -27,6 +28,7 @@ class MyApp extends StatelessWidget {
         Meni3Screen.routeName: (context) => Meni3Screen(),
         Meni4Screen.routeName: (context) => Meni4Screen(),
         KorpaScreen.routeName: (context) => KorpaScreen(),
+        PodesavanjaScreen.routeName: (context) => PodesavanjaScreen(),
       },
     );
   }

@@ -4,6 +4,7 @@ import 'package:mtelapp/components/customAppbar.dart';
 import 'package:mtelapp/components/kartica.dart';
 import 'package:mtelapp/screens/korpa_screen.dart';
 import 'package:mtelapp/screens/meni2_screen.dart';
+import 'package:mtelapp/screens/podesavanja_screen.dart';
 
 class Meni1Screen extends StatelessWidget {
   const Meni1Screen({super.key});
@@ -108,11 +109,15 @@ class Meni1Screen extends StatelessWidget {
               ),
               SizedBox(height: medijakveri.size.height * 0.025),
               Kartica(
+                funkcija: () {
+                  Navigator.of(context).pushNamed(PodesavanjaScreen.routeName);
+                },
                 ikonica: Iconsax.setting_2,
                 tekst: 'Podešavanja',
               ),
               SizedBox(height: medijakveri.size.height * 0.025),
               Kartica(
+                funkcija: () {},
                 ikonica: Iconsax.document_text_1,
                 tekst: 'Prijavite poslovnicu',
               ),
