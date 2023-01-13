@@ -25,6 +25,7 @@ class Meni1Screen extends StatelessWidget {
             pageTitle: 'Meni',
             isBlack: false,
             isChevron: true,
+            isCenter: false,
             funkcija2: () {
               Navigator.of(context).pushNamed(KorpaScreen.routeName);
             },

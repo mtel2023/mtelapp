@@ -159,10 +159,12 @@ class Meni2Screen extends StatelessWidget {
                 Navigator.pop(context);
               },
               prvaIkonica: Iconsax.arrow_circle_left,
+              prvaIkonicaSize: 34,
               drugaIkonica: Iconsax.edit,
-              pageTitle: 'Nazad',
+              pageTitle: 'Profil',
               isBlack: true,
               isChevron: false,
+              isCenter: true,
               funkcija2: () {
                 Navigator.of(context).pushNamed(Meni3Screen.routeName);
               },

@@ -22,6 +22,7 @@ class MarketiScreen extends StatelessWidget {
               pageTitle: 'Marketi',
               isBlack: false,
               isChevron: true,
+              isCenter: false,
               funkcija2: () {
                 Navigator.of(context).pushNamed(KorpaScreen.routeName);
               },

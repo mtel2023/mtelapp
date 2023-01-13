@@ -23,23 +23,25 @@ class _Meni3ScreenState extends State<Meni3Screen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          SafeArea(
-            child: CustomAppBar(
-              funkcija: () {
-                Navigator.pop(context);
-              },
-              prvaIkonica: Iconsax.arrow_circle_left,
-              drugaIkonica: Iconsax.tick_circle,
-              pageTitle: 'Nazad',
-              isBlack: true,
-              isChevron: false,
-              funkcija2: () {},
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            SafeArea(
+              child: CustomAppBar(
+                funkcija: () {
+                  Navigator.pop(context);
+                },
+                prvaIkonica: Iconsax.arrow_circle_left,
+                prvaIkonicaSize: 34,
+                drugaIkonica: Iconsax.tick_circle,
+                pageTitle: 'Uredi profil',
+                isBlack: true,
+                isChevron: false,
+                isCenter: true,
+                funkcija2: () {},
+              ),
             ),
-          ),
-          SingleChildScrollView(
-            child: Container(
+            Container(
               padding: EdgeInsets.symmetric(horizontal: 30),
               width: double.infinity,
               child: Column(
@@ -55,9 +57,9 @@ class _Meni3ScreenState extends State<Meni3Screen> {
                   )
                 ],
               ),
-            ),
-          )
-        ],
+            )
+          ],
+        ),
       ),
     );
   }
