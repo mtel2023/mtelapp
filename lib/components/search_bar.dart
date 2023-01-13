@@ -26,8 +26,11 @@ class _SearchBarState extends State<SearchBar> {
             borderRadius: BorderRadius.circular(20),
           ),
           hintText: widget.hintText,
-          suffixIcon: Icon(
-            Iconsax.search_normal,
+          suffixIcon: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Icon(
+              Iconsax.search_normal,
+            ),
           ),
         ),
       ),

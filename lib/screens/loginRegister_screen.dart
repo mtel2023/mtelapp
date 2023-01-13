@@ -26,12 +26,12 @@ class LoginRegisterScreen extends StatelessWidget {
             ),
             Column(
               children: [
-                Buttons(
+                Button(
                   ButtonText: 'Log in',
                   textColor: Colors.black,
                 ),
                 SizedBox(height: 20),
-                Buttons(
+                Button(
                   ButtonText: 'Register',
                   color: Theme.of(context).primaryColor,
                   textColor: Colors.white,

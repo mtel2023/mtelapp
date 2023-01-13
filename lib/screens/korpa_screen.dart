@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:mtelapp/components/button.dart';
 import 'package:mtelapp/components/customAppbar.dart';
 import 'package:mtelapp/models/proizvod.dart';
 import 'package:mtelapp/providers/proizvod_provider.dart';
@@ -64,12 +65,11 @@ class _KorpaScreenState extends State<KorpaScreen> {
                   ],
                 ),
                 Container(
-                  height: (medijakveri.size.height - medijakveri.padding.top) * 0.6,
-                  width: double.infinity,
+                  height: (medijakveri.size.height - medijakveri.padding.top) * 0.55,
                   child: ListView.builder(
                     itemCount: proizvodi.listaProizvoda.length,
                     itemBuilder: (context, i) => Container(
-                      margin: EdgeInsets.symmetric(vertical: 15),
+                      margin: EdgeInsets.only(bottom: 30),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -114,7 +114,50 @@ class _KorpaScreenState extends State<KorpaScreen> {
                       ),
                     ),
                   ),
-                )
+                ),
+                SizedBox(height: (medijakveri.size.height - medijakveri.padding.top) * 0.02),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Ukupno',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    Column(
+                      children: [
+                        Text(
+                          '5.69€',
+                          style: TextStyle(fontSize: 28, color: Theme.of(context).primaryColor),
+                        ),
+                        Text(
+                          '${proizvodi.listaProizvoda.length} stavke',
+                          style: TextStyle(
+                            color: Colors.grey,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                SizedBox(height: (medijakveri.size.height - medijakveri.padding.top) * 0.05),
+                Container(
+                  padding: EdgeInsets.symmetric(vertical: medijakveri.size.height * 0.02),
+                  decoration: BoxDecoration(
+                      color: Theme.of(context).primaryColor,
+                      border: Border.all(
+                        color: Theme.of(context).primaryColor,
+                      ),
+                      borderRadius: BorderRadius.circular(27)),
+                  child: Center(
+                    child: Text(
+                      'Sačuvaj kupovinu',
+                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Colors.white),
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
