@@ -5,6 +5,7 @@ import 'package:iconsax/iconsax.dart';
 import 'package:mtelapp/components/customAppbar.dart';
 
 class Meni4Screen extends StatefulWidget {
+  static const routeName = '/promijeni-sifru';
   const Meni4Screen({super.key});
 
   @override
@@ -31,6 +32,7 @@ class _Meni4ScreenState extends State<Meni4Screen> {
               pageTitle: 'Nazad',
               isBlack: true,
               isChevron: false,
+              funkcija2: () {},
             ),
           ),
           SingleChildScrollView(
@@ -42,21 +44,9 @@ class _Meni4ScreenState extends State<Meni4Screen> {
                 children: [
                   Column(
                     children: [
-                      inputFile(
-                          textlabel: "Trenutna šifra",
-                          label: "***************",
-                          obscureText: true,
-                          controller: _oldPasswordController),
-                      inputFile(
-                          textlabel: "Nova šifra",
-                          label: "***************",
-                          obscureText: true,
-                          controller: _newPasswordController),
-                      inputFile(
-                          textlabel: "Potvrdite šifru",
-                          label: "***************",
-                          obscureText: true,
-                          controller: _confirmPasswordController),
+                      inputFile(textlabel: "Trenutna šifra", label: "***************", obscureText: true, controller: _oldPasswordController),
+                      inputFile(textlabel: "Nova šifra", label: "***************", obscureText: true, controller: _newPasswordController),
+                      inputFile(textlabel: "Potvrdite šifru", label: "***************", obscureText: true, controller: _confirmPasswordController),
                     ],
                   )
                 ],
@@ -69,8 +59,7 @@ class _Meni4ScreenState extends State<Meni4Screen> {
   }
 }
 
-Widget inputFile(
-    {textlabel, obscureText = false, label, keyboardType, controller}) {
+Widget inputFile({textlabel, obscureText = false, label, keyboardType, controller}) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -92,12 +81,8 @@ Widget inputFile(
               filled: true,
               fillColor: Colors.white,
               hintText: label,
-              enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.white),
-                  borderRadius: BorderRadius.circular(20)),
-              border: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.white),
-                  borderRadius: BorderRadius.circular(20))),
+              enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.white), borderRadius: BorderRadius.circular(20)),
+              border: OutlineInputBorder(borderSide: BorderSide(color: Colors.white), borderRadius: BorderRadius.circular(20))),
         ),
       ),
       SizedBox(

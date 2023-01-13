@@ -10,40 +10,33 @@ class LoginRegisterScreen extends StatelessWidget {
       backgroundColor: Colors.white,
       body: Center(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            //logo
-            SizedBox(
-              height: 139,
+            Column(
+              children: [
+                Image.asset('assets/icons/Logo.png'),
+                SizedBox(
+                  height: 41,
+                ),
+                Text(
+                  'Nije Bill Gates trošio ka mi!',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+              ],
             ),
-            Image.asset('assets/icons/Logo.png'),
-            //text
-            SizedBox(
-              height: 41,
-            ),
-            Text(
-              'Nije Bill Gates trosio ka mi!',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
-
-            SizedBox(
-              height: 189,
-            ),
-
-            //login button
-            Buttons(
-              ButtonText: 'Log in',
-              textColor: Colors.black,
-            ),
-
-            SizedBox(
-              height: 20,
-            ),
-
-            //register button
-            Buttons(
-              ButtonText: 'Register',
-              color: Theme.of(context).primaryColor,
-              textColor: Colors.white,
+            Column(
+              children: [
+                Buttons(
+                  ButtonText: 'Log in',
+                  textColor: Colors.black,
+                ),
+                SizedBox(height: 20),
+                Buttons(
+                  ButtonText: 'Register',
+                  color: Theme.of(context).primaryColor,
+                  textColor: Colors.white,
+                ),
+              ],
             ),
           ],
         ),

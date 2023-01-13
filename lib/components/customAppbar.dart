@@ -6,9 +6,19 @@ class CustomAppBar extends StatelessWidget {
   final IconData prvaIkonica;
   final IconData drugaIkonica;
   final Function funkcija;
+  final Function funkcija2;
+
   final bool isBlack;
   final bool isChevron;
-  const CustomAppBar({required this.pageTitle, required this.prvaIkonica, required this.drugaIkonica, required this.funkcija, required this.isBlack, required this.isChevron});
+  const CustomAppBar({
+    required this.pageTitle,
+    required this.prvaIkonica,
+    required this.drugaIkonica,
+    required this.funkcija,
+    required this.funkcija2,
+    required this.isBlack,
+    required this.isChevron,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +56,7 @@ class CustomAppBar extends StatelessWidget {
             ],
           ),
           IconButton(
-            onPressed: () {},
+            onPressed: () => funkcija2(),
             icon: Icon(
               drugaIkonica,
               size: 34,
