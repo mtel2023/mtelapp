@@ -34,7 +34,7 @@ class ForgottenPasswordScreen extends StatelessWidget {
                       horizontal: MediaQuery.of(context).size.width * 0.009),
                   decoration: BoxDecoration(
                     color: Theme.of(context).primaryColor,
-                    borderRadius: BorderRadius.circular(25),
+                    borderRadius: BorderRadius.circular(20),
                   ),
                   child: Center(
                     child: Text(
@@ -114,36 +114,47 @@ class ForgottenPasswordScreen extends StatelessWidget {
                       },
                       child: allButtons(
                         ButtonText: 'Pošalji zahtjev',
-                        backgoundColor: Color.fromRGBO(85, 74, 240, 1),
+                        backgoundColor: Theme.of(context).primaryColor,
                         textColor: Colors.white,
                         textSize: 18,
                         FontWeight: FontWeight.bold,
                       )),
-                  SizedBox(
-                    height: 20,
-                  ),
+                  // SizedBox(
+                  //   height: 20,
+                  // ),
                   InkWell(
                     onTap: () {
                       //_showModal(context);
                     },
-                    child: allButtons(
-                      ButtonText: 'Nazad na login',
-                      textColor: Color.fromRGBO(85, 74, 240, 1),
-                      textSize: 14,
+                    child: Center(
+                      child: TextButton(
+                        onPressed: () {},
+                        child: Text(
+                          'Nazad na login',
+                          style:
+                              TextStyle(color: Theme.of(context).primaryColor),
+                        ),
+                      ),
                     ),
                   ),
                   SizedBox(
                     height: 246,
                   ),
                   InkWell(
-                      onTap: () {
-                        //_showModal(context);
-                      },
-                      child: allButtons(
-                        ButtonText: 'Politika privatnosti',
-                        textColor: Color.fromRGBO(85, 74, 240, 1),
-                        textSize: 14,
-                      )),
+                    onTap: () {
+                      //_showModal(context);
+                    },
+                    child: Center(
+                      child: TextButton(
+                        onPressed: () {},
+                        child: Text(
+                          'Politika privatnosti',
+                          style:
+                              TextStyle(color: Theme.of(context).primaryColor),
+                        ),
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
