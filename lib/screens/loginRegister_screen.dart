@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:mtelapp/components/button.dart';
 
@@ -6,37 +8,75 @@ class LoginRegisterScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final medijakveri = MediaQuery.of(context);
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: Center(
+      body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Column(
+            Row(
               children: [
-                Image.asset('assets/icons/Logo.png'),
-                SizedBox(
-                  height: 41,
-                ),
-                Text(
-                  'Nije Bill Gates trošio ka mi!',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                Container(
+                  height: (medijakveri.size.width - medijakveri.padding.top) * 0.18,
+                  margin: EdgeInsets.only(
+                    left: medijakveri.size.width * 0.07,
+                    // top: (medijakveri.size.width - medijakveri.padding.top) * 0.1,
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Dobrodošli!',
+                        style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
+                      ),
+                      Text(
+                        'Vrijeme je za uštedu!',
+                        style: TextStyle(
+                          color: Theme.of(context).primaryColor,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
             Column(
               children: [
-                Button(
-                  ButtonText: 'Log in',
-                  textColor: Colors.black,
-                ),
-                SizedBox(height: 20),
-                Button(
-                  ButtonText: 'Register',
-                  color: Theme.of(context).primaryColor,
-                  textColor: Colors.white,
-                ),
+                Image.asset('assets/icons/saving1.png'),
               ],
+            ),
+            Container(
+              margin: EdgeInsets.symmetric(horizontal: medijakveri.size.width * 0.02),
+              child: Column(
+                children: [
+                  Text('Prijava pomocu Googla'),
+                  SizedBox(height: 20),
+                  Button(
+                    buttonText: 'Registrujte se',
+                    textColor: Colors.white,
+                    color: Theme.of(context).primaryColor.withOpacity(.9),
+                    isBorder: false,
+                    visina: 16,
+                    borderRadius: 20,
+                  ),
+                  SizedBox(height: 20),
+                  Button(
+                    borderRadius: 20,
+                    visina: 16,
+                    buttonText: 'Prijavite se',
+                    textColor: Colors.black,
+                    isBorder: true,
+                  ),
+                ],
+              ),
+            ),
+            TextButton(
+              onPressed: () {},
+              child: Text(
+                'Politika privatnosti',
+                style: TextStyle(color: Theme.of(context).primaryColor),
+              ),
             ),
           ],
         ),

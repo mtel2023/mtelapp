@@ -1,26 +1,29 @@
 import 'package:flutter/material.dart';
 
 class Button extends StatelessWidget {
-  final String ButtonText;
-  final color;
-  final textColor;
+  final String buttonText;
+  final Color? color;
+  final Color textColor;
+  final bool isBorder;
+  final double visina;
+  final double borderRadius;
 
-  const Button({super.key, required this.ButtonText, this.color, required this.textColor});
+  const Button({required this.borderRadius, required this.visina, required this.buttonText, this.color, required this.textColor, required this.isBorder});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(25),
+      padding: EdgeInsets.symmetric(vertical: visina),
       margin: EdgeInsets.symmetric(horizontal: 25),
       decoration: BoxDecoration(
           color: color,
           border: Border.all(
-            color: Color.fromRGBO(85, 74, 240, 1),
+            color: isBorder ? Theme.of(context).primaryColor : Colors.white,
           ),
-          borderRadius: BorderRadius.circular(27)),
+          borderRadius: BorderRadius.circular(borderRadius)),
       child: Center(
         child: Text(
-          ButtonText,
+          buttonText,
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: textColor),
         ),
       ),
