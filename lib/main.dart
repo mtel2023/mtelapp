@@ -25,7 +25,8 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primaryColor: Color.fromRGBO(85, 74, 240, 1),
           colorScheme: ThemeData().colorScheme.copyWith(
-                primary: Color.fromRGBO(85, 74, 240, 1), // da bi suffix ikonica (u search baru) promijenila boju kad je focused
+                primary: Color.fromRGBO(85, 74, 240,
+                    1), // da bi suffix ikonica (u search baru) promijenila boju kad je focused
               ),
           fontFamily: 'Poppins',
         ),
