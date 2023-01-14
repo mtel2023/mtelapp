@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:mtelapp/components/button.dart';
@@ -16,10 +18,22 @@ class KorpaScreen extends StatefulWidget {
 
 class _KorpaScreenState extends State<KorpaScreen> {
   @override
+  bool isInit = true;
+  bool isLoading = false;
   void didChangeDependencies() {
     // TODO: implement didChangeDependencies
     super.didChangeDependencies();
-    Provider.of<Proizvodi>(context).readProizvode();
+    if (isInit) {
+      setState(() {
+        isLoading = true;
+      });
+      Provider.of<Proizvodi>(context).readProizvode().then((value) {
+        isLoading = false;
+
+        print('hashriama');
+      });
+    }
+    isInit = false;
   }
 
   @override
@@ -64,57 +78,59 @@ class _KorpaScreenState extends State<KorpaScreen> {
                     ),
                   ],
                 ),
-                Container(
-                  height: (medijakveri.size.height - medijakveri.padding.top) * 0.55,
-                  child: ListView.builder(
-                    itemCount: proizvodi.listaProizvoda.length,
-                    itemBuilder: (context, i) => Container(
-                      margin: EdgeInsets.only(bottom: 30),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            children: [
-                              Container(
-                                height: 90,
-                                child: Image.network(
-                                  proizvodi.listaProizvoda[i].imageUrl,
+                isLoading
+                    ? CircularProgressIndicator()
+                    : Container(
+                        height: (medijakveri.size.height - medijakveri.padding.top) * 0.55,
+                        child: ListView.builder(
+                          itemCount: proizvodi.listaProizvoda.length,
+                          itemBuilder: (context, i) => Container(
+                            margin: EdgeInsets.only(bottom: 30),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  children: [
+                                    Container(
+                                      height: 90,
+                                      child: Image.network(
+                                        proizvodi.listaProizvoda[i].imageUrl,
+                                      ),
+                                    ),
+                                    SizedBox(width: medijakveri.size.width * 0.01),
+                                    Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          proizvodi.listaProizvoda[i].ime.length > 20 ? '${proizvodi.listaProizvoda[i].ime.substring(0, 21)}...' : proizvodi.listaProizvoda[i].ime,
+                                          style: TextStyle(fontSize: 16),
+                                        ),
+                                        Text(
+                                          '${proizvodi.listaProizvoda[i].cijena} €',
+                                          style: TextStyle(fontSize: 16, color: Theme.of(context).primaryColor),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
                                 ),
-                              ),
-                              SizedBox(width: medijakveri.size.width * 0.01),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    proizvodi.listaProizvoda[i].ime.length > 20 ? '${proizvodi.listaProizvoda[i].ime.substring(0, 21)}...' : proizvodi.listaProizvoda[i].ime,
-                                    style: TextStyle(fontSize: 16),
-                                  ),
-                                  Text(
-                                    '${proizvodi.listaProizvoda[i].cijena} €',
-                                    style: TextStyle(fontSize: 16, color: Theme.of(context).primaryColor),
-                                  ),
-                                ],
-                              ),
-                            ],
+                                Column(
+                                  children: [
+                                    InkWell(
+                                      onTap: () {},
+                                      child: Icon(Iconsax.add),
+                                    ),
+                                    Text('1'),
+                                    InkWell(
+                                      onTap: () {},
+                                      child: Icon(Iconsax.minus),
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
                           ),
-                          Column(
-                            children: [
-                              InkWell(
-                                onTap: () {},
-                                child: Icon(Iconsax.add),
-                              ),
-                              Text('1'),
-                              InkWell(
-                                onTap: () {},
-                                child: Icon(Iconsax.minus),
-                              ),
-                            ],
-                          )
-                        ],
+                        ),
                       ),
-                    ),
-                  ),
-                ),
                 SizedBox(height: (medijakveri.size.height - medijakveri.padding.top) * 0.02),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
