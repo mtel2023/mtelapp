@@ -73,95 +73,113 @@ class ForgottenPasswordScreen extends StatelessWidget {
             SizedBox(
               height: 113,
             ),
+
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 35),
+              padding: EdgeInsets.symmetric(
+                  horizontal: MediaQuery.of(context).size.width * 0.07),
+              width: double.infinity,
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    'Email',
-                    style: TextStyle(
-                      fontSize: 16,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 6,
-                  ),
-                  Material(
-                    borderRadius: BorderRadius.circular(20),
-                    elevation: 5,
-                    child: TextField(
-                      controller: _emailController,
-                      keyboardType: TextInputType.emailAddress,
-                      decoration: InputDecoration(
-                          filled: true,
-                          fillColor: Colors.white,
-                          hintText: 'E-mail',
-                          enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                              borderRadius: BorderRadius.circular(20)),
-                          border: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                              borderRadius: BorderRadius.circular(20))),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 40,
-                  ),
-                  InkWell(
-                      onTap: () {
-                        _showModal(context);
-                      },
-                      child: allButtons(
-                        ButtonText: 'Pošalji zahtjev',
-                        backgoundColor: Theme.of(context).primaryColor,
-                        textColor: Colors.white,
-                        textSize: 18,
-                        FontWeight: FontWeight.bold,
-                      )),
-                  // SizedBox(
-                  //   height: 20,
-                  // ),
-                  InkWell(
-                    onTap: () {
-                      //_showModal(context);
-                    },
-                    child: Center(
-                      child: TextButton(
-                        onPressed: () {},
-                        child: Text(
-                          'Nazad na login',
-                          style:
-                              TextStyle(color: Theme.of(context).primaryColor),
-                        ),
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Column(
+                    children: [
+                      inputFile(
+                        textlabel: 'Email',
+                        label: 'E-mail',
+                        controller: _emailController,
+                        keyboardType: TextInputType.emailAddress,
                       ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 246,
-                  ),
-                  InkWell(
-                    onTap: () {
-                      //_showModal(context);
-                    },
-                    child: Center(
-                      child: TextButton(
-                        onPressed: () {},
-                        child: Text(
-                          'Politika privatnosti',
-                          style:
-                              TextStyle(color: Theme.of(context).primaryColor),
-                        ),
-                      ),
-                    ),
+                    ],
                   ),
                 ],
+              ),
+            ),
+            SizedBox(
+              height: 40,
+            ),
+            InkWell(
+                onTap: () {
+                  _showModal(context);
+                },
+                child: allButtons(
+                  ButtonText: 'Pošalji zahtjev',
+                  backgoundColor: Theme.of(context).primaryColor,
+                  textColor: Colors.white,
+                  textSize: 18,
+                  FontWeight: FontWeight.bold,
+                )),
+            // SizedBox(
+            //   height: 20,
+            // ),
+            InkWell(
+              onTap: () {
+                //_showModal(context);
+              },
+              child: Center(
+                child: TextButton(
+                  onPressed: () {},
+                  child: Text(
+                    'Nazad na login',
+                    style: TextStyle(color: Theme.of(context).primaryColor),
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 246,
+            ),
+            InkWell(
+              onTap: () {
+                //_showModal(context);
+              },
+              child: Center(
+                child: TextButton(
+                  onPressed: () {},
+                  child: Text(
+                    'Politika privatnosti',
+                    style: TextStyle(color: Theme.of(context).primaryColor),
+                  ),
+                ),
               ),
             ),
           ],
         ),
       ),
     );
-    ;
   }
+}
+
+Widget inputFile(
+    {textlabel, obscureText = false, label, keyboardType, controller}) {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Text(
+        textlabel,
+        style: TextStyle(fontSize: 16),
+      ),
+      SizedBox(
+        height: 6,
+      ),
+      Material(
+        borderRadius: BorderRadius.circular(20),
+        elevation: 8,
+        child: TextField(
+          controller: controller,
+          keyboardType: keyboardType,
+          obscureText: obscureText,
+          decoration: InputDecoration(
+              filled: true,
+              fillColor: Colors.white,
+              hintText: label,
+              enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white),
+                  borderRadius: BorderRadius.circular(20)),
+              border: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white),
+                  borderRadius: BorderRadius.circular(20))),
+        ),
+      ),
+    ],
+  );
 }

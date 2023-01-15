@@ -1,95 +1,96 @@
 import 'package:flutter/material.dart';
-
-import '../components/allButtons.dart';
+import 'package:mtelapp/components/allButtons.dart';
+import '../components/button.dart';
 
 class LoginScreen extends StatelessWidget {
-  //const LoginScreen({super.key});
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            SizedBox(
-              height: 159,
-            ),
-            Center(
-              child: Text(
-                'Prijavite se',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-              ),
-            ),
-            SizedBox(
-              height: 113,
-            ),
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 30),
-              width: double.infinity,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Column(
-                    children: [
-                      inputFile(
-                        textlabel: "Email",
-                        label: "E-mail",
-                        controller: _emailController,
-                        keyboardType: TextInputType.emailAddress,
+      body: LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+          return SingleChildScrollView(
+            child: ConstrainedBox(
+              constraints: BoxConstraints(minHeight: constraints.maxHeight),
+              child: IntrinsicHeight(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Padding(
+                      padding: EdgeInsets.only(
+                          top: MediaQuery.of(context).size.height * 0.139,
+                          bottom: MediaQuery.of(context).size.height * 0.05),
+                      child: Text(
+                        'Prijavite se',
+                        style: TextStyle(
+                            fontSize: MediaQuery.of(context).size.height * 0.03,
+                            fontWeight: FontWeight.bold),
                       ),
-                      inputFile(
-                          textlabel: "Šifra",
-                          label: "Šifra",
-                          controller: _passwordController,
-                          obscureText: true),
-                      SizedBox(
-                        height: 40,
+                    ),
+                    Container(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: MediaQuery.of(context).size.width * 0.07),
+                      width: double.infinity,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Column(
+                            children: [
+                              inputFile(
+                                textlabel: 'Email',
+                                label: 'E-mail',
+                                controller: _emailController,
+                                keyboardType: TextInputType.emailAddress,
+                              ),
+                              inputFile(
+                                  textlabel: 'Šifra',
+                                  label: 'Šifra',
+                                  controller: _passwordController,
+                                  keyboardType: TextInputType.emailAddress,
+                                  obscureText: true),
+                            ],
+                          ),
+                        ],
                       ),
-                      InkWell(
-                          onTap: () {},
-                          child: allButtons(
-                            ButtonText: 'Prijavi se',
-                            backgoundColor: Theme.of(context).primaryColor,
-                            textColor: Colors.white,
-                            textSize: 18,
-                            FontWeight: FontWeight.bold,
-                          )),
-                      // SizedBox(
-                      //   height: 20,
-                      // ),
-                      InkWell(
-                        onTap: () {
-                          //_showModal(context);
-                        },
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(
+                          top: MediaQuery.of(context).size.height * 0.02),
+                      child: allButtons(
+                        ButtonText: 'Prijavi se',
+                        textColor: Colors.white,
+                        backgoundColor: Theme.of(context).primaryColor,
+                        FontWeight: FontWeight.bold,
+                        textSize: 20,
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(
+                          bottom: MediaQuery.of(context).size.height * 0.2),
+                      child: TextButton(
+                        onPressed: () {},
+                        child: Text('Zaboravili ste šifru?'),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(
+                          bottom: MediaQuery.of(context).size.height * 0.01),
+                      child: Align(
+                        alignment: Alignment.bottomCenter,
                         child: TextButton(
                           onPressed: () {},
-                          child: Text(
-                            'Nazad na login',
-                            style: TextStyle(
-                                color: Theme.of(context).primaryColor),
-                          ),
+                          child: Text('Nemate račun?'),
                         ),
                       ),
-                      SizedBox(
-                        height: 150,
-                      ),
-                      TextButton(
-                        onPressed: () {},
-                        child: Text(
-                          'Politika privatnosti',
-                          style:
-                              TextStyle(color: Theme.of(context).primaryColor),
-                        ),
-                      ),
-                    ],
-                  )
-                ],
+                    ),
+                  ],
+                ),
               ),
             ),
-          ],
-        ),
+          );
+        },
       ),
     );
   }
@@ -99,17 +100,19 @@ Widget inputFile(
     {textlabel, obscureText = false, label, keyboardType, controller}) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
+    children: <Widget>[
       Text(
         textlabel,
-        style: TextStyle(fontSize: 16),
+        style: TextStyle(
+          fontSize: 16,
+        ),
       ),
       SizedBox(
         height: 6,
       ),
       Material(
         borderRadius: BorderRadius.circular(20),
-        elevation: 8,
+        elevation: 0,
         child: TextField(
           controller: controller,
           keyboardType: keyboardType,
@@ -119,9 +122,8 @@ Widget inputFile(
             fillColor: Colors.white,
             hintText: label,
             enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.white),
-              borderRadius: BorderRadius.circular(20),
-            ),
+                borderSide: BorderSide(color: Colors.white),
+                borderRadius: BorderRadius.circular(20)),
             border: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.white),
               borderRadius: BorderRadius.circular(20),
