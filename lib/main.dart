@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:mtelapp/components/customAppbar.dart';
 import 'package:mtelapp/providers/proizvod_provider.dart';
 import 'package:mtelapp/screens/bottomNavigation_screen.dart';
+import 'package:mtelapp/screens/forgotten_password_screen.dart';
 import 'package:mtelapp/screens/korpa_screen.dart';
+import 'package:mtelapp/screens/login_screen.dart';
 import 'package:mtelapp/screens/meni2_screen.dart';
 import 'package:mtelapp/screens/meni3_screen.dart';
 import 'package:mtelapp/screens/meni4_screen.dart';
@@ -31,7 +33,7 @@ class MyApp extends StatelessWidget {
           fontFamily: 'Poppins',
         ),
         title: 'Flutter App',
-        home: MyHomePage(),
+        home: LoginScreen(),
         routes: {
           Meni2Screen.routeName: (context) => Meni2Screen(),
           Meni3Screen.routeName: (context) => Meni3Screen(),
