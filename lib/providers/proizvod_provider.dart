@@ -6,12 +6,15 @@ import 'dart:convert';
 class Proizvodi with ChangeNotifier {
   List<Proizvod> _items = [];
 
+  String? authToken;
+  Proizvodi(this.authToken, this._items);
+
   List<Proizvod> get listaProizvoda {
     return [..._items];
   }
 
   Future<void> readProizvode() async {
-    final url = Uri.parse('https://mtelapp-ac423-default-rtdb.europe-west1.firebasedatabase.app/proizvodi.json');
+    final url = Uri.parse('https://mtelapp-ac423-default-rtdb.europe-west1.firebasedatabase.app/proizvodi.json?auth=$authToken');
     await http.get(url).then((response) {
       final data = json.decode(response.body) as Map<String, dynamic>;
       // print(data);
