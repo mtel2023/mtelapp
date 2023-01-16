@@ -22,7 +22,7 @@ class _LoginScreenState extends State<LoginScreen> {
     'email': '',
     'sifra': '',
   };
-
+  bool isLoading = false;
   void showErrorDialog(String message) {
     showDialog(
       context: context,
@@ -80,15 +80,20 @@ class _LoginScreenState extends State<LoginScreen> {
     }
     _form.currentState!.save();
     try {
+      setState(() {
+        isLoading = true;
+      });
       await Provider.of<Auth>(context, listen: false)
           .login(
         _data['email']!,
         _data['sifra']!,
       )
           .then((value) {
+        setState(() {
+          isLoading = false;
+        });
         Navigator.of(context).pop();
       });
-      ;
     } on HttpException catch (error) {
       String emessage = 'Došlo je do greške';
       if (error.toString().contains('INVALID_EMAIL')) {
@@ -155,18 +160,20 @@ class _LoginScreenState extends State<LoginScreen> {
                     _data['sifra'] = value!;
                   },
                 ),
-                Button(
-                  borderRadius: 20,
-                  color: Theme.of(context).primaryColor.withOpacity(.8),
-                  textColor: Colors.white,
-                  buttonText: 'Prijavite se',
-                  isBorder: false,
-                  funkcija: () {
-                    _saveForm();
-                  },
-                  visina: 18,
-                  horizontalMargin: 0,
-                ),
+                isLoading
+                    ? CircularProgressIndicator()
+                    : Button(
+                        borderRadius: 20,
+                        color: Theme.of(context).primaryColor.withOpacity(.8),
+                        textColor: Colors.white,
+                        buttonText: 'Prijavite se',
+                        isBorder: false,
+                        funkcija: () {
+                          _saveForm();
+                        },
+                        visina: 18,
+                        horizontalMargin: 0,
+                      ),
                 TextButton(
                   onPressed: () {
                     Navigator.of(context).pushNamed(ForgottenPasswordScreen.routeName);
