@@ -23,7 +23,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     'sifra': '',
   };
   final _passwordController = TextEditingController();
-
+  bool isLoading = false;
   void showErrorDialog(String message) {
     showDialog(
       context: context,
@@ -81,12 +81,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
     }
     _form.currentState!.save();
     try {
+      setState(() {
+        isLoading = true;
+      });
       await Provider.of<Auth>(context, listen: false)
           .register(
         _authData['email']!,
         _authData['sifra']!,
       )
           .then((value) {
+        setState(() {
+          isLoading = false;
+        });
         Navigator.of(context).pop();
       });
     } on HttpException catch (error) {
@@ -263,18 +269,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                   ),
                   SizedBox(height: (medijakveri.size.height - medijakveri.padding.top) * 0.03),
-                  Button(
-                    borderRadius: 20,
-                    visina: 18,
-                    horizontalMargin: 0,
-                    buttonText: 'Registrujte se',
-                    textColor: Colors.white,
-                    isBorder: false,
-                    color: Theme.of(context).primaryColor.withOpacity(0.8),
-                    funkcija: () {
-                      _saveRegister();
-                    },
-                  ),
+                  isLoading
+                      ? CircularProgressIndicator()
+                      : Button(
+                          borderRadius: 20,
+                          visina: 18,
+                          horizontalMargin: 0,
+                          buttonText: 'Registrujte se',
+                          textColor: Colors.white,
+                          isBorder: false,
+                          color: Theme.of(context).primaryColor.withOpacity(0.8),
+                          funkcija: () {
+                            _saveRegister();
+                          },
+                        ),
                   SizedBox(height: (medijakveri.size.height - medijakveri.padding.top) * 0.03),
                   TextButton(
                     onPressed: () {
