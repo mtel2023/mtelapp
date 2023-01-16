@@ -19,10 +19,8 @@ class allButtons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(
-          vertical: MediaQuery.of(context).size.height * 0.021),
-      margin: EdgeInsets.symmetric(
-          horizontal: MediaQuery.of(context).size.width * 0.07),
+      padding: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height * 0.021),
+      margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.07),
       decoration: BoxDecoration(
         color: backgoundColor,
         borderRadius: BorderRadius.circular(20),
