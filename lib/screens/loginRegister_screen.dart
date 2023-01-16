@@ -2,6 +2,8 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:mtelapp/components/button.dart';
+import 'package:mtelapp/screens/login_screen.dart';
+import 'package:mtelapp/screens/register_screen.dart';
 
 class LoginRegisterScreen extends StatelessWidget {
   const LoginRegisterScreen({super.key});
@@ -55,18 +57,26 @@ class LoginRegisterScreen extends StatelessWidget {
                   Button(
                     buttonText: 'Registrujte se',
                     textColor: Colors.white,
+                    horizontalMargin: medijakveri.size.width * 0.07,
                     color: Theme.of(context).primaryColor.withOpacity(.9),
                     isBorder: false,
                     visina: 16,
                     borderRadius: 20,
+                    funkcija: () {
+                      Navigator.of(context).pushNamed(RegisterScreen.routeName);
+                    },
                   ),
                   SizedBox(height: 20),
                   Button(
+                    horizontalMargin: medijakveri.size.width * 0.07,
                     borderRadius: 20,
                     visina: 16,
                     buttonText: 'Prijavite se',
                     textColor: Colors.black,
                     isBorder: true,
+                    funkcija: () {
+                      Navigator.of(context).pushNamed(LoginScreen.routeName);
+                    },
                   ),
                 ],
               ),
