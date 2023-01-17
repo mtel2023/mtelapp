@@ -27,8 +27,7 @@ class MyApp extends StatelessWidget {
           create: (ctx) => Auth(),
         ),
         ChangeNotifierProxyProvider<Auth, Proizvodi>(
-          update: (ctx, auth, prosliProizvodi) => Proizvodi(auth.token,
-              prosliProizvodi == null ? [] : prosliProizvodi.listaProizvoda),
+          update: (ctx, auth, prosliProizvodi) => Proizvodi(auth.token, prosliProizvodi == null ? [] : prosliProizvodi.listaProizvoda),
           create: (ctx) => Proizvodi('', []),
         ),
       ],
@@ -38,8 +37,7 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             primaryColor: Color.fromRGBO(85, 74, 240, 1),
             colorScheme: ThemeData().colorScheme.copyWith(
-                  primary: Color.fromRGBO(85, 74, 240,
-                      1), // da bi suffix ikonica (u search baru) promijenila boju kad je focused
+                  primary: Color.fromRGBO(85, 74, 240, 1), // da bi suffix ikonica (u search baru) promijenila boju kad je focused
                 ),
             fontFamily: 'Poppins',
           ),
@@ -53,8 +51,7 @@ class MyApp extends StatelessWidget {
             PodesavanjaScreen.routeName: (context) => PodesavanjaScreen(),
             LoginScreen.routeName: (context) => LoginScreen(),
             RegisterScreen.routeName: (context) => RegisterScreen(),
-            ForgottenPasswordScreen.routeName: (context) =>
-                ForgottenPasswordScreen(),
+            ForgottenPasswordScreen.routeName: (context) => ForgottenPasswordScreen(),
           },
         ),
       ),

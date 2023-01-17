@@ -13,44 +13,18 @@ class Register2Screen extends StatelessWidget {
         child: SafeArea(
           child: Form(
             child: Container(
-              margin: EdgeInsets.symmetric(
-                  horizontal: medijakveri.size.width * 0.07),
+              margin: EdgeInsets.symmetric(horizontal: medijakveri.size.width * 0.07),
               child: Column(
                 children: [
-                  SizedBox(
-                      height:
-                          (medijakveri.size.height - medijakveri.padding.top) *
-                              0.2),
+                  SizedBox(height: (medijakveri.size.height - medijakveri.padding.top) * 0.2),
                   Text(
                     'Dovršite registrciju',
                     style: TextStyle(fontSize: 24),
                   ),
-                  SizedBox(
-                      height:
-                          (medijakveri.size.height - medijakveri.padding.top) *
-                              0.1),
-                  inputField(
-                      medijakveri: medijakveri,
-                      label: 'Ime',
-                      hintText: 'Ime',
-                      doneAction: TextInputAction.next,
-                      keyboardTip: TextInputType.name,
-                      obscureText: false,
-                      validator: (value) {},
-                      onSaved: (value) {}),
-                  inputField(
-                      medijakveri: medijakveri,
-                      label: 'Prezime',
-                      hintText: 'Prezime',
-                      doneAction: TextInputAction.next,
-                      keyboardTip: TextInputType.text,
-                      obscureText: false,
-                      validator: (value) {},
-                      onSaved: (value) {}),
-                  SizedBox(
-                      height:
-                          (medijakveri.size.height - medijakveri.padding.top) *
-                              0.03),
+                  SizedBox(height: (medijakveri.size.height - medijakveri.padding.top) * 0.1),
+                  inputField(medijakveri: medijakveri, label: 'Ime', hintText: 'Ime', doneAction: TextInputAction.next, keyboardTip: TextInputType.name, obscureText: false, validator: (value) {}, onSaved: (value) {}),
+                  inputField(medijakveri: medijakveri, label: 'Prezime', hintText: 'Prezime', doneAction: TextInputAction.done, keyboardTip: TextInputType.text, obscureText: false, validator: (value) {}, onSaved: (value) {}),
+                  SizedBox(height: (medijakveri.size.height - medijakveri.padding.top) * 0.03),
                   Button(
                     borderRadius: 20,
                     visina: 18,
@@ -61,10 +35,7 @@ class Register2Screen extends StatelessWidget {
                     color: Theme.of(context).primaryColor.withOpacity(0.8),
                     funkcija: () {},
                   ),
-                  SizedBox(
-                      height:
-                          (medijakveri.size.height - medijakveri.padding.top) *
-                              0.2),
+                  SizedBox(height: (medijakveri.size.height - medijakveri.padding.top) * 0.2),
                   TextButton(
                     onPressed: () {
                       Navigator.of(context).pushReplacementNamed('/');

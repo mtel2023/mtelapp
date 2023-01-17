@@ -1,26 +1,29 @@
 import 'package:flutter/material.dart';
 
 class inputField extends StatelessWidget {
-  const inputField({
-    Key? key,
-    required this.medijakveri,
-    required this.label,
-    required this.hintText,
-    required this.doneAction,
-    required this.keyboardTip,
-    required this.obscureText,
-    required this.validator,
-    required this.onSaved,
-  }) : super(key: key);
-
   final MediaQueryData medijakveri;
   final String label;
-  final String hintText;
+  final String? hintText;
+  final String? initalValue;
   final TextInputAction doneAction;
   final TextInputType keyboardTip;
   final bool obscureText;
   final String? Function(String? p1)? validator;
   final Function(String? p1)? onSaved;
+  final Function(String? p1)? onFieldSubmitted;
+  const inputField({
+    Key? key,
+    required this.medijakveri,
+    required this.label,
+    this.hintText,
+    this.initalValue,
+    required this.doneAction,
+    required this.keyboardTip,
+    required this.obscureText,
+    required this.validator,
+    required this.onSaved,
+    this.onFieldSubmitted,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -44,6 +47,8 @@ class inputField extends StatelessWidget {
               obscureText: obscureText,
               validator: validator,
               onSaved: onSaved,
+              onFieldSubmitted: onFieldSubmitted,
+              initialValue: initalValue,
               decoration: InputDecoration(
                 hintText: hintText,
                 filled: true,

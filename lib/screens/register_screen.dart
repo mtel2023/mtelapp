@@ -86,6 +86,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
       });
       await Provider.of<Auth>(context, listen: false)
           .register(
+        _authData['ime']!,
+        _authData['prezime']!,
         _authData['email']!,
         _authData['sifra']!,
       )
@@ -96,7 +98,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
         Navigator.of(context).pop();
       });
     } on HttpException catch (error) {
-      print('madara');
       String emessage = 'Došlo je do greške';
       if (error.toString().contains('EMAIL_EXISTS')) {
         emessage = 'Taj E-mail je već u upotrebi';
@@ -106,6 +107,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
         emessage = 'Šifra je previše slaba';
       }
       showErrorDialog(emessage);
+      setState(() {
+        isLoading = false;
+      });
     }
   }
 
