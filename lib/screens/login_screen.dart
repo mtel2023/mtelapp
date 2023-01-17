@@ -104,6 +104,9 @@ class _LoginScreenState extends State<LoginScreen> {
         emessage = 'Netačna šifra';
       }
       showErrorDialog(emessage);
+      setState(() {
+        isLoading = false;
+      });
     }
   }
 
@@ -158,6 +161,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   },
                   onSaved: (value) {
                     _data['sifra'] = value!;
+                  },
+                  onFieldSubmitted: (_) {
+                    _saveForm();
                   },
                 ),
                 isLoading

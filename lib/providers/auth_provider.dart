@@ -173,4 +173,11 @@ class Auth with ChangeNotifier {
       throw error;
     }
   }
+
+  void logOut() {
+    _token = null;
+    _expiryDate = null;
+    _userId = null;
+    notifyListeners();
+  }
 }
