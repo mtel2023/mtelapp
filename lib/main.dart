@@ -44,8 +44,7 @@ class MyApp extends StatelessWidget {
             fontFamily: 'Poppins',
           ),
           title: 'Flutter App',
-          //home: auth.isAuth ? BottomNavigationScreen() : LoginRegisterScreen(),
-          home: Register2Screen(),
+          home: auth.isAuth ? BottomNavigationScreen() : LoginRegisterScreen(),
           routes: {
             Meni2Screen.routeName: (context) => Meni2Screen(),
             Meni3Screen.routeName: (context) => Meni3Screen(),
