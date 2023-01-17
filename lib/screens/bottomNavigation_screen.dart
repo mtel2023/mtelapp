@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:mtelapp/providers/auth_provider.dart';
 import 'package:mtelapp/screens/mape_screen.dart';
 import 'package:mtelapp/screens/marketi_screen.dart';
 import 'package:mtelapp/screens/meni1_screen.dart';
 import 'package:mtelapp/screens/trgovanje_screen.dart';
+import 'package:provider/provider.dart';
 
 class BottomNavigationScreen extends StatefulWidget {
   const BottomNavigationScreen({super.key});
@@ -24,6 +26,21 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
   ];
 
   int _selectedIndex = 0;
+  bool isInit = true;
+  @override
+  void didChangeDependencies() {
+    // TODO: implement didChangeDependencies
+
+    super.didChangeDependencies();
+    if (isInit) {
+      Provider.of<Auth>(context).readUserData().then((value) {
+        setState(() {
+          isInit = false;
+        });
+      });
+    }
+    // isInit = false;
+  }
 
   void _selectPage(int index) {
     setState(() {

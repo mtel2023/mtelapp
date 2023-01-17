@@ -4,14 +4,21 @@ import 'package:mtelapp/components/button.dart';
 import 'package:mtelapp/components/customAppbar.dart';
 import 'package:mtelapp/components/kartica.dart';
 import 'package:mtelapp/components/search_bar.dart';
+import 'package:mtelapp/providers/auth_provider.dart';
 import 'package:mtelapp/screens/loginRegister_screen.dart';
 import 'package:mtelapp/screens/meni3_screen.dart';
 import 'package:mtelapp/screens/meni4_screen.dart';
+import 'package:provider/provider.dart';
 
-class Meni2Screen extends StatelessWidget {
+class Meni2Screen extends StatefulWidget {
   static const routeName = '/meni2';
   const Meni2Screen({super.key});
 
+  @override
+  State<Meni2Screen> createState() => _Meni2ScreenState();
+}
+
+class _Meni2ScreenState extends State<Meni2Screen> {
   Widget meniPolje(String label, String hintText, MediaQueryData medijakveri) {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: medijakveri.size.width * 0.07),
@@ -60,6 +67,25 @@ class Meni2Screen extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  bool isInit = true;
+  bool isLoading = false;
+  @override
+  void didChangeDependencies() async {
+    super.didChangeDependencies();
+
+    if (isInit) {
+      setState(() {
+        isLoading = true;
+      });
+      await Provider.of<Auth>(context).readUserData().then((value) {
+        setState(() {
+          isLoading = false;
+        });
+      });
+    }
+    isInit = false;
   }
 
   @override
@@ -166,14 +192,20 @@ class Meni2Screen extends StatelessWidget {
               isChevron: false,
               isCenter: true,
               funkcija2: () {
-                Navigator.of(context).pushNamed(Meni3Screen.routeName);
+                Navigator.of(context).pushReplacementNamed(Meni3Screen.routeName);
               },
             ),
           ),
-          meniPolje('Ime', 'Marko', medijakveri),
-          meniPolje('Prezime', 'Marković', medijakveri),
-          meniPolje('Email', 'markomarkovic@gmail.com', medijakveri),
-          meniPolje('Telefon', '+382 068 666 666', medijakveri),
+          Consumer<Auth>(
+            builder: (context, auth, _) => Column(
+              children: [
+                meniPolje('Ime', '${auth.getIme}', medijakveri),
+                meniPolje('Prezime', '${auth.getPrezime}', medijakveri),
+                meniPolje('Email', '${auth.getEmail}', medijakveri),
+                meniPolje('Telefon', ' ${auth.getTelefon}', medijakveri),
+              ],
+            ),
+          ),
           SizedBox(height: (medijakveri.size.height - medijakveri.viewPadding.top) * 0.04),
           Container(
             padding: EdgeInsets.symmetric(vertical: medijakveri.size.height * 0.02),
