@@ -138,9 +138,16 @@ class _Meni3ScreenState extends State<Meni3Screen> {
                             doneAction: TextInputAction.next,
                             keyboardTip: TextInputType.name,
                             obscureText: false,
+                            onChanged: (_) => _form.currentState!.validate(),
                             validator: (value) {
                               if (value!.isEmpty) {
                                 return 'Molimo Vas da unesete ime';
+                              }
+                              if (value.length < 2) {
+                                return 'Ime mora biti duže';
+                              }
+                              if (value.contains(RegExp(r'[^A-Za-z]'))) {
+                                return 'Ime smije sadržati samo velika i mala slova';
                               }
                             },
                             onSaved: (value) {
@@ -150,6 +157,7 @@ class _Meni3ScreenState extends State<Meni3Screen> {
                           inputField(
                             medijakveri: medijakveri,
                             label: 'Prezime',
+                            onChanged: (_) => _form.currentState!.validate(),
                             initalValue: '${auth.getPrezime}',
                             doneAction: TextInputAction.next,
                             keyboardTip: TextInputType.name,
@@ -157,6 +165,12 @@ class _Meni3ScreenState extends State<Meni3Screen> {
                             validator: (value) {
                               if (value!.isEmpty) {
                                 return 'Molimo Vas da unesete prezime';
+                              }
+                              if (value.length < 2) {
+                                return 'Prezime mora biti duže';
+                              }
+                              if (value.contains(RegExp(r'[^A-Za-z]'))) {
+                                return 'Prezime smije sadržati samo velika i mala slova';
                               }
                             },
                             onSaved: (value) {
@@ -167,6 +181,7 @@ class _Meni3ScreenState extends State<Meni3Screen> {
                             medijakveri: medijakveri,
                             label: 'Email',
                             initalValue: '${auth.getEmail}',
+                            onChanged: (_) => _form.currentState!.validate(),
                             doneAction: TextInputAction.next,
                             keyboardTip: TextInputType.emailAddress,
                             obscureText: false,
@@ -174,7 +189,7 @@ class _Meni3ScreenState extends State<Meni3Screen> {
                               if (value!.isEmpty) {
                                 return 'Molimo Vas da unesete email adresu';
                               }
-                              if (!value.contains('@') || !value.contains('.')) {
+                              if (!value.contains(RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+"))) {
                                 return 'Molimo Vas unesite validnu email adresu';
                               }
                             },
@@ -184,14 +199,24 @@ class _Meni3ScreenState extends State<Meni3Screen> {
                           ),
                           inputField(
                             medijakveri: medijakveri,
+                            onChanged: (_) => _form.currentState!.validate(),
                             label: 'Telefon',
                             initalValue: '${auth.getTelefon == 'Prazno' ? '' : auth.getTelefon}',
                             doneAction: TextInputAction.done,
                             keyboardTip: TextInputType.phone,
                             obscureText: false,
                             validator: (value) {
-                              if (value!.length > 9) {
+                              if (value!.isEmpty) {
+                                return null;
+                              }
+                              if (value.substring(0, 2) != '06') {
                                 return 'Molimo Vas unesite validan broj telefona';
+                              }
+                              if (value.length != 9) {
+                                return 'Broj telefona mora sadržati 9 cifara';
+                              }
+                              if (value.contains(RegExp(r'[^0-9]'))) {
+                                return 'Broj telefona smije sadržati samo brojeve';
                               }
                             },
                             onSaved: (value) {

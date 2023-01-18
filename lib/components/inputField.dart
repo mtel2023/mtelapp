@@ -10,6 +10,7 @@ class inputField extends StatelessWidget {
   final bool obscureText;
   final String? Function(String? p1)? validator;
   final Function(String? p1)? onSaved;
+  final Function(String? p1)? onChanged;
   final Function(String? p1)? onFieldSubmitted;
   const inputField({
     Key? key,
@@ -23,6 +24,7 @@ class inputField extends StatelessWidget {
     required this.validator,
     required this.onSaved,
     this.onFieldSubmitted,
+    this.onChanged,
   }) : super(key: key);
 
   @override
@@ -45,6 +47,7 @@ class inputField extends StatelessWidget {
               keyboardType: keyboardTip,
               textInputAction: doneAction,
               obscureText: obscureText,
+              onChanged: onChanged,
               validator: validator,
               onSaved: onSaved,
               onFieldSubmitted: onFieldSubmitted,
