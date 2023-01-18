@@ -26,7 +26,6 @@ void _showModal(context, medijakveri) {
           InkWell(
             onTap: () {
               Provider.of<Auth>(context, listen: false).logOut();
-
               Navigator.of(context).pop();
               Navigator.of(context).pop();
             },

@@ -16,7 +16,10 @@ import 'package:mtelapp/screens/register2_screen.dart';
 import 'package:mtelapp/screens/register_screen.dart';
 import 'package:provider/provider.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  return runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   @override
@@ -42,7 +45,12 @@ class MyApp extends StatelessWidget {
             fontFamily: 'Poppins',
           ),
           title: 'Flutter App',
-          home: auth.isAuth ? BottomNavigationScreen() : LoginRegisterScreen(),
+          home: auth.isAuth
+              ? BottomNavigationScreen()
+              : FutureBuilder(
+                  future: auth.autoLogIn(),
+                  builder: (context, authResult) => LoginRegisterScreen(),
+                ),
           routes: {
             Meni2Screen.routeName: (context) => Meni2Screen(),
             Meni3Screen.routeName: (context) => Meni3Screen(),
