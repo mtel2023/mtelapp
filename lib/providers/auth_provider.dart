@@ -53,6 +53,7 @@ class Auth with ChangeNotifier {
 
   Future<void> updateUserData(String email, String ime, String prezime, String telefon) async {
     final url = Uri.parse('https://mtelapp-ac423-default-rtdb.europe-west1.firebasedatabase.app/userData/$loadedId.json/?auth=$token');
+
     try {
       final response = http.patch(
         url,
@@ -63,6 +64,28 @@ class Auth with ChangeNotifier {
           'telefon': telefon,
         })),
       );
+      print('loadedEmail = $loadedEmail');
+      print('email = $email');
+      if (loadedEmail != email) {
+        print('usli u if');
+        final url2 = Uri.parse('https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyDORvJIxq1C4TfI7aAwJQ12y7d2kY5agls');
+        try {
+          final response2 = await http.post(
+            url2,
+            body: json.encode(
+              {
+                'idToken': token,
+                'email': email,
+                'returnSecureToken': true,
+              },
+            ),
+          );
+          final response2Data = json.decode(response2.body);
+          print(response2Data);
+        } catch (e) {
+          throw e;
+        }
+      }
       notifyListeners();
     } catch (e) {
       print('EROR');

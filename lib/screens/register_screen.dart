@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:mtelapp/components/button.dart';
 import 'package:mtelapp/components/inputField.dart';
 import 'package:mtelapp/models/http_exception.dart';
@@ -22,6 +23,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     'email': '',
     'sifra': '',
   };
+
   final _passwordController = TextEditingController();
   bool isLoading = false;
   void showErrorDialog(String message) {
@@ -114,6 +116,36 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    pass1Node.addListener(() {
+      setState(() {});
+    });
+    pass2Node.addListener(() {
+      setState(() {});
+    });
+  }
+
+  final pass1Node = FocusNode();
+
+  bool isPassHidden = true;
+  void changePassVisibility() {
+    setState(() {
+      isPassHidden = !isPassHidden;
+    });
+  }
+
+  final pass2Node = FocusNode();
+
+  bool isPassHidden2 = true;
+  void changePassVisibility2() {
+    setState(() {
+      isPassHidden2 = !isPassHidden2;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     final medijakveri = MediaQuery.of(context);
     return Scaffold(
@@ -192,9 +224,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ClipRRect(
                           borderRadius: BorderRadius.circular(20),
                           child: TextFormField(
+                            focusNode: pass1Node,
                             keyboardType: TextInputType.text,
                             textInputAction: TextInputAction.next,
-                            obscureText: true,
+                            obscureText: isPassHidden,
                             controller: _passwordController,
                             validator: (value) {
                               if (value!.isEmpty) {
@@ -216,6 +249,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 borderSide: BorderSide(color: Colors.white),
                                 borderRadius: BorderRadius.circular(20),
                               ),
+                              suffixIcon: pass1Node.hasFocus
+                                  ? IconButton(
+                                      onPressed: () => changePassVisibility(),
+                                      icon: isPassHidden ? Icon(Iconsax.eye) : Icon(Iconsax.eye_slash),
+                                    )
+                                  : null,
                             ),
                           ),
                         ),
@@ -237,9 +276,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ClipRRect(
                           borderRadius: BorderRadius.circular(20),
                           child: TextFormField(
+                            focusNode: pass2Node,
                             keyboardType: TextInputType.text,
                             textInputAction: TextInputAction.done,
-                            obscureText: true,
+                            obscureText: isPassHidden2,
                             validator: (value) {
                               if (value!.isEmpty) {
                                 return 'Molimo Vas unesite šifru';
@@ -266,6 +306,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 borderSide: BorderSide(color: Colors.white),
                                 borderRadius: BorderRadius.circular(20),
                               ),
+                              suffixIcon: pass2Node.hasFocus
+                                  ? IconButton(
+                                      onPressed: () => changePassVisibility2(),
+                                      icon: isPassHidden2 ? Icon(Iconsax.eye) : Icon(Iconsax.eye_slash),
+                                    )
+                                  : null,
                             ),
                           ),
                         ),
@@ -306,5 +352,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    pass1Node.dispose();
+    pass2Node.dispose();
   }
 }
