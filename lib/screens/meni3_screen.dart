@@ -7,6 +7,8 @@ import 'package:flutter/services.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:mtelapp/components/customAppbar.dart';
 import 'package:mtelapp/components/inputField.dart';
+import 'package:mtelapp/components/metode.dart';
+import 'package:mtelapp/models/http_exception.dart';
 import 'package:mtelapp/providers/auth_provider.dart';
 import 'package:mtelapp/screens/meni2_screen.dart';
 import 'package:mtelapp/screens/meni4_screen.dart';
@@ -39,6 +41,58 @@ class _Meni3ScreenState extends State<Meni3Screen> {
     'email': '',
     'telefon': '',
   };
+
+  void showErrorDialog(String message) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+          title: Text(
+            'Greška',
+            textAlign: TextAlign.center,
+          ),
+          content: Padding(
+            padding: const EdgeInsets.only(top: 18.0, bottom: 24),
+            child: Text(
+              message,
+              style: TextStyle(fontSize: 20, color: Colors.grey[700]),
+              textAlign: TextAlign.center,
+            ),
+          ),
+          actions: [
+            InkWell(
+              onTap: () {
+                Navigator.of(context).pop();
+              },
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 18.0),
+                child: Container(
+                  padding: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height * 0.02),
+                  margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.009),
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).primaryColor,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Center(
+                    child: Text(
+                      'U redu',
+                      style: TextStyle(
+                        //fontWeight: FontWeight.bold,
+                        fontSize: 14,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   Future<void> _saveForm() async {
     if (!_form.currentState!.validate()) {
       return;
@@ -48,22 +102,34 @@ class _Meni3ScreenState extends State<Meni3Screen> {
     setState(() {
       isLoading = true;
     });
-    await Provider.of<Auth>(context, listen: false)
-        .updateUserData(
-      _authData['email']!,
-      _authData['ime']!,
-      _authData['prezime']!,
-      _authData['telefon']!,
-    )
-        .then((value) {
-      Provider.of<Auth>(context, listen: false).readUserData();
-      Timer(Duration(milliseconds: 500), () {
-        setState(() {
-          isLoading = false;
+    try {
+      await Provider.of<Auth>(context, listen: false)
+          .updateUserData(
+        _authData['email']!,
+        _authData['ime']!,
+        _authData['prezime']!,
+        _authData['telefon']!,
+      )
+          .then((value) {
+        Provider.of<Auth>(context, listen: false).readUserData();
+        Timer(Duration(milliseconds: 500), () {
+          setState(() {
+            isLoading = false;
+          });
+          Navigator.of(context).pushReplacementNamed(Meni2Screen.routeName);
         });
-        Navigator.of(context).pushReplacementNamed(Meni2Screen.routeName);
       });
-    });
+    } on HttpException catch (error) {
+      print(error);
+      String emessage = 'Došlo je do greške';
+      if (error.toString().contains('EMAIL_EXISTS')) {
+        emessage = 'Taj E-mail je već u upotrebi';
+      }
+      showErrorDialog(emessage);
+      setState(() {
+        isLoading = false;
+      });
+    } catch (e) {}
   }
 
   @override
@@ -134,7 +200,7 @@ class _Meni3ScreenState extends State<Meni3Screen> {
                           inputField(
                             medijakveri: medijakveri,
                             label: 'Ime',
-                            initalValue: '${auth.getIme}',
+                            initalValue: '${Metode.capitalizeAllWord(auth.getIme!)}',
                             doneAction: TextInputAction.next,
                             keyboardTip: TextInputType.name,
                             obscureText: false,
@@ -158,7 +224,7 @@ class _Meni3ScreenState extends State<Meni3Screen> {
                             medijakveri: medijakveri,
                             label: 'Prezime',
                             onChanged: (_) => _form.currentState!.validate(),
-                            initalValue: '${auth.getPrezime}',
+                            initalValue: '${Metode.capitalizeAllWord(auth.getPrezime!)}',
                             doneAction: TextInputAction.next,
                             keyboardTip: TextInputType.name,
                             obscureText: false,

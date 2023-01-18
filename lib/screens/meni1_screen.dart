@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:mtelapp/components/customAppbar.dart';
 import 'package:mtelapp/components/kartica.dart';
+import 'package:mtelapp/components/metode.dart';
 import 'package:mtelapp/providers/auth_provider.dart';
 import 'package:mtelapp/screens/korpa_screen.dart';
 import 'package:mtelapp/screens/meni2_screen.dart';
@@ -117,7 +118,7 @@ class _Meni1ScreenState extends State<Meni1Screen> {
                                         child: FittedBox(
                                           alignment: Alignment.centerLeft,
                                           child: Text(
-                                            '${auth.getIme} ${auth.getPrezime}',
+                                            '${Metode.capitalizeAllWord(auth.getIme!)} ${Metode.capitalizeAllWord(auth.getPrezime!)}',
                                             style: TextStyle(
                                               color: Colors.white,
                                               fontSize: 22,

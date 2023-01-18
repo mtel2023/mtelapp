@@ -229,6 +229,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             textInputAction: TextInputAction.next,
                             obscureText: isPassHidden,
                             controller: _passwordController,
+                            onFieldSubmitted: (_) {
+                              FocusScope.of(context).requestFocus(pass2Node);
+                            },
                             validator: (value) {
                               if (value!.isEmpty) {
                                 return 'Molimo Vas unesite šifru';
