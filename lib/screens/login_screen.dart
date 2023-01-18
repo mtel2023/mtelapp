@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:mtelapp/components/allButtons.dart';
 import 'package:mtelapp/components/inputField.dart';
 import 'package:mtelapp/models/http_exception.dart';
@@ -17,6 +18,15 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final _form = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    pass1Node.addListener(() {
+      setState(() {});
+    });
+  }
 
   Map<String, String> _data = {
     'email': '',
@@ -110,6 +120,15 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
+  final pass1Node = FocusNode();
+
+  bool isPassHidden = true;
+  void changePassVisibility() {
+    setState(() {
+      isPassHidden = !isPassHidden;
+    });
+  }
+
   Widget MojaForma(MediaQueryData medijakveri, context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -147,24 +166,56 @@ class _LoginScreenState extends State<LoginScreen> {
                     _data['email'] = value!;
                   },
                 ),
-                inputField(
-                  medijakveri: medijakveri,
-                  label: 'Šifra',
-                  hintText: 'Šifra',
-                  doneAction: TextInputAction.done,
-                  keyboardTip: TextInputType.text,
-                  obscureText: true,
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'Molimo Vas unesite šifru';
-                    }
-                  },
-                  onSaved: (value) {
-                    _data['sifra'] = value!;
-                  },
-                  onFieldSubmitted: (_) {
-                    _saveForm();
-                  },
+                Container(
+                  margin: EdgeInsets.only(bottom: (medijakveri.size.height - medijakveri.padding.top) * 0.025),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        margin: EdgeInsets.only(
+                          bottom: (medijakveri.size.height - medijakveri.padding.top) * 0.005,
+                          left: medijakveri.size.width * 0.02,
+                        ),
+                        child: Text('Šifra'),
+                      ),
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: TextFormField(
+                          focusNode: pass1Node,
+                          keyboardType: TextInputType.text,
+                          textInputAction: TextInputAction.next,
+                          obscureText: isPassHidden,
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'Molimo Vas unesite šifru';
+                            }
+                            if (value.length < 5) {
+                              return 'Šifra mora imati više od 4 karaktera';
+                            }
+                          },
+                          decoration: InputDecoration(
+                            hintText: 'Šifra',
+                            filled: true,
+                            fillColor: Colors.white,
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white),
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white),
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            suffixIcon: pass1Node.hasFocus
+                                ? IconButton(
+                                    onPressed: () => changePassVisibility(),
+                                    icon: isPassHidden ? Icon(Iconsax.eye) : Icon(Iconsax.eye_slash),
+                                  )
+                                : null,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
                 isLoading
                     ? CircularProgressIndicator()
@@ -213,5 +264,12 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    pass1Node.dispose();
   }
 }

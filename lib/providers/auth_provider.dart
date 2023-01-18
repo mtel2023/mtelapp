@@ -53,19 +53,61 @@ class Auth with ChangeNotifier {
 
   Future<void> updateUserData(String email, String ime, String prezime, String telefon) async {
     final url = Uri.parse('https://mtelapp-ac423-default-rtdb.europe-west1.firebasedatabase.app/userData/$loadedId.json/?auth=$token');
+
     try {
-      final response = http.patch(
-        url,
-        body: (json.encode({
-          'email': email,
-          'ime': ime,
-          'prezime': prezime,
-          'telefon': telefon,
-        })),
-      );
-      notifyListeners();
+      if (loadedEmail != email) {
+        final url2 = Uri.parse('https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyDORvJIxq1C4TfI7aAwJQ12y7d2kY5agls');
+        try {
+          final response2 = await http.post(
+            url2,
+            body: json.encode(
+              {
+                'idToken': token,
+                'email': email,
+                'returnSecureToken': true,
+              },
+            ),
+          );
+
+          final response2Data = json.decode(response2.body);
+          if (response2Data['error'] != null) {
+            throw HttpException(response2Data['error']['message']);
+          }
+
+          _token = response2Data['idToken'];
+          _userId = response2Data['localId'];
+          _expiryDate = DateTime.now().add(
+            Duration(
+              seconds: int.parse(
+                response2Data['expiresIn'],
+              ),
+            ),
+          );
+
+          final response = http.patch(
+            url,
+            body: (json.encode({
+              'email': email,
+              'ime': ime,
+              'prezime': prezime,
+              'telefon': telefon.isEmpty ? 'Prazno' : telefon,
+            })),
+          );
+          final prefs = await SharedPreferences.getInstance();
+          final userData = json.encode(
+            {
+              'token': _token,
+              'userId': _userId,
+              'expiryDate': _expiryDate!.toIso8601String(),
+            },
+          );
+          prefs.setString('userData', userData);
+          notifyListeners();
+        } catch (e) {
+          throw e;
+        }
+      }
     } catch (e) {
-      print('EROR');
       throw e;
     }
   }

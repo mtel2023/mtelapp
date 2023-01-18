@@ -3,6 +3,7 @@ import 'package:iconsax/iconsax.dart';
 import 'package:mtelapp/components/button.dart';
 import 'package:mtelapp/components/customAppbar.dart';
 import 'package:mtelapp/components/kartica.dart';
+import 'package:mtelapp/components/metode.dart';
 import 'package:mtelapp/components/search_bar.dart';
 import 'package:mtelapp/providers/auth_provider.dart';
 import 'package:mtelapp/screens/loginRegister_screen.dart';
@@ -199,8 +200,8 @@ class _Meni2ScreenState extends State<Meni2Screen> {
           Consumer<Auth>(
             builder: (context, auth, _) => Column(
               children: [
-                meniPolje('Ime', '${auth.getIme}', medijakveri),
-                meniPolje('Prezime', '${auth.getPrezime}', medijakveri),
+                meniPolje('Ime', '${Metode.capitalizeAllWord(auth.getIme!)}', medijakveri),
+                meniPolje('Prezime', '${Metode.capitalizeAllWord(auth.getPrezime!)}', medijakveri),
                 meniPolje('Email', '${auth.getEmail}', medijakveri),
                 meniPolje('Telefon', ' ${auth.getTelefon}', medijakveri),
               ],
