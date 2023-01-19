@@ -97,7 +97,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         setState(() {
           isLoading = false;
         });
-        Navigator.of(context).pop();
+        Navigator.of(context).pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
       });
     } on HttpException catch (error) {
       String emessage = 'Došlo je do greške';

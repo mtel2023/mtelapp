@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:mtelapp/components/customAppbar.dart';
+import 'package:mtelapp/screens/meni/meni2_screen.dart';
 
 class Meni4Screen extends StatefulWidget {
   static const routeName = '/promijeni-sifru';
@@ -16,27 +17,64 @@ class _Meni4ScreenState extends State<Meni4Screen> {
   final _oldPasswordController = TextEditingController();
   final _newPasswordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
-
+  bool isLoading = false;
   @override
   Widget build(BuildContext context) {
+    final medijakveri = MediaQuery.of(context);
     return Scaffold(
-      body: Column(
-        children: [
-          SafeArea(
-            child: CustomAppBar(
-              funkcija: () {
-                Navigator.pop(context);
-              },
-              prvaIkonica: Iconsax.arrow_circle_left,
-              prvaIkonicaSize: 34,
-              drugaIkonica: Iconsax.tick_circle,
-              pageTitle: 'Šifra',
-              isBlack: true,
-              isChevron: false,
-              isCenter: true,
-              funkcija2: () {},
+      backgroundColor: Color.fromRGBO(243, 243, 243, 1),
+      appBar: PreferredSize(
+        preferredSize: Size(0, 100),
+        child: SafeArea(
+          child: Container(
+            margin: EdgeInsets.symmetric(horizontal: medijakveri.size.width * 0.07),
+            height: 100,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    IconButton(
+                      padding: EdgeInsets.zero,
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      icon: Icon(
+                        Iconsax.arrow_circle_left,
+                        size: 34,
+                      ),
+                    ),
+                    SizedBox(width: 5),
+                  ],
+                ),
+                Text(
+                  'Promijeni šifru',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 22,
+                    color: Colors.black,
+                  ),
+                ),
+                isLoading
+                    ? SizedBox(
+                        height: 26,
+                        width: 26,
+                        child: CircularProgressIndicator(),
+                      )
+                    : IconButton(
+                        onPressed: () {},
+                        icon: Icon(
+                          Iconsax.tick_circle,
+                          size: 34,
+                        ),
+                      ),
+              ],
             ),
           ),
+        ),
+      ),
+      body: Column(
+        children: [
           SingleChildScrollView(
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 30),
@@ -74,7 +112,6 @@ Widget inputFile({textlabel, obscureText = false, label, keyboardType, controlle
       ),
       Material(
         borderRadius: BorderRadius.circular(20),
-        elevation: 8,
         child: TextField(
           controller: controller,
           keyboardType: keyboardType,

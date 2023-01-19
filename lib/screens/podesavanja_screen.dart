@@ -88,6 +88,7 @@ class _PodesavanjaScreenState extends State<PodesavanjaScreen> {
     final medijakveri = MediaQuery.of(context);
 
     return Scaffold(
+      backgroundColor: Color.fromRGBO(243, 243, 243, 1),
       body: Column(
         children: [
           SafeArea(

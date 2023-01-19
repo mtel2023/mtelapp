@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
@@ -28,9 +29,9 @@ class _KorpaScreenState extends State<KorpaScreen> {
         isLoading = true;
       });
       Provider.of<Proizvodi>(context).readProizvode().then((value) {
-        isLoading = false;
-
-        print('hashriama');
+        setState(() {
+          isLoading = false;
+        });
       });
     }
     isInit = false;
@@ -41,6 +42,7 @@ class _KorpaScreenState extends State<KorpaScreen> {
     final medijakveri = MediaQuery.of(context);
     final proizvodi = Provider.of<Proizvodi>(context);
     return Scaffold(
+      backgroundColor: Color.fromRGBO(243, 243, 243, 1),
       body: Column(
         children: [
           SafeArea(
@@ -57,52 +59,63 @@ class _KorpaScreenState extends State<KorpaScreen> {
             ),
           ),
           Container(
-            margin: EdgeInsets.symmetric(horizontal: medijakveri.size.width * 0.07),
+            margin: EdgeInsets.symmetric(horizontal: medijakveri.size.width * 0.09),
             child: Column(
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Market Voli',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w500,
+                Container(
+                  margin: EdgeInsets.only(top: (medijakveri.size.height - medijakveri.padding.top) * 0.02),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Market Voli',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    ),
-                    Text(
-                      '${proizvodi.listaProizvoda.length} stavke',
-                      style: TextStyle(
-                        color: Colors.grey,
+                      Text(
+                        '${proizvodi.listaProizvoda.length} stavke',
+                        style: TextStyle(
+                          color: Colors.grey,
+                          fontSize: 18,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
                 isLoading
                     ? CircularProgressIndicator()
                     : Container(
-                        height: (medijakveri.size.height - medijakveri.padding.top) * 0.55,
+                        height: (medijakveri.size.height - medijakveri.padding.top) * 0.62,
                         child: ListView.builder(
+                          padding: EdgeInsets.only(top: (medijakveri.size.height - medijakveri.padding.top) * 0.001),
                           itemCount: proizvodi.listaProizvoda.length,
                           itemBuilder: (context, i) => Container(
-                            margin: EdgeInsets.only(bottom: 30),
+                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(20), color: Colors.white),
+                            height: (medijakveri.size.height - medijakveri.padding.top) * 0.13,
+                            margin: EdgeInsets.symmetric(vertical: (medijakveri.size.height - medijakveri.padding.top) * 0.013),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Row(
                                   children: [
                                     Container(
-                                      height: 90,
-                                      child: Image.network(
-                                        proizvodi.listaProizvoda[i].imageUrl,
+                                      margin: EdgeInsets.symmetric(horizontal: 5),
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(20),
+                                        child: Image.network(
+                                          proizvodi.listaProizvoda[i].imageUrl,
+                                        ),
                                       ),
                                     ),
-                                    SizedBox(width: medijakveri.size.width * 0.01),
+                                    SizedBox(width: medijakveri.size.width * 0.02),
                                     Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                                       children: [
                                         Text(
-                                          proizvodi.listaProizvoda[i].ime.length > 20 ? '${proizvodi.listaProizvoda[i].ime.substring(0, 21)}...' : proizvodi.listaProizvoda[i].ime,
+                                          proizvodi.listaProizvoda[i].ime.length > 15 ? '${proizvodi.listaProizvoda[i].ime.substring(0, 18)}...' : proizvodi.listaProizvoda[i].ime,
                                           style: TextStyle(fontSize: 16),
                                         ),
                                         Text(
@@ -113,68 +126,88 @@ class _KorpaScreenState extends State<KorpaScreen> {
                                     ),
                                   ],
                                 ),
-                                Column(
-                                  children: [
-                                    InkWell(
-                                      onTap: () {},
-                                      child: Icon(Iconsax.add),
-                                    ),
-                                    Text('1'),
-                                    InkWell(
-                                      onTap: () {},
-                                      child: Icon(Iconsax.minus),
-                                    ),
-                                  ],
-                                )
+                                Container(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      InkWell(
+                                        onTap: () {},
+                                        child: Icon(Iconsax.add),
+                                      ),
+                                      Text('1'),
+                                      InkWell(
+                                        onTap: () {},
+                                        child: Icon(Iconsax.minus),
+                                      ),
+                                    ],
+                                  ),
+                                ),
                               ],
                             ),
                           ),
                         ),
                       ),
                 SizedBox(height: (medijakveri.size.height - medijakveri.padding.top) * 0.02),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Ukupno',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    Column(
-                      children: [
-                        Text(
-                          '5.69€',
-                          style: TextStyle(fontSize: 28, color: Theme.of(context).primaryColor),
-                        ),
-                        Text(
-                          '${proizvodi.listaProizvoda.length} stavke',
-                          style: TextStyle(
-                            color: Colors.grey,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                SizedBox(height: (medijakveri.size.height - medijakveri.padding.top) * 0.05),
-                Container(
-                  padding: EdgeInsets.symmetric(vertical: medijakveri.size.height * 0.02),
-                  decoration: BoxDecoration(
-                      color: Theme.of(context).primaryColor,
-                      border: Border.all(
-                        color: Theme.of(context).primaryColor,
-                      ),
-                      borderRadius: BorderRadius.circular(27)),
-                  child: Center(
-                    child: Text(
-                      'Sačuvaj kupovinu',
-                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Colors.white),
-                    ),
-                  ),
-                ),
               ],
+            ),
+          ),
+          Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(20),
+                topRight: Radius.circular(20),
+              ),
+            ),
+            child: Container(
+              margin: EdgeInsets.symmetric(horizontal: medijakveri.size.width * 0.09),
+              child: Column(
+                children: [
+                  SizedBox(height: (medijakveri.size.height - medijakveri.padding.top) * 0.02),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Ukupno',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Column(
+                        children: [
+                          Text(
+                            '5.69€',
+                            style: TextStyle(
+                              fontSize: 28,
+                              color: Theme.of(context).primaryColor,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text(
+                            '${proizvodi.listaProizvoda.length} stavke',
+                            style: TextStyle(
+                              color: Colors.grey,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: (medijakveri.size.height - medijakveri.padding.top) * 0.01),
+                  Button(
+                    borderRadius: 20,
+                    visina: (medijakveri.size.height - medijakveri.padding.top) * 0.018,
+                    funkcija: () {},
+                    horizontalMargin: 0,
+                    buttonText: 'Sačuvaj kupovinu',
+                    textColor: Colors.white,
+                    isBorder: false,
+                    color: Theme.of(context).primaryColor.withOpacity(.8),
+                  )
+                ],
+              ),
             ),
           ),
         ],

@@ -29,60 +29,17 @@ class CustomAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final medijakveri = MediaQuery.of(context);
     return isCenter
-        ? Container(
-            margin: EdgeInsets.symmetric(horizontal: medijakveri.size.width * 0.07),
-            height: 100,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    IconButton(
-                      padding: EdgeInsets.zero,
-                      onPressed: () => funkcija(),
-                      icon: Icon(
-                        prvaIkonica,
-                        size: prvaIkonicaSize,
-                      ),
-                    ),
-                    if (isChevron)
-                      Icon(
-                        Icons.chevron_right_outlined,
-                        color: Colors.grey,
-                      ),
-                    if (!isChevron) SizedBox(width: 5),
-                  ],
-                ),
-                Text(
-                  pageTitle,
-                  style: TextStyle(
-                    fontWeight: FontWeight.w500,
-                    fontSize: 22,
-                    color: (isBlack) ? Colors.black : Colors.grey,
-                  ),
-                ),
-                IconButton(
-                  onPressed: () => funkcija2!(),
-                  icon: Icon(
-                    drugaIkonica,
-                    size: 34,
-                  ),
-                ),
-              ],
-            ),
-          )
-        : Container(
-            margin: EdgeInsets.symmetric(horizontal: medijakveri.size.width * 0.07),
-            height: 100,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    SizedBox(
-                      height: 30,
-                      width: 25,
-                      child: IconButton(
+        ? SafeArea(
+            child: Container(
+              padding: EdgeInsets.only(top: (medijakveri.size.height - medijakveri.padding.top) * 0.04),
+              margin: EdgeInsets.symmetric(horizontal: medijakveri.size.width * 0.07),
+              height: (medijakveri.size.height - medijakveri.padding.top) * 0.04 + 50,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      IconButton(
                         padding: EdgeInsets.zero,
                         onPressed: () => funkcija(),
                         icon: Icon(
@@ -90,31 +47,80 @@ class CustomAppBar extends StatelessWidget {
                           size: prvaIkonicaSize,
                         ),
                       ),
-                    ),
-                    if (isChevron)
-                      Icon(
-                        Icons.chevron_right_outlined,
-                        color: Colors.grey,
-                      ),
-                    if (!isChevron) SizedBox(width: 5),
-                    Text(
-                      pageTitle,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 22,
-                        color: (isBlack) ? Colors.black : Colors.grey,
-                      ),
-                    ),
-                  ],
-                ),
-                IconButton(
-                  onPressed: () => funkcija2!(),
-                  icon: Icon(
-                    drugaIkonica,
-                    size: 34,
+                      if (isChevron)
+                        Icon(
+                          Icons.chevron_right_outlined,
+                          color: Colors.grey,
+                        ),
+                      if (!isChevron) SizedBox(width: 5),
+                    ],
                   ),
-                ),
-              ],
+                  Text(
+                    pageTitle,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                      color: (isBlack) ? Colors.black : Colors.grey,
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: () => funkcija2!(),
+                    icon: Icon(
+                      drugaIkonica,
+                      size: 34,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          )
+        : SafeArea(
+            child: Container(
+              padding: EdgeInsets.only(top: (medijakveri.size.height - medijakveri.padding.top) * 0.04),
+              margin: EdgeInsets.symmetric(horizontal: medijakveri.size.width * 0.07),
+              height: (medijakveri.size.height - medijakveri.padding.top) * 0.04 + 50,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      SizedBox(
+                        height: 30,
+                        width: 25,
+                        child: IconButton(
+                          padding: EdgeInsets.zero,
+                          onPressed: () => funkcija(),
+                          icon: Icon(
+                            prvaIkonica,
+                            size: prvaIkonicaSize,
+                          ),
+                        ),
+                      ),
+                      if (isChevron)
+                        Icon(
+                          Icons.chevron_right_outlined,
+                          color: Colors.grey,
+                        ),
+                      if (!isChevron) SizedBox(width: 5),
+                      Text(
+                        pageTitle,
+                        style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 22,
+                          color: (isBlack) ? Colors.black : Colors.grey,
+                        ),
+                      ),
+                    ],
+                  ),
+                  IconButton(
+                    onPressed: () => funkcija2!(),
+                    icon: Icon(
+                      drugaIkonica,
+                      size: 34,
+                    ),
+                  ),
+                ],
+              ),
             ),
           );
   }

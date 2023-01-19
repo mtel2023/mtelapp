@@ -2,18 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:mtelapp/components/customAppbar.dart';
 import 'package:mtelapp/providers/auth_provider.dart';
 import 'package:mtelapp/providers/proizvod_provider.dart';
+import 'package:mtelapp/screens/auth/forgotten_password_screen.dart';
+import 'package:mtelapp/screens/auth/loginRegister_screen.dart';
+import 'package:mtelapp/screens/auth/login_screen.dart';
+import 'package:mtelapp/screens/auth/register_screen.dart';
 import 'package:mtelapp/screens/bottomNavigation_screen.dart';
-import 'package:mtelapp/screens/forgotten_password_screen.dart';
 import 'package:mtelapp/screens/korpa_screen.dart';
-import 'package:mtelapp/screens/loginRegister_screen.dart';
-import 'package:mtelapp/screens/login_screen.dart';
-import 'package:mtelapp/screens/marketi_screen.dart';
-import 'package:mtelapp/screens/meni2_screen.dart';
-import 'package:mtelapp/screens/meni3_screen.dart';
-import 'package:mtelapp/screens/meni4_screen.dart';
+import 'package:mtelapp/screens/marketi/marketi2_screen.dart';
+import 'package:mtelapp/screens/meni/meni2_screen.dart';
+import 'package:mtelapp/screens/meni/meni3_screen.dart';
+import 'package:mtelapp/screens/meni/meni4_screen.dart';
+
 import 'package:mtelapp/screens/podesavanja_screen.dart';
-import 'package:mtelapp/screens/register2_screen.dart';
-import 'package:mtelapp/screens/register_screen.dart';
+
 import 'package:provider/provider.dart';
 
 void main() {
@@ -56,6 +57,7 @@ class MyApp extends StatelessWidget {
             Meni3Screen.routeName: (context) => Meni3Screen(),
             Meni4Screen.routeName: (context) => Meni4Screen(),
             KorpaScreen.routeName: (context) => KorpaScreen(),
+            Marketi2Screen.routeName: (context) => Marketi2Screen(),
             PodesavanjaScreen.routeName: (context) => PodesavanjaScreen(),
             LoginScreen.routeName: (context) => LoginScreen(),
             RegisterScreen.routeName: (context) => RegisterScreen(),

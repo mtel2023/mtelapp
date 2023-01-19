@@ -4,8 +4,8 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:mtelapp/providers/auth_provider.dart';
 import 'package:mtelapp/screens/mape_screen.dart';
-import 'package:mtelapp/screens/marketi_screen.dart';
-import 'package:mtelapp/screens/meni1_screen.dart';
+import 'package:mtelapp/screens/marketi/marketi1_screen.dart';
+import 'package:mtelapp/screens/meni/meni1_screen.dart';
 import 'package:mtelapp/screens/trgovanje_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -18,7 +18,7 @@ class BottomNavigationScreen extends StatefulWidget {
 
 class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
   final List<Widget> _pages = [
-    MarketiScreen(),
+    Marketi1Screen(),
     MapeScreen(),
     TrgovanjeScreen(),
     MapeScreen(),

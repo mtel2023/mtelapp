@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mtelapp/components/button.dart';
-import 'package:mtelapp/screens/login_screen.dart';
-
-import '../components/allButtons.dart';
+import 'package:mtelapp/components/inputField.dart';
+import 'package:mtelapp/screens/auth/login_screen.dart';
 
 class ForgottenPasswordScreen extends StatelessWidget {
   static const String routeName = '/forgotten-password';
@@ -56,7 +55,9 @@ class ForgottenPasswordScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final medijakveri = MediaQuery.of(context);
     return Scaffold(
+      backgroundColor: Color.fromRGBO(243, 243, 243, 1),
       body: SafeArea(
         child: Container(
           margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.07),
@@ -71,11 +72,15 @@ class ForgottenPasswordScreen extends StatelessWidget {
                     style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(height: (MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top) * 0.08),
-                  inputFile(
-                    textlabel: 'Email',
-                    label: 'E-mail',
-                    controller: _emailController,
-                    keyboardType: TextInputType.emailAddress,
+                  inputField(
+                    medijakveri: medijakveri,
+                    label: 'Email',
+                    doneAction: TextInputAction.done,
+                    keyboardTip: TextInputType.emailAddress,
+                    hintText: 'E-mail',
+                    obscureText: false,
+                    validator: (_) {},
+                    onSaved: (_) {},
                   ),
                   SizedBox(height: (MediaQuery.of(context).size.width - MediaQuery.of(context).padding.top) * 0.07),
                   Button(
@@ -96,7 +101,10 @@ class ForgottenPasswordScreen extends StatelessWidget {
                     },
                     child: Text(
                       'Nazad na login',
-                      style: TextStyle(color: Theme.of(context).primaryColor),
+                      style: TextStyle(
+                        color: Theme.of(context).primaryColor,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ],
@@ -117,34 +125,4 @@ class ForgottenPasswordScreen extends StatelessWidget {
       ),
     );
   }
-}
-
-Widget inputFile({textlabel, obscureText = false, label, keyboardType, controller}) {
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Text(
-        textlabel,
-        style: TextStyle(fontSize: 16),
-      ),
-      SizedBox(
-        height: 6,
-      ),
-      Material(
-        borderRadius: BorderRadius.circular(20),
-        elevation: 8,
-        child: TextField(
-          controller: controller,
-          keyboardType: keyboardType,
-          obscureText: obscureText,
-          decoration: InputDecoration(
-              filled: true,
-              fillColor: Colors.white,
-              hintText: label,
-              enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.white), borderRadius: BorderRadius.circular(20)),
-              border: OutlineInputBorder(borderSide: BorderSide(color: Colors.white), borderRadius: BorderRadius.circular(20))),
-        ),
-      ),
-    ],
-  );
 }
