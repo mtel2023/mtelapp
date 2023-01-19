@@ -227,11 +227,11 @@ class _Meni3ScreenState extends State<Meni3Screen> {
                           inputField(
                             medijakveri: medijakveri,
                             label: 'Prezime',
-                            onChanged: (_) => _form.currentState!.validate(),
                             initalValue: '${Metode.capitalizeAllWord(auth.getPrezime!)}',
                             doneAction: TextInputAction.next,
                             keyboardTip: TextInputType.name,
                             obscureText: false,
+                            onChanged: (_) => _form.currentState!.validate(),
                             validator: (value) {
                               if (value!.isEmpty) {
                                 return 'Molimo Vas da unesete prezime';
@@ -251,10 +251,10 @@ class _Meni3ScreenState extends State<Meni3Screen> {
                             medijakveri: medijakveri,
                             label: 'Email',
                             initalValue: '${auth.getEmail}',
-                            onChanged: (_) => _form.currentState!.validate(),
                             doneAction: TextInputAction.next,
                             keyboardTip: TextInputType.emailAddress,
                             obscureText: false,
+                            onChanged: (_) => _form.currentState!.validate(),
                             validator: (value) {
                               if (value!.isEmpty) {
                                 return 'Molimo Vas da unesete email adresu';
@@ -269,12 +269,12 @@ class _Meni3ScreenState extends State<Meni3Screen> {
                           ),
                           inputField(
                             medijakveri: medijakveri,
-                            onChanged: (_) => _form.currentState!.validate(),
                             label: 'Telefon',
                             initalValue: '${auth.getTelefon == 'Prazno' ? '' : auth.getTelefon}',
                             doneAction: TextInputAction.done,
                             keyboardTip: TextInputType.phone,
                             obscureText: false,
+                            onChanged: (_) => _form.currentState!.validate(),
                             validator: (value) {
                               if (value!.isEmpty) {
                                 return null;

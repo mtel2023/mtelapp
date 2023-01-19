@@ -118,6 +118,11 @@ class _LoginScreenState extends State<LoginScreen> {
       setState(() {
         isLoading = false;
       });
+    } catch (error) {
+      showErrorDialog('Došlo je do greške');
+      setState(() {
+        isLoading = false;
+      });
     }
   }
 
@@ -155,12 +160,10 @@ class _LoginScreenState extends State<LoginScreen> {
                   doneAction: TextInputAction.next,
                   keyboardTip: TextInputType.emailAddress,
                   obscureText: false,
+                  onChanged: (_) => _form.currentState!.validate(),
                   validator: (value) {
                     if (value!.isEmpty) {
-                      return 'Molimo Vas unesite E-mail';
-                    }
-                    if (!value.contains('@') || !value.contains('.')) {
-                      return 'Molimo Vas unesite validan E-mail';
+                      return 'Molimo Vas da unesete email adresu';
                     }
                   },
                   onSaved: (value) {
@@ -186,12 +189,10 @@ class _LoginScreenState extends State<LoginScreen> {
                           keyboardType: TextInputType.text,
                           textInputAction: TextInputAction.done,
                           obscureText: isPassHidden,
+                          onChanged: (_) => _form.currentState!.validate(),
                           validator: (value) {
                             if (value!.isEmpty) {
                               return 'Molimo Vas unesite šifru';
-                            }
-                            if (value.length < 5) {
-                              return 'Šifra mora imati više od 4 karaktera';
                             }
                           },
                           onFieldSubmitted: (_) => _saveForm(),

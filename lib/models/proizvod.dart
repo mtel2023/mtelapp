@@ -4,5 +4,10 @@ class Proizvod {
   final double cijena;
   final String imageUrl;
 
-  Proizvod({required this.id, required this.ime, required this.cijena, required this.imageUrl});
+  Proizvod({
+    required this.id,
+    required this.ime,
+    required this.cijena,
+    required this.imageUrl,
+  });
 }

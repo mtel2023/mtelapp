@@ -3,6 +3,7 @@ import 'package:iconsax/iconsax.dart';
 import 'package:mtelapp/components/customAppbar.dart';
 import 'package:mtelapp/components/search_bar.dart';
 import 'package:mtelapp/main.dart';
+import 'package:mtelapp/providers/market_provider.dart';
 import 'package:mtelapp/providers/proizvod_provider.dart';
 import 'package:mtelapp/screens/korpa_screen.dart';
 import 'package:mtelapp/screens/marketi/marketi2_screen.dart';
@@ -22,7 +23,9 @@ class Marketi1Screen extends StatelessWidget {
             // custom app bar
             SafeArea(
               child: CustomAppBar(
-                funkcija: () {},
+                funkcija: () {
+                  Provider.of<Marketi>(context, listen: false).addMarket('Laković', 'https://barinfo.me/wp-content/uploads/2021/06/HDL-LAKOVI%C4%86-logo.jpg', []);
+                },
                 prvaIkonica: Iconsax.home,
                 drugaIkonica: Iconsax.shopping_cart,
                 pageTitle: 'Marketi',

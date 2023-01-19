@@ -112,6 +112,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
       setState(() {
         isLoading = false;
       });
+    } catch (error) {
+      showErrorDialog('Došlo je do greške');
+      setState(() {
+        isLoading = false;
+      });
     }
   }
 
@@ -171,9 +176,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       doneAction: TextInputAction.next,
                       keyboardTip: TextInputType.name,
                       obscureText: false,
+                      onChanged: (_) => _form.currentState!.validate(),
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return 'Molimo Vas unesite ime';
+                          return 'Molimo Vas da unesete ime';
+                        }
+                        if (value.length < 2) {
+                          return 'Ime mora biti duže';
+                        }
+                        if (value.contains(RegExp(r'[0-9]'))) {
+                          return 'Ime smije sadržati samo velika i mala slova';
                         }
                       },
                       onSaved: (value) {
@@ -186,29 +198,41 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       doneAction: TextInputAction.next,
                       keyboardTip: TextInputType.text,
                       obscureText: false,
+                      onChanged: (_) => _form.currentState!.validate(),
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return 'Molimo Vas unesite prezime';
+                          return 'Molimo Vas da unesete prezime';
+                        }
+                        if (value.length < 2) {
+                          return 'Prezime mora biti duže';
+                        }
+                        if (value.contains(RegExp(r'[0-9]'))) {
+                          return 'Prezime smije sadržati samo velika i mala slova';
                         }
                       },
                       onSaved: (value) {
                         _authData['prezime'] = value!;
                       }),
                   inputField(
-                      medijakveri: medijakveri,
-                      label: 'Email',
-                      hintText: 'E-mail',
-                      doneAction: TextInputAction.next,
-                      keyboardTip: TextInputType.emailAddress,
-                      obscureText: false,
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'Molimo Vas unesite email';
-                        }
-                      },
-                      onSaved: (value) {
-                        _authData['email'] = value!;
-                      }),
+                    medijakveri: medijakveri,
+                    label: 'Email',
+                    hintText: 'E-mail',
+                    doneAction: TextInputAction.next,
+                    keyboardTip: TextInputType.emailAddress,
+                    obscureText: false,
+                    onChanged: (_) => _form.currentState!.validate(),
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Molimo Vas da unesete email adresu';
+                      }
+                      if (!value.contains(RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+"))) {
+                        return 'Molimo Vas unesite validnu email adresu';
+                      }
+                    },
+                    onSaved: (value) {
+                      _authData['email'] = value!;
+                    },
+                  ),
                   Container(
                     margin: EdgeInsets.only(bottom: (medijakveri.size.height - medijakveri.padding.top) * 0.025),
                     child: Column(
@@ -232,6 +256,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             onFieldSubmitted: (_) {
                               FocusScope.of(context).requestFocus(pass2Node);
                             },
+                            onChanged: (_) => _form.currentState!.validate(),
                             validator: (value) {
                               if (value!.isEmpty) {
                                 return 'Molimo Vas unesite šifru';
@@ -283,6 +308,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             keyboardType: TextInputType.text,
                             textInputAction: TextInputAction.done,
                             obscureText: isPassHidden2,
+                            onChanged: (_) => _form.currentState!.validate(),
                             validator: (value) {
                               if (value!.isEmpty) {
                                 return 'Molimo Vas unesite šifru';

@@ -92,7 +92,10 @@ class _KorpaScreenState extends State<KorpaScreen> {
                           padding: EdgeInsets.only(top: (medijakveri.size.height - medijakveri.padding.top) * 0.001),
                           itemCount: proizvodi.listaProizvoda.length,
                           itemBuilder: (context, i) => Container(
-                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(20), color: Colors.white),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: Colors.white,
+                            ),
                             height: (medijakveri.size.height - medijakveri.padding.top) * 0.13,
                             margin: EdgeInsets.symmetric(vertical: (medijakveri.size.height - medijakveri.padding.top) * 0.013),
                             child: Row(

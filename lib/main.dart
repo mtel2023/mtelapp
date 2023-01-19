@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mtelapp/components/customAppbar.dart';
 import 'package:mtelapp/providers/auth_provider.dart';
+import 'package:mtelapp/providers/market_provider.dart';
 import 'package:mtelapp/providers/proizvod_provider.dart';
 import 'package:mtelapp/screens/auth/forgotten_password_screen.dart';
 import 'package:mtelapp/screens/auth/loginRegister_screen.dart';
@@ -33,6 +34,10 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProxyProvider<Auth, Proizvodi>(
           update: (ctx, auth, prosliProizvodi) => Proizvodi(auth.token, prosliProizvodi == null ? [] : prosliProizvodi.listaProizvoda),
           create: (ctx) => Proizvodi('', []),
+        ),
+        ChangeNotifierProxyProvider<Auth, Marketi>(
+          update: (ctx, auth, prosliMarketi) => Marketi(auth.token, prosliMarketi == null ? [] : prosliMarketi.listaMarketa),
+          create: (ctx) => Marketi('', []),
         ),
       ],
       child: Consumer<Auth>(

@@ -89,22 +89,24 @@ class _PodesavanjaScreenState extends State<PodesavanjaScreen> {
 
     return Scaffold(
       backgroundColor: Color.fromRGBO(243, 243, 243, 1),
+      appBar: PreferredSize(
+        preferredSize: Size(0, 100),
+        child: CustomAppBar(
+          funkcija: () {
+            Navigator.pop(context);
+          },
+          prvaIkonica: Iconsax.arrow_circle_left,
+          prvaIkonicaSize: 34,
+          pageTitle: 'Podešavanja',
+          isBlack: true,
+          isChevron: false,
+          isCenter: true,
+          funkcija2: () {},
+        ),
+      ),
       body: Column(
         children: [
-          SafeArea(
-            child: CustomAppBar(
-              funkcija: () {
-                Navigator.pop(context);
-              },
-              prvaIkonica: Iconsax.arrow_circle_left,
-              prvaIkonicaSize: 34,
-              pageTitle: 'Podešavanja',
-              isBlack: true,
-              isChevron: false,
-              isCenter: true,
-              funkcija2: () {},
-            ),
-          ),
+          SizedBox(height: (medijakveri.size.height - medijakveri.padding.top) * 0.03),
           Container(
             margin: EdgeInsets.symmetric(horizontal: medijakveri.size.width * 0.07),
             height: medijakveri.size.height * 0.066,
