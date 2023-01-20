@@ -85,6 +85,7 @@ class LoginRegisterScreen extends StatelessWidget {
                     color: Theme.of(context).primaryColor.withOpacity(.9),
                     isBorder: false,
                     visina: 16,
+                    fontsize: 18,
                     borderRadius: 20,
                     funkcija: () {
                       Navigator.of(context).pushReplacementNamed(RegisterScreen.routeName);
@@ -95,6 +96,7 @@ class LoginRegisterScreen extends StatelessWidget {
                     horizontalMargin: medijakveri.size.width * 0.07,
                     borderRadius: 20,
                     visina: 16,
+                    fontsize: 18,
                     buttonText: 'Prijavite se',
                     textColor: Colors.black,
                     isBorder: true,

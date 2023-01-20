@@ -89,6 +89,7 @@ class ForgottenPasswordScreen extends StatelessWidget {
                     funkcija: () {
                       _showModal(context);
                     },
+                    fontsize: 18,
                     horizontalMargin: 0,
                     buttonText: 'Pošalji zahtjev',
                     textColor: Colors.white,

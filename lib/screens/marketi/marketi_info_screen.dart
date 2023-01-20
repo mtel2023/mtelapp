@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:mtelapp/components/customAppbar.dart';
 import 'package:mtelapp/components/search_bar.dart';
+import 'package:mtelapp/providers/korpa_provider.dart';
 import 'package:mtelapp/providers/market_provider.dart';
 import 'package:mtelapp/providers/proizvod_provider.dart';
+import 'package:mtelapp/screens/korpa_screen.dart';
 import 'package:provider/provider.dart';
 
 class MarketiInfoScreen extends StatefulWidget {
@@ -44,6 +46,7 @@ class _MarketiInfoScreenState extends State<MarketiInfoScreen> {
     final medijakveri = MediaQuery.of(context);
     final args = ModalRoute.of(context)!.settings.arguments as Map<String, String>;
     final proizvodi = Provider.of<Proizvodi>(context, listen: false);
+    final korpa = Provider.of<Korpa>(context, listen: false);
     return Scaffold(
       backgroundColor: Color.fromRGBO(243, 243, 243, 1),
       appBar: PreferredSize(
@@ -53,6 +56,10 @@ class _MarketiInfoScreenState extends State<MarketiInfoScreen> {
           prvaIkonica: Iconsax.arrow_circle_left,
           prvaIkonicaSize: 34,
           funkcija: () => Navigator.pop(context),
+          drugaIkonica: Iconsax.shopping_cart,
+          funkcija2: () {
+            Navigator.of(context).pushNamed(KorpaScreen.routeName);
+          },
           isBlack: true,
           isChevron: false,
           isCenter: true,
@@ -108,7 +115,6 @@ class _MarketiInfoScreenState extends State<MarketiInfoScreen> {
                       itemCount: proizvodi.listaProizvoda.length,
                       itemBuilder: (ctx, i) => Container(
                         padding: EdgeInsets.symmetric(vertical: (medijakveri.size.height - medijakveri.padding.top) * 0.015),
-                        // height: (medijakveri.size.height - medijakveri.padding.top) * 0.13,
                         margin: EdgeInsets.symmetric(vertical: (medijakveri.size.height - medijakveri.padding.top) * 0.013),
                         decoration: BoxDecoration(
                           color: Colors.white,
@@ -144,7 +150,10 @@ class _MarketiInfoScreenState extends State<MarketiInfoScreen> {
                               ],
                             ),
                             IconButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                // print(proizvodi.listaProizvoda[i].id);
+                                korpa.addItem(proizvodi.listaProizvoda[i].id, proizvodi.listaProizvoda[i].cijena, proizvodi.listaProizvoda[i].ime, proizvodi.listaProizvoda[i].imageUrl);
+                              },
                               icon: Icon(
                                 Iconsax.add_circle,
                                 size: 34,

@@ -13,14 +13,15 @@ class Metode {
     return result;
   }
 
-  static void showErrorDialog(String message, context) {
+  static void showErrorDialog({required String message, required BuildContext context, required String naslov, required String button1Text, String? button2Text, required Function button1Fun, Function? button2Fun, required bool isButton2}) {
     showDialog(
       context: context,
       builder: (context) {
+        final medijakveri = MediaQuery.of(context);
         return AlertDialog(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
           title: Text(
-            'Greška',
+            naslov,
             textAlign: TextAlign.center,
           ),
           content: Padding(
@@ -33,34 +34,74 @@ class Metode {
           ),
           actions: [
             InkWell(
-              onTap: () {
-                Navigator.of(context).pop();
-              },
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: 18.0),
+              onTap: () => button1Fun(),
+              child: Container(
+                padding: EdgeInsets.symmetric(
+                  vertical: medijakveri.size.height * 0.01,
+                ),
+                margin: EdgeInsets.symmetric(
+                  horizontal: medijakveri.size.width * 0.2,
+                  vertical: medijakveri.size.height * 0.01,
+                ),
+                decoration: BoxDecoration(
+                  color: Theme.of(context).primaryColor,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Center(
+                  child: Text(
+                    button1Text,
+                    style: TextStyle(
+                      //fontWeight: FontWeight.bold,
+                      fontSize: 25,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            if (isButton2)
+              InkWell(
+                onTap: () => button2Fun!(),
                 child: Container(
-                  padding: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height * 0.02),
-                  margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.009),
+                  padding: EdgeInsets.symmetric(
+                    vertical: medijakveri.size.height * 0.01,
+                  ),
+                  margin: EdgeInsets.symmetric(
+                    horizontal: medijakveri.size.width * 0.2,
+                    vertical: medijakveri.size.height * 0.01,
+                  ),
                   decoration: BoxDecoration(
                     color: Theme.of(context).primaryColor,
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: Center(
                     child: Text(
-                      'U redu',
+                      button2Text!,
                       style: TextStyle(
                         //fontWeight: FontWeight.bold,
-                        fontSize: 14,
+                        fontSize: 25,
                         color: Colors.white,
                       ),
                     ),
                   ),
                 ),
               ),
-            ),
           ],
         );
       },
     );
+  }
+
+  static String? stavke(int kolicina) {
+    if (kolicina % 10 == 1 && kolicina != 11) {
+      return 'stavka';
+    } else if ((kolicina % 10 == 2 || kolicina % 10 == 3 || kolicina % 10 == 4) && kolicina != 12 || kolicina != 13 || kolicina != 14) {
+      return 'stavke';
+    }
+
+    if (kolicina % 10 == 0 || kolicina % 10 > 4) {
+      return 'stavki';
+    }
+    return null;
   }
 }

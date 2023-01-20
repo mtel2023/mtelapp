@@ -6,7 +6,10 @@ import 'package:iconsax/iconsax.dart';
 import 'package:mtelapp/components/button.dart';
 import 'package:mtelapp/components/customAppbar.dart';
 import 'package:mtelapp/components/metode.dart';
+import 'package:mtelapp/providers/orders_provider.dart';
 import 'package:mtelapp/models/proizvod.dart';
+import 'package:mtelapp/providers/korpa_provider.dart';
+import 'package:mtelapp/providers/market_provider.dart';
 import 'package:mtelapp/providers/proizvod_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -20,38 +23,113 @@ class KorpaScreen extends StatefulWidget {
 
 class _KorpaScreenState extends State<KorpaScreen> {
   @override
-  bool isInit = true;
   bool isLoading = false;
-  void didChangeDependencies() {
-    // TODO: implement didChangeDependencies
-    super.didChangeDependencies();
-    if (isInit) {
+
+  Future<void> dodaj() async {
+    final orders = Provider.of<Orders>(context, listen: false);
+    final korpa = Provider.of<Korpa>(context, listen: false);
+
+    try {
       setState(() {
         isLoading = true;
       });
-      try {
-        Provider.of<Proizvodi>(context).readProizvode().then((value) {
-          setState(() {
-            isLoading = false;
-          });
+      await orders.addOrder(korpa.total, korpa.items.values.toList()).then((value) {
+        setState(() {
+          isLoading = false;
         });
-      } on Exception catch (exception) {
-        print('UFATILI SMO EROR');
-        Metode.showErrorDialog('Došlo je do greške', context);
+        korpa.clear();
+      });
+    } on HttpException catch (error) {
+      String emessage = 'Došlo je do greške';
+
+      Metode.showErrorDialog(
+        message: emessage,
+        context: context,
+        naslov: 'Greška',
+        isButton2: false,
+        button1Fun: () {
+          Navigator.pop(context);
+        },
+        button1Text: 'U redu',
+      );
+
+      setState(() {
         isLoading = false;
-      } catch (e) {
-        print('UFATILI SMO EROR');
-        Metode.showErrorDialog('Došlo je do greške', context);
+      });
+    } catch (e) {
+      Metode.showErrorDialog(
+        message: 'Došlo je do greške',
+        context: context,
+        naslov: 'Greška',
+        isButton2: false,
+        button1Fun: () {
+          Navigator.pop(context);
+        },
+        button1Text: 'U redu',
+      );
+      setState(() {
         isLoading = false;
-      }
+      });
     }
-    isInit = false;
+  }
+
+  void showErrorDialog({button1Fun, button2Fun}) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        final medijakveri = MediaQuery.of(context);
+        return AlertDialog(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          content: Text(
+            'Da li ste sigurni da želite da uklonite stavku iz korpe?',
+            style: TextStyle(fontSize: 20, color: Colors.grey.shade700),
+            textAlign: TextAlign.center,
+          ),
+          actions: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Button(
+                  borderRadius: 20,
+                  visina: medijakveri.size.height * 0.016,
+                  sirina: medijakveri.size.width * 0.12,
+                  funkcija: () => button1Fun(),
+                  horizontalMargin: 0,
+                  fontsize: 16,
+                  buttonText: 'Otkaži',
+                  textColor: Colors.black,
+                  isBorder: true,
+                  color: Colors.white,
+                ),
+                SizedBox(width: medijakveri.size.width * 0.01),
+                Button(
+                  borderRadius: 20,
+                  visina: medijakveri.size.height * 0.016,
+                  sirina: medijakveri.size.width * 0.12,
+                  funkcija: () => button2Fun!(),
+                  horizontalMargin: 0,
+                  fontsize: 16,
+                  buttonText: 'Ukloni',
+                  textColor: Colors.white,
+                  isBorder: false,
+                  color: Color.fromARGB(255, 255, 17, 0),
+                )
+              ],
+            ),
+            SizedBox(
+              height: medijakveri.size.height * 0.01,
+              // height: 20,
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     final medijakveri = MediaQuery.of(context);
-    final proizvodi = Provider.of<Proizvodi>(context);
+    final korpa = Provider.of<Korpa>(context);
     return Scaffold(
       backgroundColor: Color.fromRGBO(243, 243, 243, 1),
       body: Column(
@@ -70,6 +148,7 @@ class _KorpaScreenState extends State<KorpaScreen> {
             ),
           ),
           Container(
+            // color: Colors.white,
             margin: EdgeInsets.symmetric(horizontal: medijakveri.size.width * 0.09),
             child: Column(
               children: [
@@ -86,81 +165,131 @@ class _KorpaScreenState extends State<KorpaScreen> {
                         ),
                       ),
                       Text(
-                        '${proizvodi.listaProizvoda.length} stavke',
+                        '${korpa.items.length} ${Metode.stavke(korpa.items.length)}',
                         style: TextStyle(
                           color: Colors.grey,
                           fontSize: 18,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ],
                   ),
                 ),
                 isLoading
-                    ? CircularProgressIndicator()
-                    : Container(
+                    ? Container(
                         height: (medijakveri.size.height - medijakveri.padding.top) * 0.62,
-                        child: ListView.builder(
-                          padding: EdgeInsets.only(top: (medijakveri.size.height - medijakveri.padding.top) * 0.001),
-                          itemCount: proizvodi.listaProizvoda.length,
-                          itemBuilder: (context, i) => Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: Colors.white,
+                        child: Center(child: CircularProgressIndicator()),
+                      )
+                    : korpa.items.length == 0
+                        ? Container(
+                            height: (medijakveri.size.height - medijakveri.padding.top) * 0.62,
+                            child: Center(
+                              child: Text(
+                                'Prazno',
+                                style: TextStyle(
+                                  fontSize: 25,
+                                  color: Colors.grey,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
                             ),
-                            height: (medijakveri.size.height - medijakveri.padding.top) * 0.13,
-                            margin: EdgeInsets.symmetric(vertical: (medijakveri.size.height - medijakveri.padding.top) * 0.013),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Row(
+                          )
+                        : Container(
+                            height: (medijakveri.size.height - medijakveri.padding.top) * 0.62,
+                            child: ListView.builder(
+                              padding: EdgeInsets.only(top: (medijakveri.size.height - medijakveri.padding.top) * 0.001),
+                              itemCount: korpa.items.length,
+                              itemBuilder: (context, i) => Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20),
+                                  color: Colors.white,
+                                ),
+                                height: (medijakveri.size.height - medijakveri.padding.top) * 0.13,
+                                margin: EdgeInsets.symmetric(vertical: (medijakveri.size.height - medijakveri.padding.top) * 0.013),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Container(
-                                      margin: EdgeInsets.symmetric(horizontal: 5),
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(20),
-                                        child: Image.network(
-                                          proizvodi.listaProizvoda[i].imageUrl,
-                                        ),
-                                      ),
-                                    ),
-                                    SizedBox(width: medijakveri.size.width * 0.02),
-                                    Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                    Row(
                                       children: [
-                                        Text(
-                                          proizvodi.listaProizvoda[i].ime.length > 15 ? '${proizvodi.listaProizvoda[i].ime.substring(0, 18)}...' : proizvodi.listaProizvoda[i].ime,
-                                          style: TextStyle(fontSize: 16),
+                                        Container(
+                                          margin: EdgeInsets.symmetric(horizontal: 5),
+                                          child: ClipRRect(
+                                            borderRadius: BorderRadius.circular(20),
+                                            child: Image.network(
+                                              korpa.items.values.toList()[i].imageUrl,
+                                            ),
+                                          ),
                                         ),
-                                        Text(
-                                          '${proizvodi.listaProizvoda[i].cijena} €',
-                                          style: TextStyle(fontSize: 16, color: Theme.of(context).primaryColor),
+                                        // SizedBox(width: medijakveri.size.width * 0.005),
+                                        Container(
+                                          height: 60,
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                            children: [
+                                              Text(
+                                                korpa.items.values.toList()[i].ime.length > 15 ? '${korpa.items.values.toList()[i].ime.substring(0, 18)}...' : korpa.items.values.toList()[i].ime,
+                                                style: TextStyle(fontSize: 16),
+                                              ),
+                                              Text(
+                                                '${korpa.items.values.toList()[i].cijena} €',
+                                                style: TextStyle(fontSize: 16, color: Theme.of(context).primaryColor),
+                                              ),
+                                            ],
+                                          ),
                                         ),
                                       ],
                                     ),
+                                    Container(
+                                      height: 80,
+                                      width: 30,
+                                      margin: EdgeInsets.only(right: 10),
+                                      decoration: BoxDecoration(
+                                        color: Color.fromRGBO(243, 243, 243, 1),
+                                        borderRadius: BorderRadius.circular(15),
+                                      ),
+                                      child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          InkWell(
+                                            onTap: () {
+                                              korpa.addItem(korpa.items.values.toList()[i].id, korpa.items.values.toList()[i].cijena, korpa.items.values.toList()[i].ime, korpa.items.values.toList()[i].imageUrl);
+                                            },
+                                            child: Icon(Iconsax.add),
+                                          ),
+                                          Text(
+                                            '${korpa.items.values.toList()[i].kolicina}',
+                                            style: TextStyle(color: Theme.of(context).primaryColor),
+                                          ),
+                                          InkWell(
+                                            onTap: () {
+                                              if (korpa.items.values.toList()[i].kolicina > 1) {
+                                                korpa.smanjiKolicinu(korpa.items.values.toList()[i].id);
+                                              } else {
+                                                showErrorDialog(
+                                                  button1Fun: () {
+                                                    Navigator.pop(context);
+                                                  },
+                                                  button2Fun: () {
+                                                    korpa.deleteItem(korpa.items.values.toList()[i].id);
+                                                    Navigator.pop(context);
+                                                  },
+                                                );
+                                              }
+                                            },
+                                            child: Icon(
+                                              Iconsax.minus,
+                                              color: korpa.items.values.toList()[i].kolicina == 1 ? Colors.red : Colors.black,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
                                   ],
                                 ),
-                                Container(
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      InkWell(
-                                        onTap: () {},
-                                        child: Icon(Iconsax.add),
-                                      ),
-                                      Text('1'),
-                                      InkWell(
-                                        onTap: () {},
-                                        child: Icon(Iconsax.minus),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
+                              ),
                             ),
                           ),
-                        ),
-                      ),
                 SizedBox(height: (medijakveri.size.height - medijakveri.padding.top) * 0.02),
               ],
             ),
@@ -191,7 +320,7 @@ class _KorpaScreenState extends State<KorpaScreen> {
                       Column(
                         children: [
                           Text(
-                            '5.69€',
+                            '${korpa.total.toStringAsFixed(2)}€',
                             style: TextStyle(
                               fontSize: 28,
                               color: Theme.of(context).primaryColor,
@@ -199,7 +328,7 @@ class _KorpaScreenState extends State<KorpaScreen> {
                             ),
                           ),
                           Text(
-                            '${proizvodi.listaProizvoda.length} stavke',
+                            '${korpa.items.length} ${Metode.stavke(korpa.items.length)}',
                             style: TextStyle(
                               color: Colors.grey,
                               fontWeight: FontWeight.bold,
@@ -213,7 +342,9 @@ class _KorpaScreenState extends State<KorpaScreen> {
                   Button(
                     borderRadius: 20,
                     visina: (medijakveri.size.height - medijakveri.padding.top) * 0.018,
-                    funkcija: () {},
+                    funkcija: () {
+                      dodaj();
+                    },
                     horizontalMargin: 0,
                     buttonText: 'Sačuvaj kupovinu',
                     textColor: Colors.white,
