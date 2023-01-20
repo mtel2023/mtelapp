@@ -9,7 +9,8 @@ import 'package:mtelapp/screens/auth/login_screen.dart';
 import 'package:mtelapp/screens/auth/register_screen.dart';
 import 'package:mtelapp/screens/bottomNavigation_screen.dart';
 import 'package:mtelapp/screens/korpa_screen.dart';
-import 'package:mtelapp/screens/marketi/marketi2_screen.dart';
+import 'package:mtelapp/screens/marketi/marketi_info_screen.dart';
+import 'package:mtelapp/screens/marketi/marketi_lista_screen.dart';
 import 'package:mtelapp/screens/meni/meni2_screen.dart';
 import 'package:mtelapp/screens/meni/meni3_screen.dart';
 import 'package:mtelapp/screens/meni/meni4_screen.dart';
@@ -19,7 +20,6 @@ import 'package:mtelapp/screens/podesavanja_screen.dart';
 import 'package:provider/provider.dart';
 
 void main() {
-  WidgetsFlutterBinding.ensureInitialized();
   return runApp(MyApp());
 }
 
@@ -62,7 +62,8 @@ class MyApp extends StatelessWidget {
             Meni3Screen.routeName: (context) => Meni3Screen(),
             Meni4Screen.routeName: (context) => Meni4Screen(),
             KorpaScreen.routeName: (context) => KorpaScreen(),
-            Marketi2Screen.routeName: (context) => Marketi2Screen(),
+            MarketiListaScreen.routeName: (context) => MarketiListaScreen(),
+            MarketiInfoScreen.routeName: (context) => MarketiInfoScreen(),
             PodesavanjaScreen.routeName: (context) => PodesavanjaScreen(),
             LoginScreen.routeName: (context) => LoginScreen(),
             RegisterScreen.routeName: (context) => RegisterScreen(),

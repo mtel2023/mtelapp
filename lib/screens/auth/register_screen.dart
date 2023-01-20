@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:mtelapp/components/button.dart';
 import 'package:mtelapp/components/inputField.dart';
+import 'package:mtelapp/components/metode.dart';
 import 'package:mtelapp/models/http_exception.dart';
 import 'package:mtelapp/providers/auth_provider.dart';
 import 'package:provider/provider.dart';
@@ -26,56 +27,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   final _passwordController = TextEditingController();
   bool isLoading = false;
-  void showErrorDialog(String message) {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-          title: Text(
-            'Greška',
-            textAlign: TextAlign.center,
-          ),
-          content: Padding(
-            padding: const EdgeInsets.only(top: 18.0, bottom: 24),
-            child: Text(
-              message,
-              style: TextStyle(fontSize: 20, color: Colors.grey[700]),
-              textAlign: TextAlign.center,
-            ),
-          ),
-          actions: [
-            InkWell(
-              onTap: () {
-                Navigator.of(context).pop();
-              },
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: 18.0),
-                child: Container(
-                  padding: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height * 0.02),
-                  margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.009),
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).primaryColor,
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Center(
-                    child: Text(
-                      'U redu',
-                      style: TextStyle(
-                        //fontWeight: FontWeight.bold,
-                        fontSize: 14,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ],
-        );
-      },
-    );
-  }
 
   Future<void> _saveRegister() async {
     if (!_form.currentState!.validate()) {
@@ -108,12 +59,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
       } else if (error.toString().contains('WEAK_PASSWORD')) {
         emessage = 'Šifra je previše slaba';
       }
-      showErrorDialog(emessage);
+      Metode.showErrorDialog(emessage, context);
       setState(() {
         isLoading = false;
       });
     } catch (error) {
-      showErrorDialog('Došlo je do greške');
+      Metode.showErrorDialog('Došlo je do greške', context);
       setState(() {
         isLoading = false;
       });

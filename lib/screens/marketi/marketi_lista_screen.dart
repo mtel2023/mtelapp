@@ -10,24 +10,24 @@ import 'package:mtelapp/components/search_bar.dart';
 import 'package:mtelapp/providers/market_provider.dart';
 import 'package:provider/provider.dart';
 
-class Marketi2Screen extends StatefulWidget {
+class MarketiListaScreen extends StatefulWidget {
   static const String routeName = '/marketi2';
 
-  const Marketi2Screen({super.key});
+  const MarketiListaScreen({super.key});
   static bool isInit = true;
 
   @override
-  State<Marketi2Screen> createState() => _Marketi2ScreenState();
+  State<MarketiListaScreen> createState() => _MarketiListaScreenState();
 }
 
-class _Marketi2ScreenState extends State<Marketi2Screen> {
+class _MarketiListaScreenState extends State<MarketiListaScreen> {
   bool isLoading = false;
 
   void didChangeDependencies() {
     // TODO: implement didChangeDependencies
     super.didChangeDependencies();
-    print(Marketi2Screen.isInit);
-    if (Marketi2Screen.isInit) {
+
+    if (MarketiListaScreen.isInit) {
       setState(() {
         isLoading = true;
       });
@@ -36,8 +36,8 @@ class _Marketi2ScreenState extends State<Marketi2Screen> {
           isLoading = false;
         });
       });
-    } else {}
-    Marketi2Screen.isInit = false;
+    }
+    MarketiListaScreen.isInit = false;
   }
 
   @override
@@ -76,7 +76,12 @@ class _Marketi2ScreenState extends State<Marketi2Screen> {
                         itemBuilder: (ctx, i) => Column(
                           children: [
                             SizedBox(height: (medijakveri.size.height - medijakveri.padding.top) * 0.02),
-                            MarketiItem(medijakveri: medijakveri, title: '${marketi.listaMarketa[i].ime}', logo: '${marketi.listaMarketa[i].logo}'),
+                            MarketiItem(
+                              medijakveri: medijakveri,
+                              ime: '${marketi.listaMarketa[i].ime}',
+                              logo: '${marketi.listaMarketa[i].logo}',
+                              marketId: marketi.listaMarketa[i].id,
+                            ),
                           ],
                         ),
                       ),

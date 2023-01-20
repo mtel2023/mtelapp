@@ -6,7 +6,7 @@ import 'package:mtelapp/main.dart';
 import 'package:mtelapp/providers/market_provider.dart';
 import 'package:mtelapp/providers/proizvod_provider.dart';
 import 'package:mtelapp/screens/korpa_screen.dart';
-import 'package:mtelapp/screens/marketi/marketi2_screen.dart';
+import 'package:mtelapp/screens/marketi/marketi_lista_screen.dart';
 import 'package:provider/provider.dart';
 
 class Marketi1Screen extends StatelessWidget {
@@ -24,7 +24,7 @@ class Marketi1Screen extends StatelessWidget {
             SafeArea(
               child: CustomAppBar(
                 funkcija: () {
-                  Provider.of<Marketi>(context, listen: false).addMarket('Laković', 'https://barinfo.me/wp-content/uploads/2021/06/HDL-LAKOVI%C4%86-logo.jpg', []);
+                  // Provider.of<Marketi>(context, listen: false).addMarket('Laković', 'https://barinfo.me/wp-content/uploads/2021/06/HDL-LAKOVI%C4%86-logo.jpg', []);
                 },
                 prvaIkonica: Iconsax.home,
                 drugaIkonica: Iconsax.shopping_cart,
@@ -50,12 +50,12 @@ class Marketi1Screen extends StatelessWidget {
                         'Marketi',
                         style: TextStyle(
                           fontSize: 20,
-                          fontWeight: FontWeight.w500,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                       TextButton(
                         onPressed: () {
-                          Navigator.of(context).pushNamed(Marketi2Screen.routeName);
+                          Navigator.of(context).pushNamed(MarketiListaScreen.routeName);
                         },
                         child: Text(
                           'Pogledaj sve',

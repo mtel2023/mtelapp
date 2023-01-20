@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:mtelapp/components/button.dart';
 import 'package:mtelapp/components/customAppbar.dart';
+import 'package:mtelapp/components/metode.dart';
 import 'package:mtelapp/models/proizvod.dart';
 import 'package:mtelapp/providers/proizvod_provider.dart';
 import 'package:provider/provider.dart';
@@ -28,11 +29,21 @@ class _KorpaScreenState extends State<KorpaScreen> {
       setState(() {
         isLoading = true;
       });
-      Provider.of<Proizvodi>(context).readProizvode().then((value) {
-        setState(() {
-          isLoading = false;
+      try {
+        Provider.of<Proizvodi>(context).readProizvode().then((value) {
+          setState(() {
+            isLoading = false;
+          });
         });
-      });
+      } on Exception catch (exception) {
+        print('UFATILI SMO EROR');
+        Metode.showErrorDialog('Došlo je do greške', context);
+        isLoading = false;
+      } catch (e) {
+        print('UFATILI SMO EROR');
+        Metode.showErrorDialog('Došlo je do greške', context);
+        isLoading = false;
+      }
     }
     isInit = false;
   }

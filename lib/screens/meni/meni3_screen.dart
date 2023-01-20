@@ -116,7 +116,7 @@ class _Meni3ScreenState extends State<Meni3Screen> {
           setState(() {
             isLoading = false;
           });
-          Navigator.of(context).pushReplacementNamed(Meni2Screen.routeName);
+          Navigator.pop(context);
         });
       });
     } on HttpException catch (error) {
