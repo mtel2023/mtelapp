@@ -12,12 +12,14 @@ class inputField extends StatelessWidget {
   final Function(String? p1)? onSaved;
   final Function(String? p1)? onChanged;
   final Function(String? p1)? onFieldSubmitted;
+  final FocusNode? focusNode;
   const inputField({
     Key? key,
     required this.medijakveri,
     required this.label,
     this.hintText,
     this.initalValue,
+    this.focusNode,
     required this.doneAction,
     required this.keyboardTip,
     required this.obscureText,
@@ -47,11 +49,13 @@ class inputField extends StatelessWidget {
               keyboardType: keyboardTip,
               textInputAction: doneAction,
               obscureText: obscureText,
+              focusNode: focusNode,
               onChanged: onChanged,
               validator: validator,
               onSaved: onSaved,
               onFieldSubmitted: onFieldSubmitted,
               initialValue: initalValue,
+              textAlignVertical: TextAlignVertical.center,
               decoration: InputDecoration(
                 hintText: hintText,
                 hintStyle: TextStyle(color: Colors.grey),

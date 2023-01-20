@@ -23,7 +23,7 @@ class _MarketiInfoScreenState extends State<MarketiInfoScreen> {
   @override
   bool isLoading = false;
   bool isInit = true;
-  void didChangeDependencies() {
+  void didChangeDependencies() async {
     // TODO: implement didChangeDependencies
     super.didChangeDependencies();
     final args = ModalRoute.of(context)?.settings.arguments as Map<String, String>;
@@ -32,7 +32,7 @@ class _MarketiInfoScreenState extends State<MarketiInfoScreen> {
       setState(() {
         isLoading = true;
       });
-      Provider.of<Proizvodi>(context).readProizvodePoMarketId(args['marketId']!).then((value) {
+      await Provider.of<Proizvodi>(context).readProizvodePoMarketId(args['marketId']!).then((value) {
         setState(() {
           isLoading = false;
         });
@@ -152,7 +152,32 @@ class _MarketiInfoScreenState extends State<MarketiInfoScreen> {
                             IconButton(
                               onPressed: () {
                                 // print(proizvodi.listaProizvoda[i].id);
-                                korpa.addItem(proizvodi.listaProizvoda[i].id, proizvodi.listaProizvoda[i].cijena, proizvodi.listaProizvoda[i].ime, proizvodi.listaProizvoda[i].imageUrl);
+                                korpa.addItem(
+                                  proizvodi.listaProizvoda[i].id,
+                                  proizvodi.listaProizvoda[i].cijena,
+                                  proizvodi.listaProizvoda[i].ime,
+                                  proizvodi.listaProizvoda[i].imageUrl,
+                                );
+                                ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    behavior: SnackBarBehavior.floating,
+                                    elevation: 4,
+                                    dismissDirection: DismissDirection.none,
+                                    backgroundColor: Colors.white,
+                                    content: Text(
+                                      'Stavka dodana u korpu!',
+                                      style: TextStyle(color: Theme.of(context).primaryColor),
+                                    ),
+                                    action: SnackBarAction(
+                                      label: 'Pogledaj',
+                                      textColor: Theme.of(context).primaryColor,
+                                      onPressed: () {
+                                        Navigator.of(context).pushNamed(KorpaScreen.routeName);
+                                      },
+                                    ),
+                                  ),
+                                );
                               },
                               icon: Icon(
                                 Iconsax.add_circle,
