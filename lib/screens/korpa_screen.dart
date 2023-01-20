@@ -92,7 +92,7 @@ class _KorpaScreenState extends State<KorpaScreen> {
                 Button(
                   borderRadius: 20,
                   visina: medijakveri.size.height * 0.016,
-                  sirina: medijakveri.size.width * 0.12,
+                  sirina: medijakveri.size.width * 0.07,
                   funkcija: () => button1Fun(),
                   horizontalMargin: 0,
                   fontsize: 16,
@@ -101,11 +101,11 @@ class _KorpaScreenState extends State<KorpaScreen> {
                   isBorder: true,
                   color: Colors.white,
                 ),
-                SizedBox(width: medijakveri.size.width * 0.01),
+                SizedBox(width: medijakveri.size.width * 0.03),
                 Button(
                   borderRadius: 20,
                   visina: medijakveri.size.height * 0.016,
-                  sirina: medijakveri.size.width * 0.12,
+                  sirina: medijakveri.size.width * 0.07,
                   funkcija: () => button2Fun!(),
                   horizontalMargin: 0,
                   fontsize: 16,
@@ -148,7 +148,6 @@ class _KorpaScreenState extends State<KorpaScreen> {
             ),
           ),
           Container(
-            // color: Colors.white,
             margin: EdgeInsets.symmetric(horizontal: medijakveri.size.width * 0.09),
             child: Column(
               children: [
@@ -290,7 +289,7 @@ class _KorpaScreenState extends State<KorpaScreen> {
                               ),
                             ),
                           ),
-                SizedBox(height: (medijakveri.size.height - medijakveri.padding.top) * 0.02),
+                // SizedBox(height: (medijakveri.size.height - medijakveri.padding.top) * 0.02),
               ],
             ),
           ),
