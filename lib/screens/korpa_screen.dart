@@ -141,6 +141,7 @@ class _KorpaScreenState extends State<KorpaScreen> {
               prvaIkonicaSize: 34,
               funkcija: () {
                 Navigator.of(context).pop();
+                ScaffoldMessenger.of(context).hideCurrentSnackBar();
               },
               isBlack: true,
               isChevron: false,
@@ -174,14 +175,15 @@ class _KorpaScreenState extends State<KorpaScreen> {
                     ],
                   ),
                 ),
+                SizedBox(height: (medijakveri.size.height - medijakveri.padding.top) * 0.013),
                 isLoading
                     ? Container(
-                        height: (medijakveri.size.height - medijakveri.padding.top) * 0.62,
+                        height: (medijakveri.size.height - medijakveri.padding.top) * 0.6,
                         child: Center(child: CircularProgressIndicator()),
                       )
                     : korpa.items.length == 0
                         ? Container(
-                            height: (medijakveri.size.height - medijakveri.padding.top) * 0.62,
+                            height: (medijakveri.size.height - medijakveri.padding.top) * 0.6,
                             child: Center(
                               child: Text(
                                 'Prazno',
@@ -194,55 +196,52 @@ class _KorpaScreenState extends State<KorpaScreen> {
                             ),
                           )
                         : Container(
-                            height: (medijakveri.size.height - medijakveri.padding.top) * 0.62,
+                            height: (medijakveri.size.height - medijakveri.padding.top) * 0.6,
                             child: ListView.builder(
                               padding: EdgeInsets.only(top: (medijakveri.size.height - medijakveri.padding.top) * 0.001),
                               itemCount: korpa.items.length,
-                              itemBuilder: (context, i) => Dismissible(
-                                key: ValueKey(korpa.items.values.toList()[i].id),
-                                direction: DismissDirection.endToStart,
-                                onDismissed: (direction) {
-                                  korpa.deleteItem(korpa.items.values.toList()[i].id);
-                                  ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      behavior: SnackBarBehavior.floating,
-                                      elevation: 4,
-                                      dismissDirection: DismissDirection.none,
-                                      margin: EdgeInsets.only(bottom: (medijakveri.size.height - medijakveri.padding.top) * 0.225),
-                                      backgroundColor: Colors.white,
-                                      content: Text(
-                                        'Stavka uklonjena iz korpe!',
-                                        style: TextStyle(color: Theme.of(context).primaryColor),
+                              itemBuilder: (context, i) => Column(
+                                children: [
+                                  Dismissible(
+                                    key: ValueKey(korpa.items.values.toList()[i].id),
+                                    direction: DismissDirection.endToStart,
+                                    onDismissed: (direction) {
+                                      korpa.deleteItem(korpa.items.values.toList()[i].id);
+                                      ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                                      ScaffoldMessenger.of(context).showSnackBar(
+                                        SnackBar(
+                                          behavior: SnackBarBehavior.floating,
+                                          elevation: 4,
+                                          dismissDirection: DismissDirection.none,
+                                          margin: EdgeInsets.only(bottom: (medijakveri.size.height - medijakveri.padding.top) * 0.225),
+                                          backgroundColor: Colors.white,
+                                          content: Text(
+                                            'Stavka uklonjena iz korpe!',
+                                            style: TextStyle(color: Theme.of(context).primaryColor),
+                                          ),
+                                          action: SnackBarAction(
+                                            label: 'Vrati',
+                                            textColor: Theme.of(context).primaryColor,
+                                            onPressed: () {
+                                              korpa.restore(korpa.getDeletedItem);
+                                            },
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                    background: Container(
+                                      decoration: BoxDecoration(color: Color.fromRGBO(236, 30, 30, 1), borderRadius: BorderRadius.circular(20)),
+                                      alignment: Alignment.centerRight,
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                                        child: Icon(
+                                          Iconsax.trash,
+                                          color: Colors.white,
+                                          size: 40,
+                                        ),
                                       ),
-                                      action: SnackBarAction(
-                                        label: 'Vrati',
-                                        textColor: Theme.of(context).primaryColor,
-                                        onPressed: () {
-                                          korpa.restore(korpa.getDeletedItem);
-                                        },
-                                      ),
                                     ),
-                                  );
-                                },
-                                background: Container(
-                                  decoration: BoxDecoration(color: Color.fromRGBO(236, 30, 30, 1), borderRadius: BorderRadius.circular(20)),
-                                  alignment: Alignment.centerRight,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Icon(
-                                      Iconsax.trash,
-                                      color: Colors.white,
-                                      size: 40,
-                                    ),
-                                  ),
-                                ),
-                                child: Column(
-                                  children: [
-                                    SizedBox(
-                                      height: (medijakveri.size.height - medijakveri.padding.top) * 0.013,
-                                    ),
-                                    Container(
+                                    child: Container(
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(20),
                                         color: Colors.white,
@@ -329,8 +328,9 @@ class _KorpaScreenState extends State<KorpaScreen> {
                                         ],
                                       ),
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                  SizedBox(height: (medijakveri.size.height - medijakveri.padding.top) * 0.026),
+                                ],
                               ),
                             ),
                           ),

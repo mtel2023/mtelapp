@@ -55,48 +55,73 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
           color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey,
-              spreadRadius: 6,
-              blurRadius: 3,
-              offset: Offset(0, 3), // changes position of shadow
+          border: Border(
+            top: BorderSide(
+              width: 0.3,
+              color: Color.fromRGBO(176, 176, 176, 1),
             ),
-          ],
+          ),
         ),
         height: 88,
-        child: GNav(
-          onTabChange: _selectPage,
-          selectedIndex: _selectedIndex,
-          tabBackgroundColor: Theme.of(context).primaryColor,
-          // backgroundColor: Colors.grey.shade500,
-          activeColor: Colors.white,
-          color: Colors.black,
+        child: BottomNavigationBar(
+          onTap: _selectPage,
+          type: BottomNavigationBarType.fixed,
+          currentIndex: _selectedIndex,
 
-          tabBorderRadius: 10,
-          duration: Duration(milliseconds: 500),
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          // tabBackgroundColor: Theme.of(context).primaryColor,
+          // // backgroundColor: Colors.grey.shade500,
+          // activeColor: Colors.white,
+          // color: Colors.black,
+
+          // tabBorderRadius: 10,
+          // duration: Duration(milliseconds: 500),
+          // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
 
           iconSize: 24,
-          textSize: 10,
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+
+          selectedLabelStyle: TextStyle(fontSize: 12),
+          unselectedLabelStyle: TextStyle(fontSize: 12),
+          // padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
           // tabActiveBorder: Border.all(color: Colors.indigo.shade700, width: 1),
-          tabs: [
-            GButton(
-              icon: Iconsax.shop,
+          selectedItemColor: Theme.of(context).primaryColor,
+          unselectedItemColor: Color.fromRGBO(76, 76, 76, 1),
+          showUnselectedLabels: true,
+          items: [
+            BottomNavigationBarItem(
+              icon: Icon(Iconsax.shop),
+              label: 'Marketi',
             ),
-            GButton(
-              icon: Iconsax.map_1,
+            BottomNavigationBarItem(
+              icon: Icon(Iconsax.map_1),
+              label: 'Mape',
             ),
-            GButton(
-              icon: Iconsax.wallet_money,
+            BottomNavigationBarItem(
+              icon: Icon(Iconsax.wallet_money),
+              label: 'Trgovanje',
             ),
-            GButton(
-              icon: Iconsax.status_up,
+            BottomNavigationBarItem(
+              icon: Icon(Iconsax.status_up),
+              label: 'Statistika',
             ),
-            GButton(
-              icon: Iconsax.menu,
+            BottomNavigationBarItem(
+              icon: Icon(Iconsax.menu),
+              label: 'Meni',
             ),
+            // GButton(
+            //   icon: Iconsax.shop,
+            // ),
+            // GButton(
+            //   icon: Iconsax.map_1,
+            // ),
+            // GButton(
+            //   icon: Iconsax.wallet_money,
+            // ),
+            // GButton(
+            //   icon: Iconsax.status_up,
+            // ),
+            // GButton(
+            //   icon: Iconsax.menu,
+            // ),
           ],
         ),
       ),
