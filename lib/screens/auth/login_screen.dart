@@ -18,12 +18,16 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final _form = GlobalKey<FormState>();
-
+  final emailNode = FocusNode();
+  final sifraNode = FocusNode();
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    focusNode.addListener(() {
+    emailNode.addListener(() {
+      setState(() {});
+    });
+    sifraNode.addListener(() {
       setState(() {});
     });
   }
@@ -126,8 +130,6 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
-  final focusNode = FocusNode();
-
   bool isPassHidden = true;
   void changePassVisibility() {
     setState(() {
@@ -161,9 +163,17 @@ class _LoginScreenState extends State<LoginScreen> {
                   keyboardTip: TextInputType.emailAddress,
                   obscureText: false,
                   onChanged: (_) => _form.currentState!.validate(),
+                  focusNode: emailNode,
                   validator: (value) {
+                    if (!emailNode.hasFocus) {
+                      return null;
+                    }
+
                     if (value!.isEmpty) {
                       return 'Molimo Vas da unesete email adresu';
+                    }
+                    if (!value.contains(RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+"))) {
+                      return 'Molimo Vas unesite validnu email adresu';
                     }
                   },
                   onSaved: (value) {
@@ -185,12 +195,16 @@ class _LoginScreenState extends State<LoginScreen> {
                       ClipRRect(
                         borderRadius: BorderRadius.circular(20),
                         child: TextFormField(
-                          focusNode: focusNode,
                           keyboardType: TextInputType.text,
                           textInputAction: TextInputAction.done,
                           obscureText: isPassHidden,
+                          focusNode: sifraNode,
                           onChanged: (_) => _form.currentState!.validate(),
                           validator: (value) {
+                            if (!sifraNode.hasFocus) {
+                              return null;
+                            }
+
                             if (value!.isEmpty) {
                               return 'Molimo Vas unesite šifru';
                             }
@@ -211,7 +225,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               borderSide: BorderSide(color: Colors.white),
                               borderRadius: BorderRadius.circular(20),
                             ),
-                            suffixIcon: focusNode.hasFocus
+                            suffixIcon: sifraNode.hasFocus
                                 ? IconButton(
                                     onPressed: () => changePassVisibility(),
                                     icon: isPassHidden ? Icon(Iconsax.eye) : Icon(Iconsax.eye_slash),
@@ -273,6 +287,7 @@ class _LoginScreenState extends State<LoginScreen> {
   void dispose() {
     // TODO: implement dispose
     super.dispose();
-    focusNode.dispose();
+    emailNode.dispose();
+    sifraNode.dispose();
   }
 }

@@ -90,11 +90,23 @@ class _RegisterScreenState extends State<RegisterScreen> {
     }
   }
 
+  final imeNode = FocusNode();
+  final prezimeNode = FocusNode();
+  final emailNode = FocusNode();
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     pass1Node.addListener(() {
+      setState(() {});
+    });
+    imeNode.addListener(() {
+      setState(() {});
+    });
+    prezimeNode.addListener(() {
+      setState(() {});
+    });
+    emailNode.addListener(() {
       setState(() {});
     });
     pass2Node.addListener(() {
@@ -146,8 +158,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       doneAction: TextInputAction.next,
                       keyboardTip: TextInputType.name,
                       obscureText: false,
+                      focusNode: imeNode,
                       onChanged: (_) => _form.currentState!.validate(),
                       validator: (value) {
+                        if (!imeNode.hasFocus) {
+                          return null;
+                        }
+                        if (imeNode.hasFocus) {}
+
                         if (value!.isEmpty) {
                           return 'Molimo Vas da unesete ime';
                         }
@@ -168,8 +186,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       doneAction: TextInputAction.next,
                       keyboardTip: TextInputType.text,
                       obscureText: false,
+                      focusNode: prezimeNode,
                       onChanged: (_) => _form.currentState!.validate(),
                       validator: (value) {
+                        if (!prezimeNode.hasFocus) {
+                          return null;
+                        }
                         if (value!.isEmpty) {
                           return 'Molimo Vas da unesete prezime';
                         }
@@ -190,8 +212,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     doneAction: TextInputAction.next,
                     keyboardTip: TextInputType.emailAddress,
                     obscureText: false,
+                    focusNode: emailNode,
                     onChanged: (_) => _form.currentState!.validate(),
                     validator: (value) {
+                      if (!emailNode.hasFocus) {
+                        return null;
+                      }
+
                       if (value!.isEmpty) {
                         return 'Molimo Vas da unesete email adresu';
                       }
@@ -228,6 +255,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             },
                             onChanged: (_) => _form.currentState!.validate(),
                             validator: (value) {
+                              if (!pass1Node.hasFocus) {
+                                return null;
+                              }
                               if (value!.isEmpty) {
                                 return 'Molimo Vas unesite šifru';
                               }
@@ -280,6 +310,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             obscureText: isPassHidden2,
                             onChanged: (_) => _form.currentState!.validate(),
                             validator: (value) {
+                              if (!pass2Node.hasFocus) {
+                                return null;
+                              }
+
                               if (value!.isEmpty) {
                                 return 'Molimo Vas unesite šifru';
                               }
@@ -360,5 +394,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
     super.dispose();
     pass1Node.dispose();
     pass2Node.dispose();
+    imeNode.dispose();
+    prezimeNode.dispose();
+    emailNode.dispose();
   }
 }

@@ -198,87 +198,132 @@ class _KorpaScreenState extends State<KorpaScreen> {
                             child: ListView.builder(
                               padding: EdgeInsets.only(top: (medijakveri.size.height - medijakveri.padding.top) * 0.001),
                               itemCount: korpa.items.length,
-                              itemBuilder: (context, i) => Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
-                                  color: Colors.white,
+                              itemBuilder: (context, i) => Dismissible(
+                                key: ValueKey(korpa.items.values.toList()[i].id),
+                                direction: DismissDirection.endToStart,
+                                onDismissed: (direction) {
+                                  korpa.deleteItem(korpa.items.values.toList()[i].id);
+                                  ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      behavior: SnackBarBehavior.floating,
+                                      elevation: 4,
+                                      dismissDirection: DismissDirection.none,
+                                      margin: EdgeInsets.only(bottom: (medijakveri.size.height - medijakveri.padding.top) * 0.225),
+                                      backgroundColor: Colors.white,
+                                      content: Text(
+                                        'Stavka uklonjena iz korpe!',
+                                        style: TextStyle(color: Theme.of(context).primaryColor),
+                                      ),
+                                      action: SnackBarAction(
+                                        label: 'Vrati',
+                                        textColor: Theme.of(context).primaryColor,
+                                        onPressed: () {
+                                          korpa.restore(korpa.getDeletedItem);
+                                        },
+                                      ),
+                                    ),
+                                  );
+                                },
+                                background: Container(
+                                  decoration: BoxDecoration(color: Color.fromRGBO(236, 30, 30, 1), borderRadius: BorderRadius.circular(20)),
+                                  alignment: Alignment.centerRight,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Icon(
+                                      Iconsax.trash,
+                                      color: Colors.white,
+                                      size: 40,
+                                    ),
+                                  ),
                                 ),
-                                height: (medijakveri.size.height - medijakveri.padding.top) * 0.13,
-                                margin: EdgeInsets.symmetric(vertical: (medijakveri.size.height - medijakveri.padding.top) * 0.013),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                child: Column(
                                   children: [
-                                    Row(
-                                      children: [
-                                        Container(
-                                          margin: EdgeInsets.symmetric(horizontal: 5),
-                                          child: ClipRRect(
-                                            borderRadius: BorderRadius.circular(20),
-                                            child: Image.network(
-                                              korpa.items.values.toList()[i].imageUrl,
-                                            ),
-                                          ),
-                                        ),
-                                        // SizedBox(width: medijakveri.size.width * 0.005),
-                                        Container(
-                                          height: 60,
-                                          child: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                    SizedBox(
+                                      height: (medijakveri.size.height - medijakveri.padding.top) * 0.013,
+                                    ),
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(20),
+                                        color: Colors.white,
+                                      ),
+                                      height: (medijakveri.size.height - medijakveri.padding.top) * 0.13,
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Row(
                                             children: [
-                                              Text(
-                                                korpa.items.values.toList()[i].ime.length > 15 ? '${korpa.items.values.toList()[i].ime.substring(0, 18)}...' : korpa.items.values.toList()[i].ime,
-                                                style: TextStyle(fontSize: 16),
+                                              Container(
+                                                margin: EdgeInsets.symmetric(horizontal: 5),
+                                                child: ClipRRect(
+                                                  borderRadius: BorderRadius.circular(20),
+                                                  child: Image.network(
+                                                    korpa.items.values.toList()[i].imageUrl,
+                                                  ),
+                                                ),
                                               ),
-                                              Text(
-                                                '${korpa.items.values.toList()[i].cijena} €',
-                                                style: TextStyle(fontSize: 16, color: Theme.of(context).primaryColor),
+                                              Container(
+                                                height: 60,
+                                                child: Column(
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                  children: [
+                                                    Text(
+                                                      korpa.items.values.toList()[i].ime.length > 15 ? '${korpa.items.values.toList()[i].ime.substring(0, 18)}...' : korpa.items.values.toList()[i].ime,
+                                                      style: TextStyle(fontSize: 16),
+                                                    ),
+                                                    Text(
+                                                      '${korpa.items.values.toList()[i].cijena} €',
+                                                      style: TextStyle(fontSize: 16, color: Theme.of(context).primaryColor),
+                                                    ),
+                                                  ],
+                                                ),
                                               ),
                                             ],
                                           ),
-                                        ),
-                                      ],
-                                    ),
-                                    Container(
-                                      height: 80,
-                                      width: 30,
-                                      margin: EdgeInsets.only(right: 10),
-                                      decoration: BoxDecoration(
-                                        color: Color.fromRGBO(243, 243, 243, 1),
-                                        borderRadius: BorderRadius.circular(15),
-                                      ),
-                                      child: Column(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [
-                                          InkWell(
-                                            onTap: () {
-                                              korpa.addItem(korpa.items.values.toList()[i].id, korpa.items.values.toList()[i].cijena, korpa.items.values.toList()[i].ime, korpa.items.values.toList()[i].imageUrl);
-                                            },
-                                            child: Icon(Iconsax.add),
-                                          ),
-                                          Text(
-                                            '${korpa.items.values.toList()[i].kolicina}',
-                                            style: TextStyle(color: Theme.of(context).primaryColor),
-                                          ),
-                                          InkWell(
-                                            onTap: () {
-                                              if (korpa.items.values.toList()[i].kolicina > 1) {
-                                                korpa.smanjiKolicinu(korpa.items.values.toList()[i].id);
-                                              } else {
-                                                showErrorDialog(
-                                                  button1Fun: () {
-                                                    Navigator.pop(context);
+                                          Container(
+                                            height: 80,
+                                            width: 30,
+                                            margin: EdgeInsets.only(right: 10),
+                                            decoration: BoxDecoration(
+                                              color: Color.fromRGBO(243, 243, 243, 1),
+                                              borderRadius: BorderRadius.circular(15),
+                                            ),
+                                            child: Column(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                InkWell(
+                                                  onTap: () {
+                                                    korpa.addItem(korpa.items.values.toList()[i].id, korpa.items.values.toList()[i].cijena, korpa.items.values.toList()[i].ime, korpa.items.values.toList()[i].imageUrl);
                                                   },
-                                                  button2Fun: () {
-                                                    korpa.deleteItem(korpa.items.values.toList()[i].id);
-                                                    Navigator.pop(context);
+                                                  child: Icon(Iconsax.add),
+                                                ),
+                                                Text(
+                                                  '${korpa.items.values.toList()[i].kolicina}',
+                                                  style: TextStyle(color: Theme.of(context).primaryColor),
+                                                ),
+                                                InkWell(
+                                                  onTap: () {
+                                                    if (korpa.items.values.toList()[i].kolicina > 1) {
+                                                      korpa.smanjiKolicinu(korpa.items.values.toList()[i].id);
+                                                    } else {
+                                                      showErrorDialog(
+                                                        button1Fun: () {
+                                                          Navigator.pop(context);
+                                                        },
+                                                        button2Fun: () {
+                                                          korpa.deleteItem(korpa.items.values.toList()[i].id);
+                                                          Navigator.pop(context);
+                                                        },
+                                                      );
+                                                    }
                                                   },
-                                                );
-                                              }
-                                            },
-                                            child: Icon(
-                                              Iconsax.minus,
-                                              color: korpa.items.values.toList()[i].kolicina == 1 ? Colors.red : Colors.black,
+                                                  child: Icon(
+                                                    Iconsax.minus,
+                                                    color: korpa.items.values.toList()[i].kolicina == 1 ? Colors.red : Colors.black,
+                                                  ),
+                                                ),
+                                              ],
                                             ),
                                           ),
                                         ],
@@ -289,11 +334,11 @@ class _KorpaScreenState extends State<KorpaScreen> {
                               ),
                             ),
                           ),
-                // SizedBox(height: (medijakveri.size.height - medijakveri.padding.top) * 0.02),
               ],
             ),
           ),
           Container(
+            height: ((medijakveri.size.height - medijakveri.padding.top) * 0.225),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.only(

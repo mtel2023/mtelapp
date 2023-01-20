@@ -5,11 +5,17 @@ import 'package:mtelapp/models/korpa_item.dart';
 
 class Korpa with ChangeNotifier {
   late Map<String, KorpaItem> _items;
+  late KorpaItem _deletedItem;
 
   String? authToken;
+
   Korpa(this.authToken, this._items);
   Map<String, KorpaItem> get items {
     return {..._items};
+  }
+
+  KorpaItem get getDeletedItem {
+    return _deletedItem;
   }
 
   double get total {
@@ -52,7 +58,23 @@ class Korpa with ChangeNotifier {
     notifyListeners();
   }
 
+  void restore(_deletedItem) {
+    _items.putIfAbsent(
+      _deletedItem.id,
+      () => KorpaItem(
+        id: _deletedItem.id,
+        ime: _deletedItem.ime,
+        kolicina: _deletedItem.kolicina,
+        cijena: _deletedItem.cijena,
+        imageUrl: _deletedItem.imageUrl,
+      ),
+    );
+    notifyListeners();
+  }
+
   void deleteItem(String proizvodId) {
+    _deletedItem = _items[proizvodId]!;
+
     _items.remove(proizvodId);
     notifyListeners();
   }
