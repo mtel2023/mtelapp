@@ -10,8 +10,8 @@ import 'package:mtelapp/components/inputField.dart';
 import 'package:mtelapp/components/metode.dart';
 import 'package:mtelapp/models/http_exception.dart';
 import 'package:mtelapp/providers/auth_provider.dart';
-import 'package:mtelapp/screens/meni2_screen.dart';
-import 'package:mtelapp/screens/meni4_screen.dart';
+import 'package:mtelapp/screens/meni/meni2_screen.dart';
+
 import 'package:provider/provider.dart';
 
 class Meni3Screen extends StatefulWidget {
@@ -116,7 +116,7 @@ class _Meni3ScreenState extends State<Meni3Screen> {
           setState(() {
             isLoading = false;
           });
-          Navigator.of(context).pushReplacementNamed(Meni2Screen.routeName);
+          Navigator.pop(context);
         });
       });
     } on HttpException catch (error) {
@@ -136,56 +136,60 @@ class _Meni3ScreenState extends State<Meni3Screen> {
   Widget build(BuildContext context) {
     final medijakveri = MediaQuery.of(context);
     return Scaffold(
+      backgroundColor: Color.fromRGBO(243, 243, 243, 1),
+      appBar: PreferredSize(
+        preferredSize: Size(0, 100),
+        child: SafeArea(
+          child: Container(
+            margin: EdgeInsets.symmetric(horizontal: medijakveri.size.width * 0.07),
+            height: 100,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    IconButton(
+                      padding: EdgeInsets.zero,
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      icon: Icon(
+                        Iconsax.arrow_circle_left,
+                        size: 34,
+                      ),
+                    ),
+                    SizedBox(width: 5),
+                  ],
+                ),
+                Text(
+                  'Uredi profil',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 22,
+                    color: Colors.black,
+                  ),
+                ),
+                isLoading
+                    ? SizedBox(
+                        height: 26,
+                        width: 26,
+                        child: CircularProgressIndicator(),
+                      )
+                    : IconButton(
+                        onPressed: () => _saveForm(),
+                        icon: Icon(
+                          Iconsax.tick_circle,
+                          size: 34,
+                        ),
+                      ),
+              ],
+            ),
+          ),
+        ),
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            SafeArea(
-              child: Container(
-                margin: EdgeInsets.symmetric(horizontal: medijakveri.size.width * 0.07),
-                height: 100,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      children: [
-                        IconButton(
-                          padding: EdgeInsets.zero,
-                          onPressed: () {
-                            Navigator.of(context).pushReplacementNamed(Meni2Screen.routeName);
-                          },
-                          icon: Icon(
-                            Iconsax.arrow_circle_left,
-                            size: 34,
-                          ),
-                        ),
-                        SizedBox(width: 5),
-                      ],
-                    ),
-                    Text(
-                      'Uredi profil',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 22,
-                        color: Colors.black,
-                      ),
-                    ),
-                    isLoading
-                        ? SizedBox(
-                            height: 26,
-                            width: 26,
-                            child: CircularProgressIndicator(),
-                          )
-                        : IconButton(
-                            onPressed: () => _saveForm(),
-                            icon: Icon(
-                              Iconsax.tick_circle,
-                              size: 34,
-                            ),
-                          ),
-                  ],
-                ),
-              ),
-            ),
             Container(
               padding: EdgeInsets.symmetric(horizontal: 30),
               width: double.infinity,
@@ -212,7 +216,7 @@ class _Meni3ScreenState extends State<Meni3Screen> {
                               if (value.length < 2) {
                                 return 'Ime mora biti duže';
                               }
-                              if (value.contains(RegExp(r'[^A-Za-z]'))) {
+                              if (value.contains(RegExp(r'[0-9]'))) {
                                 return 'Ime smije sadržati samo velika i mala slova';
                               }
                             },
@@ -223,11 +227,11 @@ class _Meni3ScreenState extends State<Meni3Screen> {
                           inputField(
                             medijakveri: medijakveri,
                             label: 'Prezime',
-                            onChanged: (_) => _form.currentState!.validate(),
                             initalValue: '${Metode.capitalizeAllWord(auth.getPrezime!)}',
                             doneAction: TextInputAction.next,
                             keyboardTip: TextInputType.name,
                             obscureText: false,
+                            onChanged: (_) => _form.currentState!.validate(),
                             validator: (value) {
                               if (value!.isEmpty) {
                                 return 'Molimo Vas da unesete prezime';
@@ -235,7 +239,7 @@ class _Meni3ScreenState extends State<Meni3Screen> {
                               if (value.length < 2) {
                                 return 'Prezime mora biti duže';
                               }
-                              if (value.contains(RegExp(r'[^A-Za-z]'))) {
+                              if (value.contains(RegExp(r'[0-9]'))) {
                                 return 'Prezime smije sadržati samo velika i mala slova';
                               }
                             },
@@ -247,10 +251,10 @@ class _Meni3ScreenState extends State<Meni3Screen> {
                             medijakveri: medijakveri,
                             label: 'Email',
                             initalValue: '${auth.getEmail}',
-                            onChanged: (_) => _form.currentState!.validate(),
                             doneAction: TextInputAction.next,
                             keyboardTip: TextInputType.emailAddress,
                             obscureText: false,
+                            onChanged: (_) => _form.currentState!.validate(),
                             validator: (value) {
                               if (value!.isEmpty) {
                                 return 'Molimo Vas da unesete email adresu';
@@ -265,12 +269,12 @@ class _Meni3ScreenState extends State<Meni3Screen> {
                           ),
                           inputField(
                             medijakveri: medijakveri,
-                            onChanged: (_) => _form.currentState!.validate(),
                             label: 'Telefon',
                             initalValue: '${auth.getTelefon == 'Prazno' ? '' : auth.getTelefon}',
                             doneAction: TextInputAction.done,
                             keyboardTip: TextInputType.phone,
                             obscureText: false,
+                            onChanged: (_) => _form.currentState!.validate(),
                             validator: (value) {
                               if (value!.isEmpty) {
                                 return null;

@@ -54,6 +54,7 @@ class inputField extends StatelessWidget {
               initialValue: initalValue,
               decoration: InputDecoration(
                 hintText: hintText,
+                hintStyle: TextStyle(color: Colors.grey),
                 filled: true,
                 fillColor: Colors.white,
                 enabledBorder: OutlineInputBorder(

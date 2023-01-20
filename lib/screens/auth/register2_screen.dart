@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-
-import '../components/button.dart';
-import '../components/inputField.dart';
+import 'package:mtelapp/components/button.dart';
+import 'package:mtelapp/components/inputField.dart';
 
 class Register2Screen extends StatelessWidget {
   @override

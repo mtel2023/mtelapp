@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:mtelapp/components/button.dart';
 import 'package:mtelapp/components/inputField.dart';
+import 'package:mtelapp/components/metode.dart';
 import 'package:mtelapp/models/http_exception.dart';
 import 'package:mtelapp/providers/auth_provider.dart';
 import 'package:provider/provider.dart';
@@ -26,56 +27,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   final _passwordController = TextEditingController();
   bool isLoading = false;
-  void showErrorDialog(String message) {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-          title: Text(
-            'Greška',
-            textAlign: TextAlign.center,
-          ),
-          content: Padding(
-            padding: const EdgeInsets.only(top: 18.0, bottom: 24),
-            child: Text(
-              message,
-              style: TextStyle(fontSize: 20, color: Colors.grey[700]),
-              textAlign: TextAlign.center,
-            ),
-          ),
-          actions: [
-            InkWell(
-              onTap: () {
-                Navigator.of(context).pop();
-              },
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: 18.0),
-                child: Container(
-                  padding: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height * 0.02),
-                  margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.009),
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).primaryColor,
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Center(
-                    child: Text(
-                      'U redu',
-                      style: TextStyle(
-                        //fontWeight: FontWeight.bold,
-                        fontSize: 14,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ],
-        );
-      },
-    );
-  }
 
   Future<void> _saveRegister() async {
     if (!_form.currentState!.validate()) {
@@ -97,7 +48,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         setState(() {
           isLoading = false;
         });
-        Navigator.of(context).pop();
+        Navigator.of(context).pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
       });
     } on HttpException catch (error) {
       String emessage = 'Došlo je do greške';
@@ -108,7 +59,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
       } else if (error.toString().contains('WEAK_PASSWORD')) {
         emessage = 'Šifra je previše slaba';
       }
-      showErrorDialog(emessage);
+      Metode.showErrorDialog(emessage, context);
+      setState(() {
+        isLoading = false;
+      });
+    } catch (error) {
+      Metode.showErrorDialog('Došlo je do greške', context);
       setState(() {
         isLoading = false;
       });
@@ -171,9 +127,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       doneAction: TextInputAction.next,
                       keyboardTip: TextInputType.name,
                       obscureText: false,
+                      onChanged: (_) => _form.currentState!.validate(),
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return 'Molimo Vas unesite ime';
+                          return 'Molimo Vas da unesete ime';
+                        }
+                        if (value.length < 2) {
+                          return 'Ime mora biti duže';
+                        }
+                        if (value.contains(RegExp(r'[0-9]'))) {
+                          return 'Ime smije sadržati samo velika i mala slova';
                         }
                       },
                       onSaved: (value) {
@@ -186,29 +149,41 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       doneAction: TextInputAction.next,
                       keyboardTip: TextInputType.text,
                       obscureText: false,
+                      onChanged: (_) => _form.currentState!.validate(),
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return 'Molimo Vas unesite prezime';
+                          return 'Molimo Vas da unesete prezime';
+                        }
+                        if (value.length < 2) {
+                          return 'Prezime mora biti duže';
+                        }
+                        if (value.contains(RegExp(r'[0-9]'))) {
+                          return 'Prezime smije sadržati samo velika i mala slova';
                         }
                       },
                       onSaved: (value) {
                         _authData['prezime'] = value!;
                       }),
                   inputField(
-                      medijakveri: medijakveri,
-                      label: 'Email',
-                      hintText: 'E-mail',
-                      doneAction: TextInputAction.next,
-                      keyboardTip: TextInputType.emailAddress,
-                      obscureText: false,
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'Molimo Vas unesite email';
-                        }
-                      },
-                      onSaved: (value) {
-                        _authData['email'] = value!;
-                      }),
+                    medijakveri: medijakveri,
+                    label: 'Email',
+                    hintText: 'E-mail',
+                    doneAction: TextInputAction.next,
+                    keyboardTip: TextInputType.emailAddress,
+                    obscureText: false,
+                    onChanged: (_) => _form.currentState!.validate(),
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Molimo Vas da unesete email adresu';
+                      }
+                      if (!value.contains(RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+"))) {
+                        return 'Molimo Vas unesite validnu email adresu';
+                      }
+                    },
+                    onSaved: (value) {
+                      _authData['email'] = value!;
+                    },
+                  ),
                   Container(
                     margin: EdgeInsets.only(bottom: (medijakveri.size.height - medijakveri.padding.top) * 0.025),
                     child: Column(
@@ -232,6 +207,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             onFieldSubmitted: (_) {
                               FocusScope.of(context).requestFocus(pass2Node);
                             },
+                            onChanged: (_) => _form.currentState!.validate(),
                             validator: (value) {
                               if (value!.isEmpty) {
                                 return 'Molimo Vas unesite šifru';
@@ -283,6 +259,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             keyboardType: TextInputType.text,
                             textInputAction: TextInputAction.done,
                             obscureText: isPassHidden2,
+                            onChanged: (_) => _form.currentState!.validate(),
                             validator: (value) {
                               if (value!.isEmpty) {
                                 return 'Molimo Vas unesite šifru';

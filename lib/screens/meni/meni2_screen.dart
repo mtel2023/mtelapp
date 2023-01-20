@@ -6,9 +6,11 @@ import 'package:mtelapp/components/kartica.dart';
 import 'package:mtelapp/components/metode.dart';
 import 'package:mtelapp/components/search_bar.dart';
 import 'package:mtelapp/providers/auth_provider.dart';
-import 'package:mtelapp/screens/loginRegister_screen.dart';
-import 'package:mtelapp/screens/meni3_screen.dart';
-import 'package:mtelapp/screens/meni4_screen.dart';
+import 'package:mtelapp/screens/auth/loginRegister_screen.dart';
+
+import 'package:mtelapp/screens/meni/meni3_screen.dart';
+import 'package:mtelapp/screens/meni/meni4_screen.dart';
+
 import 'package:provider/provider.dart';
 
 class Meni2Screen extends StatefulWidget {
@@ -22,7 +24,7 @@ class Meni2Screen extends StatefulWidget {
 class _Meni2ScreenState extends State<Meni2Screen> {
   Widget meniPolje(String label, String hintText, MediaQueryData medijakveri) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: medijakveri.size.width * 0.07),
+      margin: EdgeInsets.only(bottom: (medijakveri.size.height - medijakveri.padding.top) * 0.01),
       child: Column(
         children: [
           Row(
@@ -44,14 +46,6 @@ class _Meni2ScreenState extends State<Meni2Screen> {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
               color: Colors.white,
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.7),
-                  spreadRadius: medijakveri.size.width * 0.001,
-                  blurRadius: 4,
-                  offset: Offset(0, medijakveri.size.height * 0.005), // changes position of shadow
-                ),
-              ],
             ),
             child: Row(
               children: [
@@ -59,7 +53,11 @@ class _Meni2ScreenState extends State<Meni2Screen> {
                   padding: EdgeInsets.symmetric(horizontal: medijakveri.size.width * 0.04),
                   child: Text(
                     hintText,
-                    style: TextStyle(fontSize: 16, color: Colors.grey),
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.grey,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ],
@@ -178,87 +176,69 @@ class _Meni2ScreenState extends State<Meni2Screen> {
     }
 
     return Scaffold(
-      body: Column(
-        children: [
-          SafeArea(
-            child: CustomAppBar(
-              funkcija: () {
-                Navigator.pop(context);
-              },
-              prvaIkonica: Iconsax.arrow_circle_left,
-              prvaIkonicaSize: 34,
-              drugaIkonica: Iconsax.edit,
-              pageTitle: 'Profil',
-              isBlack: true,
-              isChevron: false,
-              isCenter: true,
-              funkcija2: () {
-                Navigator.of(context).pushReplacementNamed(Meni3Screen.routeName);
-              },
-            ),
+      backgroundColor: Color.fromRGBO(243, 243, 243, 1),
+      appBar: PreferredSize(
+        preferredSize: Size(0, 100),
+        child: Container(
+          child: CustomAppBar(
+            funkcija: () {
+              Navigator.pop(context);
+            },
+            prvaIkonica: Iconsax.arrow_circle_left,
+            prvaIkonicaSize: 34,
+            drugaIkonica: Iconsax.edit,
+            pageTitle: 'Profil',
+            isBlack: true,
+            isChevron: false,
+            isCenter: true,
+            funkcija2: () {
+              Navigator.of(context).pushNamed(Meni3Screen.routeName);
+            },
           ),
-          Consumer<Auth>(
-            builder: (context, auth, _) => Column(
+        ),
+      ),
+      body: Container(
+        margin: EdgeInsets.symmetric(horizontal: medijakveri.size.width * 0.08),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Consumer<Auth>(
+              builder: (context, auth, _) => Column(
+                children: [
+                  meniPolje('Ime', '${Metode.capitalizeAllWord(auth.getIme!)}', medijakveri),
+                  meniPolje('Prezime', '${Metode.capitalizeAllWord(auth.getPrezime!)}', medijakveri),
+                  meniPolje('Email', '${auth.getEmail}', medijakveri),
+                  meniPolje('Telefon', ' ${auth.getTelefon}', medijakveri),
+                ],
+              ),
+            ),
+            Column(
               children: [
-                meniPolje('Ime', '${Metode.capitalizeAllWord(auth.getIme!)}', medijakveri),
-                meniPolje('Prezime', '${Metode.capitalizeAllWord(auth.getPrezime!)}', medijakveri),
-                meniPolje('Email', '${auth.getEmail}', medijakveri),
-                meniPolje('Telefon', ' ${auth.getTelefon}', medijakveri),
+                Button(
+                  borderRadius: 20,
+                  visina: (medijakveri.size.height - medijakveri.padding.top) * 0.018,
+                  funkcija: () => Navigator.of(context).pushNamed(Meni4Screen.routeName),
+                  horizontalMargin: 0,
+                  buttonText: 'Promijeni šifru',
+                  textColor: Colors.black,
+                  isBorder: true,
+                  color: Colors.white,
+                ),
+                SizedBox(height: 20),
+                Button(
+                  borderRadius: 20,
+                  visina: (medijakveri.size.height - medijakveri.padding.top) * 0.018,
+                  funkcija: () => _showModal(context),
+                  horizontalMargin: 0,
+                  buttonText: 'Deaktiviraj',
+                  textColor: Colors.white,
+                  isBorder: false,
+                  color: Color.fromRGBO(236, 30, 30, 1),
+                ),
               ],
             ),
-          ),
-          SizedBox(height: (medijakveri.size.height - medijakveri.viewPadding.top) * 0.04),
-          Container(
-            padding: EdgeInsets.symmetric(vertical: medijakveri.size.height * 0.02),
-            margin: EdgeInsets.symmetric(horizontal: medijakveri.size.width * 0.07),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              border: Border.all(
-                color: Colors.grey,
-              ),
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: InkWell(
-              onTap: (() {
-                Navigator.of(context).pushNamed(Meni4Screen.routeName);
-              }),
-              child: Center(
-                child: Text(
-                  'Promijeni šifru',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18,
-                    color: Colors.black,
-                  ),
-                ),
-              ),
-            ),
-          ),
-          SizedBox(height: 20),
-          InkWell(
-            onTap: () {
-              _showModal(context);
-            },
-            child: Container(
-              padding: EdgeInsets.symmetric(vertical: medijakveri.size.height * 0.02),
-              margin: EdgeInsets.symmetric(horizontal: medijakveri.size.width * 0.07),
-              decoration: BoxDecoration(
-                color: Color.fromARGB(255, 236, 30, 30),
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: Center(
-                child: Text(
-                  'Deaktiviraj',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

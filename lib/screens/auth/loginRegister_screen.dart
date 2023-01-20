@@ -1,9 +1,10 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:mtelapp/components/button.dart';
-import 'package:mtelapp/screens/login_screen.dart';
-import 'package:mtelapp/screens/register_screen.dart';
+import 'package:mtelapp/screens/auth/login_screen.dart';
+import 'package:mtelapp/screens/auth/register_screen.dart';
 
 class LoginRegisterScreen extends StatelessWidget {
   const LoginRegisterScreen({super.key});
@@ -12,6 +13,7 @@ class LoginRegisterScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final medijakveri = MediaQuery.of(context);
     return Scaffold(
+      backgroundColor: Color.fromRGBO(243, 243, 243, 1),
       body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -52,7 +54,29 @@ class LoginRegisterScreen extends StatelessWidget {
               margin: EdgeInsets.symmetric(horizontal: medijakveri.size.width * 0.02),
               child: Column(
                 children: [
-                  Text('Prijava pomocu Googla'),
+                  Container(
+                    margin: EdgeInsets.symmetric(horizontal: medijakveri.size.width * 0.07),
+                    padding: EdgeInsets.symmetric(vertical: 16),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset('assets/icons/google1.png'),
+                        SizedBox(width: 15),
+                        Text(
+                          'Prijava pomoću Googla',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            letterSpacing: 0.5,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                   SizedBox(height: 20),
                   Button(
                     buttonText: 'Registrujte se',
@@ -63,7 +87,7 @@ class LoginRegisterScreen extends StatelessWidget {
                     visina: 16,
                     borderRadius: 20,
                     funkcija: () {
-                      Navigator.of(context).pushNamed(RegisterScreen.routeName);
+                      Navigator.of(context).pushReplacementNamed(RegisterScreen.routeName);
                     },
                   ),
                   SizedBox(height: 20),
@@ -75,7 +99,7 @@ class LoginRegisterScreen extends StatelessWidget {
                     textColor: Colors.black,
                     isBorder: true,
                     funkcija: () {
-                      Navigator.of(context).pushNamed(LoginScreen.routeName);
+                      Navigator.of(context).pushReplacementNamed(LoginScreen.routeName);
                     },
                   ),
                 ],

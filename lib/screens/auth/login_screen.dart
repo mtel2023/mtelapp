@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:mtelapp/components/allButtons.dart';
+import 'package:mtelapp/components/button.dart';
 import 'package:mtelapp/components/inputField.dart';
 import 'package:mtelapp/models/http_exception.dart';
 import 'package:mtelapp/providers/auth_provider.dart';
-import 'package:mtelapp/screens/forgotten_password_screen.dart';
-import 'package:mtelapp/screens/register_screen.dart';
+import 'package:mtelapp/screens/auth/forgotten_password_screen.dart';
+import 'package:mtelapp/screens/auth/register_screen.dart';
 import 'package:provider/provider.dart';
-import '../components/button.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String routeName = '/login';
@@ -23,7 +23,7 @@ class _LoginScreenState extends State<LoginScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    pass1Node.addListener(() {
+    focusNode.addListener(() {
       setState(() {});
     });
   }
@@ -102,9 +102,10 @@ class _LoginScreenState extends State<LoginScreen> {
         setState(() {
           isLoading = false;
         });
-        Navigator.of(context).pop();
+        Navigator.of(context).pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
       });
     } on HttpException catch (error) {
+      print(error);
       String emessage = 'Došlo je do greške';
       if (error.toString().contains('INVALID_EMAIL')) {
         emessage = 'E-mail nije validan';
@@ -117,10 +118,15 @@ class _LoginScreenState extends State<LoginScreen> {
       setState(() {
         isLoading = false;
       });
+    } catch (error) {
+      showErrorDialog('Došlo je do greške');
+      setState(() {
+        isLoading = false;
+      });
     }
   }
 
-  final pass1Node = FocusNode();
+  final focusNode = FocusNode();
 
   bool isPassHidden = true;
   void changePassVisibility() {
@@ -129,7 +135,7 @@ class _LoginScreenState extends State<LoginScreen> {
     });
   }
 
-  Widget MojaForma(MediaQueryData medijakveri, context) {
+  Widget mojaForma(MediaQueryData medijakveri, context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -154,12 +160,10 @@ class _LoginScreenState extends State<LoginScreen> {
                   doneAction: TextInputAction.next,
                   keyboardTip: TextInputType.emailAddress,
                   obscureText: false,
+                  onChanged: (_) => _form.currentState!.validate(),
                   validator: (value) {
                     if (value!.isEmpty) {
-                      return 'Molimo Vas unesite E-mail';
-                    }
-                    if (!value.contains('@') || !value.contains('.')) {
-                      return 'Molimo Vas unesite validan E-mail';
+                      return 'Molimo Vas da unesete email adresu';
                     }
                   },
                   onSaved: (value) {
@@ -181,17 +185,19 @@ class _LoginScreenState extends State<LoginScreen> {
                       ClipRRect(
                         borderRadius: BorderRadius.circular(20),
                         child: TextFormField(
-                          focusNode: pass1Node,
+                          focusNode: focusNode,
                           keyboardType: TextInputType.text,
-                          textInputAction: TextInputAction.next,
+                          textInputAction: TextInputAction.done,
                           obscureText: isPassHidden,
+                          onChanged: (_) => _form.currentState!.validate(),
                           validator: (value) {
                             if (value!.isEmpty) {
                               return 'Molimo Vas unesite šifru';
                             }
-                            if (value.length < 5) {
-                              return 'Šifra mora imati više od 4 karaktera';
-                            }
+                          },
+                          onFieldSubmitted: (_) => _saveForm(),
+                          onSaved: (value) {
+                            _data['sifra'] = value!;
                           },
                           decoration: InputDecoration(
                             hintText: 'Šifra',
@@ -205,7 +211,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               borderSide: BorderSide(color: Colors.white),
                               borderRadius: BorderRadius.circular(20),
                             ),
-                            suffixIcon: pass1Node.hasFocus
+                            suffixIcon: focusNode.hasFocus
                                 ? IconButton(
                                     onPressed: () => changePassVisibility(),
                                     icon: isPassHidden ? Icon(Iconsax.eye) : Icon(Iconsax.eye_slash),
@@ -225,9 +231,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         textColor: Colors.white,
                         buttonText: 'Prijavite se',
                         isBorder: false,
-                        funkcija: () {
-                          _saveForm();
-                        },
+                        funkcija: () => _saveForm(),
                         visina: 18,
                         horizontalMargin: 0,
                       ),
@@ -242,9 +246,7 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
         ),
         TextButton(
-          onPressed: () {
-            Navigator.of(context).pushReplacementNamed(RegisterScreen.routeName);
-          },
+          onPressed: () => Navigator.of(context).pushReplacementNamed(RegisterScreen.routeName),
           child: Text('Nemate račun?'),
         ),
       ],
@@ -258,9 +260,9 @@ class _LoginScreenState extends State<LoginScreen> {
       backgroundColor: Color.fromRGBO(243, 243, 243, 1),
       body: SafeArea(
         child: (medijakveri.size.height > 650)
-            ? MojaForma(medijakveri, context)
+            ? mojaForma(medijakveri, context)
             : SingleChildScrollView(
-                child: MojaForma(medijakveri, context),
+                child: mojaForma(medijakveri, context),
               ),
       ),
     );
@@ -270,6 +272,6 @@ class _LoginScreenState extends State<LoginScreen> {
   void dispose() {
     // TODO: implement dispose
     super.dispose();
-    pass1Node.dispose();
+    focusNode.dispose();
   }
 }
