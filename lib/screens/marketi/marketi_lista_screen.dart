@@ -8,6 +8,7 @@ import 'package:mtelapp/components/customAppbar.dart';
 import 'package:mtelapp/components/marketi_item.dart';
 import 'package:mtelapp/components/search_bar.dart';
 import 'package:mtelapp/providers/market_provider.dart';
+import 'package:mtelapp/screens/korpa_screen.dart';
 import 'package:provider/provider.dart';
 
 class MarketiListaScreen extends StatefulWidget {
@@ -53,6 +54,10 @@ class _MarketiListaScreenState extends State<MarketiListaScreen> {
           prvaIkonica: Iconsax.arrow_circle_left,
           prvaIkonicaSize: 34,
           funkcija: () => Navigator.pop(context),
+          drugaIkonica: Iconsax.shopping_cart,
+          funkcija2: () {
+            Navigator.of(context).pushNamed(KorpaScreen.routeName);
+          },
           isBlack: true,
           isChevron: false,
           isCenter: true,

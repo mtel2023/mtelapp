@@ -6,18 +6,23 @@ class Button extends StatelessWidget {
   final Color textColor;
   final bool isBorder;
   final double visina;
+  double? fontsize;
+  double? sirina;
   final double horizontalMargin;
   final double borderRadius;
   final Function funkcija;
 
-  const Button({required this.borderRadius, required this.visina, required this.funkcija, required this.horizontalMargin, required this.buttonText, this.color, required this.textColor, required this.isBorder});
+  Button({required this.borderRadius, this.fontsize, required this.visina, this.sirina, required this.funkcija, required this.horizontalMargin, required this.buttonText, this.color, required this.textColor, required this.isBorder});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () => funkcija(),
       child: Container(
-        padding: EdgeInsets.symmetric(vertical: visina),
+        padding: EdgeInsets.symmetric(
+          vertical: visina,
+          horizontal: sirina == null ? 0 : sirina!,
+        ),
         margin: EdgeInsets.symmetric(horizontal: horizontalMargin),
         decoration: BoxDecoration(
             color: color,
@@ -28,7 +33,12 @@ class Button extends StatelessWidget {
         child: Center(
           child: Text(
             buttonText,
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: textColor, letterSpacing: 1),
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: fontsize == null ? 18 : fontsize,
+              color: textColor,
+              letterSpacing: 1,
+            ),
           ),
         ),
       ),

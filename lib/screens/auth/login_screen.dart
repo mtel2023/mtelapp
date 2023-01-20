@@ -230,6 +230,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         color: Theme.of(context).primaryColor.withOpacity(.8),
                         textColor: Colors.white,
                         buttonText: 'Prijavite se',
+                        fontsize: 18,
                         isBorder: false,
                         funkcija: () => _saveForm(),
                         visina: 18,

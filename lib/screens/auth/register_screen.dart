@@ -59,12 +59,31 @@ class _RegisterScreenState extends State<RegisterScreen> {
       } else if (error.toString().contains('WEAK_PASSWORD')) {
         emessage = 'Šifra je previše slaba';
       }
-      Metode.showErrorDialog(emessage, context);
+      Metode.showErrorDialog(
+        message: emessage,
+        context: context,
+        naslov: 'Greška',
+        isButton2: false,
+        button1Fun: () {
+          Navigator.pop(context);
+        },
+        button1Text: 'U redu',
+      );
+
       setState(() {
         isLoading = false;
       });
     } catch (error) {
-      Metode.showErrorDialog('Došlo je do greške', context);
+      Metode.showErrorDialog(
+        message: 'Došlo je do greške',
+        context: context,
+        naslov: 'Greška',
+        isButton2: false,
+        button1Fun: () {
+          Navigator.pop(context);
+        },
+        button1Text: 'U redu',
+      );
       setState(() {
         isLoading = false;
       });
@@ -304,6 +323,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       : Button(
                           borderRadius: 20,
                           visina: 18,
+                          fontsize: 18,
                           horizontalMargin: 0,
                           buttonText: 'Registrujte se',
                           textColor: Colors.white,

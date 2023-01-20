@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:mtelapp/components/customAppbar.dart';
+import 'package:mtelapp/models/order.dart';
+import 'package:mtelapp/providers/orders_provider.dart';
 import 'package:mtelapp/providers/auth_provider.dart';
+import 'package:mtelapp/providers/korpa_provider.dart';
 import 'package:mtelapp/providers/market_provider.dart';
 import 'package:mtelapp/providers/proizvod_provider.dart';
 import 'package:mtelapp/screens/auth/forgotten_password_screen.dart';
@@ -39,6 +42,14 @@ class MyApp extends StatelessWidget {
           update: (ctx, auth, prosliMarketi) => Marketi(auth.token, prosliMarketi == null ? [] : prosliMarketi.listaMarketa),
           create: (ctx) => Marketi('', []),
         ),
+        ChangeNotifierProxyProvider<Auth, Korpa>(
+          update: (ctx, auth, proslaKorpa) => Korpa(auth.token, proslaKorpa == null ? {} : proslaKorpa.items),
+          create: (ctx) => Korpa('', {}),
+        ),
+        ChangeNotifierProxyProvider<Auth, Orders>(
+          update: (ctx, auth, prosliOrderi) => Orders(auth.token!, auth.userId!, prosliOrderi == null ? [] : prosliOrderi.orders),
+          create: (ctx) => Orders('', '', []),
+        ),
       ],
       child: Consumer<Auth>(
         builder: (context, auth, _) => MaterialApp(
@@ -50,7 +61,7 @@ class MyApp extends StatelessWidget {
                 ),
             fontFamily: 'Poppins',
           ),
-          title: 'Flutter App',
+          title: 'Mtel App',
           home: auth.isAuth
               ? BottomNavigationScreen()
               : FutureBuilder(

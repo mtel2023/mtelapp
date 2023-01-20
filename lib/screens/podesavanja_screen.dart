@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:mtelapp/components/button.dart';
 import 'package:mtelapp/components/customAppbar.dart';
 import 'package:mtelapp/providers/auth_provider.dart';
 import 'package:provider/provider.dart';
@@ -22,60 +23,39 @@ void _showModal(context, medijakveri) {
         textAlign: TextAlign.center,
       ),
       actions: [
-        Column(children: [
-          InkWell(
-            onTap: () {
-              Provider.of<Auth>(context, listen: false).logOut();
-              Navigator.of(context).pop();
-              Navigator.of(context).pop();
-            },
-            child: Padding(
-              padding: const EdgeInsets.only(bottom: 10),
-              child: Container(
-                padding: EdgeInsets.symmetric(vertical: medijakveri.size.height * 0.008),
-                margin: EdgeInsets.symmetric(horizontal: medijakveri.size.width * 0.2),
-                decoration: BoxDecoration(
-                  color: Theme.of(context).primaryColor,
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: Center(
-                  child: Text(
-                    'Da',
-                    style: TextStyle(
-                      //fontWeight: FontWeight.bold,
-                      fontSize: 30,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Button(
+              borderRadius: 20,
+              visina: 20,
+              sirina: 30,
+              funkcija: () {
+                Navigator.pop(context);
+              },
+              horizontalMargin: 0,
+              buttonText: 'Ne',
+              textColor: Colors.black,
+              isBorder: true,
             ),
-          ),
-          InkWell(
-            onTap: () => Navigator.of(context).pop(),
-            child: Padding(
-              padding: const EdgeInsets.only(bottom: 10),
-              child: Container(
-                padding: EdgeInsets.symmetric(vertical: medijakveri.size.height * 0.008),
-                margin: EdgeInsets.symmetric(horizontal: medijakveri.size.width * 0.2),
-                decoration: BoxDecoration(
-                  color: Theme.of(context).primaryColor,
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: Center(
-                  child: Text(
-                    'Ne',
-                    style: TextStyle(
-                      //fontWeight: FontWeight.bold,
-                      fontSize: 30,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ]),
+            SizedBox(width: medijakveri.size.width * 0.08),
+            Button(
+              borderRadius: 20,
+              visina: 20,
+              sirina: 30,
+              funkcija: () {
+                Provider.of<Auth>(context, listen: false).logOut();
+                Navigator.pop(context);
+                Navigator.pop(context);
+              },
+              horizontalMargin: 0,
+              buttonText: 'Da',
+              textColor: Colors.white,
+              color: Color.fromRGBO(236, 30, 30, 1),
+              isBorder: false,
+            )
+          ],
+        )
       ],
     ),
   );
