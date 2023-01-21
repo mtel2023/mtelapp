@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:mtelapp/providers/auth_provider.dart';
+import 'package:mtelapp/providers/market_provider.dart';
 import 'package:mtelapp/providers/orders_provider.dart';
 import 'package:mtelapp/screens/mape_screen.dart';
 import 'package:mtelapp/screens/marketi/marketi1_screen.dart';
@@ -28,17 +29,28 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
 
   int _selectedIndex = 0;
   bool isInit = true;
+  bool isLoading = false;
   @override
-  void didChangeDependencies() {
+  void didChangeDependencies() async {
     // TODO: implement didChangeDependencies
 
     super.didChangeDependencies();
     if (isInit) {
+      isLoading = true;
       Provider.of<Auth>(context).readUserData().then((value) {
         setState(() {
           isInit = false;
         });
       });
+      Provider.of<Marketi>(context).readMarkete();
+      setState(() {
+        isLoading = false;
+      });
+      // await Provider.of<Marketi>(context).readMarkete().then((value) {
+      //   setState(() {
+      //     isLoading = false;
+      //   });
+      // });
     }
     // isInit = false;
   }
@@ -55,7 +67,11 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _pages[_selectedIndex],
+      body: isLoading
+          ? Center(
+              child: CircularProgressIndicator(),
+            )
+          : _pages[_selectedIndex],
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
           color: Colors.white,

@@ -6,12 +6,16 @@ import 'dart:convert';
 
 class Proizvodi with ChangeNotifier {
   List<Proizvod> _items = [];
-
+  List<Proizvod> _searchItems = [];
   String? authToken;
   Proizvodi(this.authToken, this._items);
 
   List<Proizvod> get listaProizvoda {
     return [..._items];
+  }
+
+  List<Proizvod> get getSearchItems {
+    return [..._searchItems];
   }
 
   Future<void> readProizvode() async {
@@ -65,6 +69,29 @@ class Proizvodi with ChangeNotifier {
       // print(e);
       throw e;
     }
+  }
+
+  void clearSearchProizvodi() {
+    _searchItems.clear();
+  }
+
+  void searchProizvod(String value) {
+    _items.forEach(
+      (element) {
+        if (element.ime.toLowerCase().contains(value.toLowerCase())) {
+          _searchItems.add(
+            Proizvod(
+              id: element.id,
+              ime: element.ime,
+              cijena: element.cijena,
+              imageUrl: element.imageUrl,
+            ),
+          );
+          notifyListeners();
+        }
+      },
+    );
+    print(_searchItems);
   }
 
   Future<void> addProizvod(String ime, double cijena, String imageUrl, String marketId) async {

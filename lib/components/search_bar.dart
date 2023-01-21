@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:mtelapp/providers/proizvod_provider.dart';
+import 'package:mtelapp/screens/search_screen.dart';
+import 'package:provider/provider.dart';
 
 class SearchBar extends StatefulWidget {
   final String hintText;
@@ -10,36 +13,53 @@ class SearchBar extends StatefulWidget {
 }
 
 class _SearchBarState extends State<SearchBar> {
+  final searchcontroller = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return Material(
-      borderRadius: BorderRadius.circular(20),
-      child: Container(
-        height: 60,
-        child: TextField(
-          textInputAction: TextInputAction.newline,
-          textAlignVertical: TextAlignVertical.center,
-          decoration: InputDecoration(
-            filled: true,
-            fillColor: Colors.white,
-            enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.white),
-              borderRadius: BorderRadius.circular(20),
+    final prozivod = Provider.of<Proizvodi>(context, listen: false);
+    return Container(
+      height: 60,
+      child: TextField(
+        controller: searchcontroller,
+        onSubmitted: (value) {
+          if (searchcontroller.text == '') {
+            return;
+          }
+
+          prozivod.searchProizvod(searchcontroller.text);
+          Navigator.pushNamed(context, SearchScreen.routeName, arguments: searchcontroller.text);
+        },
+        decoration: InputDecoration(
+          filled: true,
+          fillColor: Colors.white,
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.white),
+            borderRadius: BorderRadius.circular(20),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: Colors.indigo,
             ),
-            focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(
-                color: Colors.indigo,
-              ),
-              borderRadius: BorderRadius.circular(20),
-            ),
-            hintText: widget.hintText,
-            contentPadding: EdgeInsets.only(left: 20, top: 30),
-            hintStyle: TextStyle(
-              fontSize: 16,
-              color: Colors.grey,
-            ),
-            suffixIcon: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
+            borderRadius: BorderRadius.circular(20),
+          ),
+          hintText: widget.hintText,
+          contentPadding: EdgeInsets.only(left: 20, top: 30),
+          hintStyle: TextStyle(
+            fontSize: 16,
+            color: Colors.grey,
+            decoration: TextDecoration.none,
+          ),
+          suffixIcon: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: InkWell(
+              onTap: () {
+                if (searchcontroller.text == '') {
+                  return;
+                }
+
+                prozivod.searchProizvod(searchcontroller.text);
+                Navigator.pushNamed(context, SearchScreen.routeName, arguments: searchcontroller.text);
+              },
               child: Icon(
                 Iconsax.search_normal,
                 size: 25,

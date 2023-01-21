@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 class Metode {
@@ -95,12 +97,10 @@ class Metode {
   static String? stavke(int kolicina) {
     if (kolicina % 10 == 1 && kolicina != 11) {
       return 'stavka';
+    } else if (kolicina % 10 == 0 || kolicina % 10 > 4 || kolicina == 0) {
+      return 'stavki';
     } else if ((kolicina % 10 == 2 || kolicina % 10 == 3 || kolicina % 10 == 4) && kolicina != 12 || kolicina != 13 || kolicina != 14) {
       return 'stavke';
-    }
-
-    if (kolicina % 10 == 0 || kolicina % 10 > 4) {
-      return 'stavki';
     }
     return null;
   }
