@@ -31,6 +31,7 @@ class Proizvodi with ChangeNotifier {
             ime: data['ime'],
             cijena: data['cijena'],
             imageUrl: data['imageUrl'],
+            litara_kg: data['litara_kg'],
           ));
           _items = loadedProizvodi;
           notifyListeners();
@@ -60,6 +61,7 @@ class Proizvodi with ChangeNotifier {
             ime: extractedData['proizvodi'][key]['ime'],
             cijena: extractedData['proizvodi'][key]['cijena'],
             imageUrl: extractedData['proizvodi'][key]['imageUrl'],
+            litara_kg: extractedData['proizvodi'][key]['litara_kg'],
           ));
           _items = loadedProizvodi;
           notifyListeners();
@@ -85,6 +87,7 @@ class Proizvodi with ChangeNotifier {
               ime: element.ime,
               cijena: element.cijena,
               imageUrl: element.imageUrl,
+              litara_kg: element.litara_kg,
             ),
           );
           notifyListeners();
@@ -94,7 +97,7 @@ class Proizvodi with ChangeNotifier {
     print(_searchItems);
   }
 
-  Future<void> addProizvod(String ime, double cijena, String imageUrl, String marketId) async {
+  Future<void> addProizvod({required String ime, required double cijena, required String imageUrl, required String marketId, required String litara_kg}) async {
     final url = Uri.parse('https://mtelapp-ac423-default-rtdb.europe-west1.firebasedatabase.app/marketi/$marketId/proizvodi/.json?auth=$authToken');
 
     try {
@@ -106,6 +109,7 @@ class Proizvodi with ChangeNotifier {
             'ime': ime,
             'cijena': cijena,
             'imageUrl': imageUrl,
+            'litara_kg': litara_kg,
           },
         ),
       )

@@ -132,6 +132,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                 proizvodi.getSearchItems[i].cijena,
                                 proizvodi.getSearchItems[i].ime,
                                 proizvodi.getSearchItems[i].imageUrl,
+                                proizvodi.getSearchItems[i].litara_kg,
                               );
 
                               _itemAdded = true;
@@ -198,6 +199,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                       proizvodi.getSearchItems[i].cijena,
                                       proizvodi.getSearchItems[i].ime,
                                       proizvodi.getSearchItems[i].imageUrl,
+                                      proizvodi.getSearchItems[i].litara_kg,
                                     );
 
                                     showSnackBar();

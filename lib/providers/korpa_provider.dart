@@ -26,11 +26,11 @@ class Korpa with ChangeNotifier {
     return total;
   }
 
-  void addItem(String proizvodId, double cijena, String ime, String imageUrl) {
+  void addItem(String proizvodId, double cijena, String ime, String imageUrl, String litara_kg) {
     if (_items.containsKey(proizvodId)) {
       _items.update(
         proizvodId,
-        (postojeciProizvod) => KorpaItem(id: postojeciProizvod.id, ime: postojeciProizvod.ime, kolicina: postojeciProizvod.kolicina + 1, cijena: postojeciProizvod.cijena, imageUrl: postojeciProizvod.imageUrl),
+        (postojeciProizvod) => KorpaItem(id: postojeciProizvod.id, ime: postojeciProizvod.ime, kolicina: postojeciProizvod.kolicina + 1, cijena: postojeciProizvod.cijena, imageUrl: postojeciProizvod.imageUrl, litara_kg: postojeciProizvod.litara_kg),
       );
     } else {
       _items.putIfAbsent(
@@ -41,6 +41,7 @@ class Korpa with ChangeNotifier {
           kolicina: 1,
           cijena: cijena,
           imageUrl: imageUrl,
+          litara_kg: litara_kg,
         ),
       );
     }
@@ -51,7 +52,14 @@ class Korpa with ChangeNotifier {
     if (_items.containsKey(proizvodId)) {
       _items.update(
         proizvodId,
-        (postojeciProizvod) => KorpaItem(id: postojeciProizvod.id, ime: postojeciProizvod.ime, kolicina: postojeciProizvod.kolicina - 1, cijena: postojeciProizvod.cijena, imageUrl: postojeciProizvod.imageUrl),
+        (postojeciProizvod) => KorpaItem(
+          id: postojeciProizvod.id,
+          ime: postojeciProizvod.ime,
+          kolicina: postojeciProizvod.kolicina - 1,
+          cijena: postojeciProizvod.cijena,
+          imageUrl: postojeciProizvod.imageUrl,
+          litara_kg: postojeciProizvod.litara_kg,
+        ),
       );
     }
 
@@ -67,6 +75,7 @@ class Korpa with ChangeNotifier {
         kolicina: _deletedItem.kolicina,
         cijena: _deletedItem.cijena,
         imageUrl: _deletedItem.imageUrl,
+        litara_kg: _deletedItem.litara_kg,
       ),
     );
     notifyListeners();

@@ -24,21 +24,19 @@ class Marketi1Screen extends StatelessWidget {
         child: Column(
           children: [
             // custom app bar
-            SafeArea(
-              child: CustomAppBar(
-                funkcija: () {
-                  // Provider.of<Marketi>(context, listen: false).addMarket('Laković', 'https://barinfo.me/wp-content/uploads/2021/06/HDL-LAKOVI%C4%86-logo.jpg', []);
-                },
-                prvaIkonica: Iconsax.home,
-                pageTitle: 'Marketi',
-                isBlack: false,
-                isChevron: true,
-                isCenter: false,
-                drugaIkonica: Iconsax.shopping_cart,
-                funkcija2: () {
-                  Navigator.of(context).pushNamed(KorpaScreen.routeName);
-                },
-              ),
+            CustomAppBar(
+              funkcija: () {
+                // Provider.of<Marketi>(context, listen: false).addMarket('Laković', 'https://barinfo.me/wp-content/uploads/2021/06/HDL-LAKOVI%C4%86-logo.jpg', []);
+              },
+              prvaIkonica: Iconsax.home,
+              pageTitle: 'Marketi',
+              isBlack: false,
+              isChevron: true,
+              isCenter: false,
+              drugaIkonica: Iconsax.shopping_cart,
+              funkcija2: () {
+                Navigator.of(context).pushNamed(KorpaScreen.routeName);
+              },
             ),
 
             Container(
