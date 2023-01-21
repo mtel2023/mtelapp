@@ -35,14 +35,14 @@ class _SearchBarState extends State<SearchBar> {
             hintText: widget.hintText,
             contentPadding: EdgeInsets.only(left: 20, top: 30),
             hintStyle: TextStyle(
-              fontSize: 20,
+              fontSize: 16,
               color: Colors.grey,
             ),
             suffixIcon: Container(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Icon(
                 Iconsax.search_normal,
-                size: 34,
+                size: 25,
               ),
             ),
           ),

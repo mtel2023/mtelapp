@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:mtelapp/providers/auth_provider.dart';
+import 'package:mtelapp/providers/orders_provider.dart';
 import 'package:mtelapp/screens/mape_screen.dart';
 import 'package:mtelapp/screens/marketi/marketi1_screen.dart';
 import 'package:mtelapp/screens/meni/meni1_screen.dart';
@@ -45,6 +46,9 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
   void _selectPage(int index) {
     setState(() {
       _selectedIndex = index;
+      if (_selectedIndex == 2) {
+        Provider.of<Orders>(context, listen: false).readOrders();
+      }
     });
   }
 
