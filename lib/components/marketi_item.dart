@@ -21,21 +21,22 @@ class MarketiItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () async {
-        Navigator.pushNamed(
-          context,
-          MarketiInfoScreen.routeName,
-          arguments: {'marketId': marketId, 'ime': ime, 'logo': logo},
-        );
-      },
-      // onTap: () => Provider.of<Proizvodi>(context, listen: false).addProizvod(
-      //   'Medenjak od kajsije 150g',
-      //   0.89,
-      //   'https://voli.me/storage/images/products/14821/14821_1.jpg',
-      //   marketId,
-      // ),
+      // onTap: () async {
+      //   Navigator.pushNamed(
+      //     context,
+      //     MarketiInfoScreen.routeName,
+      //     arguments: {'marketId': marketId, 'ime': ime, 'logo': logo},
+      //   );
+      // },
+      onTap: () => Provider.of<Proizvodi>(context, listen: false).addProizvod(
+        'Medenjak od kajsije 150g',
+        0.89,
+        'https://voli.me/storage/images/products/14821/14821_1.jpg',
+        marketId,
+      ),
       child: Container(
-        margin: EdgeInsets.only(bottom: (medijakveri.size.height - medijakveri.padding.top) * 0.03),
+        height: (medijakveri.size.height - medijakveri.padding.top) * 0.1,
+        // margin: EdgeInsets.only(bottom: (medijakveri.size.height - medijakveri.padding.top) * 0.03),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
           color: Colors.white,
@@ -45,34 +46,6 @@ class MarketiItem extends StatelessWidget {
           children: [
             Row(
               children: [
-                Stack(
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(20),
-                      child: Container(
-                        height: 80,
-                        width: 110,
-                        child: Image.network(
-                          logo,
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                    ),
-                    Container(
-                      height: 80,
-                      width: 110,
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: [
-                            Colors.white.withOpacity(.0),
-                            Colors.white.withOpacity(1),
-                          ],
-                          stops: [0.1, 0.9],
-                        ),
-                      ),
-                    )
-                  ],
-                ),
                 SizedBox(width: medijakveri.size.width * 0.032),
                 // SizedBox(width: 13),
                 Text(

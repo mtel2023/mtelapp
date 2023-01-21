@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:mtelapp/components/customAppbar.dart';
+import 'package:mtelapp/components/marketi_item.dart';
 import 'package:mtelapp/components/search_bar.dart';
 import 'package:mtelapp/main.dart';
 import 'package:mtelapp/providers/market_provider.dart';
@@ -14,6 +15,8 @@ class Marketi1Screen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final marketi = Provider.of<Marketi>(context);
+
     final medijakveri = MediaQuery.of(context);
     return SingleChildScrollView(
       child: Container(
@@ -43,6 +46,11 @@ class Marketi1Screen extends StatelessWidget {
               child: Column(
                 children: [
                   // search bar
+                  SizedBox(height: (medijakveri.size.height - medijakveri.padding.top) * 0.01),
+
+                  SearchBar('Pretražite market...'),
+                  SizedBox(height: (medijakveri.size.height - medijakveri.padding.top) * 0.01),
+
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -66,8 +74,25 @@ class Marketi1Screen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  Image.asset('assets/icons/Voli.png'),
-                  Image.asset('assets/icons/Franca.png'),
+
+                  Container(
+                    height: (medijakveri.size.height - medijakveri.padding.top) * 0.75,
+                    child: ListView.builder(
+                      padding: EdgeInsets.zero,
+                      itemCount: marketi.listaMarketa.length,
+                      itemBuilder: (ctx, i) => Column(
+                        children: [
+                          SizedBox(height: (medijakveri.size.height - medijakveri.padding.top) * 0.02),
+                          MarketiItem(
+                            medijakveri: medijakveri,
+                            ime: '${marketi.listaMarketa[i].ime}',
+                            logo: '${marketi.listaMarketa[i].logo}',
+                            marketId: marketi.listaMarketa[i].id,
+                          ),
+                        ],
+                      ),
+                    ),
+                  )
                 ],
               ),
             ),

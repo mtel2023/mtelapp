@@ -383,18 +383,20 @@ class _KorpaScreenState extends State<KorpaScreen> {
                     ],
                   ),
                   SizedBox(height: (medijakveri.size.height - medijakveri.padding.top) * 0.01),
-                  Button(
-                    borderRadius: 20,
-                    visina: (medijakveri.size.height - medijakveri.padding.top) * 0.018,
-                    funkcija: () {
-                      dodaj();
-                    },
-                    horizontalMargin: 0,
-                    buttonText: 'Sačuvaj kupovinu',
-                    textColor: Colors.white,
-                    isBorder: false,
-                    color: Theme.of(context).primaryColor.withOpacity(.8),
-                  )
+                  isLoading
+                      ? CircularProgressIndicator()
+                      : Button(
+                          borderRadius: 20,
+                          visina: (medijakveri.size.height - medijakveri.padding.top) * 0.018,
+                          funkcija: () {
+                            dodaj();
+                          },
+                          horizontalMargin: 0,
+                          buttonText: 'Sačuvaj kupovinu',
+                          textColor: Colors.white,
+                          isBorder: false,
+                          color: Theme.of(context).primaryColor.withOpacity(.8),
+                        )
                 ],
               ),
             ),

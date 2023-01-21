@@ -73,7 +73,6 @@ class _MarketiListaScreenState extends State<MarketiListaScreen> {
                   children: [
                     SizedBox(height: (medijakveri.size.height - medijakveri.padding.top) * 0.025),
                     SearchBar('Pretražite market...'),
-                    SizedBox(height: (medijakveri.size.height - medijakveri.padding.top) * 0.025),
                     Container(
                       height: (medijakveri.size.height - medijakveri.padding.top) * 0.75,
                       child: ListView.builder(

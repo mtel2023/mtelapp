@@ -47,7 +47,7 @@ class MyApp extends StatelessWidget {
           create: (ctx) => Korpa('', {}),
         ),
         ChangeNotifierProxyProvider<Auth, Orders>(
-          update: (ctx, auth, prosliOrderi) => Orders(auth.token!, auth.userId!, prosliOrderi == null ? [] : prosliOrderi.orders),
+          update: (ctx, auth, prosliOrders) => Orders(auth.token, auth.userId, prosliOrders == null ? [] : prosliOrders.getOrders),
           create: (ctx) => Orders('', '', []),
         ),
       ],
