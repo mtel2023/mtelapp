@@ -21,19 +21,19 @@ class MarketiItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      // onTap: () async {
-      //   Navigator.pushNamed(
-      //     context,
-      //     MarketiInfoScreen.routeName,
-      //     arguments: {'marketId': marketId, 'ime': ime, 'logo': logo},
-      //   );
-      // },
-      onTap: () => Provider.of<Proizvodi>(context, listen: false).addProizvod(
-        'Medenjak od kajsije 150g',
-        0.89,
-        'https://voli.me/storage/images/products/14821/14821_1.jpg',
-        marketId,
-      ),
+      onTap: () async {
+        Navigator.pushNamed(
+          context,
+          MarketiInfoScreen.routeName,
+          arguments: {'marketId': marketId, 'ime': ime, 'logo': logo},
+        );
+      },
+      // onTap: () => Provider.of<Proizvodi>(context, listen: false).addProizvod(
+      //   'Biskvit il gran turchese plus cocoa 300 g Colussi',
+      //   0.79,
+      //   'https://voli.me/storage/images/products/isler-strawberry-110-g-swisslion-takovo/ecfp-2022-04-15-12-22-28-isleri-jagoda-110g.jpg',
+      //   marketId,
+      // ),
       child: Container(
         height: (medijakveri.size.height - medijakveri.padding.top) * 0.1,
         // margin: EdgeInsets.only(bottom: (medijakveri.size.height - medijakveri.padding.top) * 0.03),
