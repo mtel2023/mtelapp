@@ -19,6 +19,7 @@ import 'package:mtelapp/screens/meni/meni3_screen.dart';
 import 'package:mtelapp/screens/meni/meni4_screen.dart';
 
 import 'package:mtelapp/screens/podesavanja_screen.dart';
+import 'package:mtelapp/screens/search_screen.dart';
 
 import 'package:provider/provider.dart';
 
@@ -79,6 +80,7 @@ class MyApp extends StatelessWidget {
             LoginScreen.routeName: (context) => LoginScreen(),
             RegisterScreen.routeName: (context) => RegisterScreen(),
             ForgottenPasswordScreen.routeName: (context) => ForgottenPasswordScreen(),
+            SearchScreen.routeName: (context) => SearchScreen(),
           },
         ),
       ),
