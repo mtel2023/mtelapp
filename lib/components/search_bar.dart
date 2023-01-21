@@ -18,6 +18,7 @@ class _SearchBarState extends State<SearchBar> {
         height: 60,
         child: TextField(
           textInputAction: TextInputAction.newline,
+          textAlignVertical: TextAlignVertical.center,
           decoration: InputDecoration(
             filled: true,
             fillColor: Colors.white,
