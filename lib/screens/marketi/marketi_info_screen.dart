@@ -95,7 +95,7 @@ class _MarketiInfoScreenState extends State<MarketiInfoScreen> {
           ? Center(child: CircularProgressIndicator())
           : SingleChildScrollView(
               child: Container(
-                margin: EdgeInsets.symmetric(horizontal: medijakveri.size.width * 0.08),
+                margin: const EdgeInsets.symmetric(horizontal: 30),
                 child: Column(
                   children: [
                     SizedBox(height: (medijakveri.size.height - medijakveri.padding.top) * 0.03),
@@ -122,7 +122,9 @@ class _MarketiInfoScreenState extends State<MarketiInfoScreen> {
                           ),
                         ),
                         TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            print(medijakveri.size.width);
+                          },
                           child: Text(
                             'Pogledaj lokacije',
                             style: TextStyle(
@@ -150,12 +152,13 @@ class _MarketiInfoScreenState extends State<MarketiInfoScreen> {
                                 if (value.progress < 0.1) {
                                   _itemAdded = false;
                                 }
-                                if (value.progress > 0.8 && !_itemAdded) {
+                                if (value.progress > 0.45 && !_itemAdded) {
                                   korpa.addItem(
                                     proizvodi.listaProizvoda[i].id,
                                     proizvodi.listaProizvoda[i].cijena,
                                     proizvodi.listaProizvoda[i].ime,
                                     proizvodi.listaProizvoda[i].imageUrl,
+                                    proizvodi.listaProizvoda[i].litara_kg,
                                   );
 
                                   _itemAdded = true;
@@ -166,7 +169,7 @@ class _MarketiInfoScreenState extends State<MarketiInfoScreen> {
                                 decoration: BoxDecoration(color: Color.fromARGB(255, 12, 223, 65), borderRadius: BorderRadius.circular(20)),
                                 alignment: Alignment.centerLeft,
                                 child: Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                                  padding: const EdgeInsets.symmetric(horizontal: 10),
                                   child: Icon(
                                     Iconsax.add_circle,
                                     color: Colors.white,
@@ -176,7 +179,6 @@ class _MarketiInfoScreenState extends State<MarketiInfoScreen> {
                               ),
                               child: Container(
                                 padding: EdgeInsets.symmetric(vertical: (medijakveri.size.height - medijakveri.padding.top) * 0.015),
-                                // margin: EdgeInsets.symmetric(vertical: (medijakveri.size.height - medijakveri.padding.top) * 0.013),
                                 decoration: BoxDecoration(
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(20),
@@ -190,41 +192,81 @@ class _MarketiInfoScreenState extends State<MarketiInfoScreen> {
                                           borderRadius: BorderRadius.circular(20),
                                           child: Container(
                                             height: 80,
-                                            child: Image.network('${proizvodi.listaProizvoda[i].imageUrl}'),
+                                            width: 80,
+                                            child: Image.network(
+                                              '${proizvodi.listaProizvoda[i].imageUrl}',
+                                              fit: BoxFit.cover,
+                                            ),
                                           ),
                                         ),
-                                        SizedBox(width: medijakveri.size.width * 0.04),
+                                        SizedBox(width: medijakveri.size.width * 0.01),
                                         Column(
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                                           children: [
-                                            Text(
-                                              proizvodi.listaProizvoda[i].ime.length > 15 ? '${proizvodi.listaProizvoda[i].ime.substring(0, 18)}...' : proizvodi.listaProizvoda[i].ime,
-                                              style: TextStyle(fontSize: 16),
-                                            ),
-                                            Text(
-                                              '${proizvodi.listaProizvoda[i].cijena} €',
-                                              style: TextStyle(fontSize: 16, color: Theme.of(context).primaryColor),
-                                            ),
+                                            medijakveri.size.width > 350
+                                                ? Container(
+                                                    width: 200,
+                                                    child: Text(
+                                                      proizvodi.listaProizvoda[i].ime.length > 30 ? '${proizvodi.listaProizvoda[i].ime.substring(0, 30)}...' : proizvodi.listaProizvoda[i].ime,
+                                                      style: TextStyle(fontSize: 16),
+                                                    ),
+                                                  )
+                                                : Container(
+                                                    width: 150,
+                                                    child: Text(
+                                                      proizvodi.listaProizvoda[i].ime.length > 15 ? '${proizvodi.listaProizvoda[i].ime.substring(0, 18)}...' : proizvodi.listaProizvoda[i].ime,
+                                                      style: TextStyle(fontSize: 16),
+                                                    ),
+                                                  ),
+                                            Row(
+                                              children: [
+                                                Text(
+                                                  '${proizvodi.listaProizvoda[i].cijena} €',
+                                                  style: TextStyle(fontSize: 16, color: Theme.of(context).primaryColor),
+                                                ),
+                                                // SizedBox(width: 10),
+                                                Container(
+                                                  margin: EdgeInsets.symmetric(horizontal: 10),
+                                                  height: 20,
+                                                  width: 1,
+                                                  color: Colors.black,
+                                                ),
+                                                Text(
+                                                  '${proizvodi.listaProizvoda[i].litara_kg}',
+                                                  style: TextStyle(color: Theme.of(context).primaryColor, fontSize: 16),
+                                                )
+                                              ],
+                                            )
                                           ],
                                         ),
                                       ],
                                     ),
-                                    IconButton(
-                                      padding: EdgeInsets.only(right: 14),
-                                      onPressed: () {
-                                        korpa.addItem(
-                                          proizvodi.listaProizvoda[i].id,
-                                          proizvodi.listaProizvoda[i].cijena,
-                                          proizvodi.listaProizvoda[i].ime,
-                                          proizvodi.listaProizvoda[i].imageUrl,
-                                        );
+                                    Container(
+                                      // color: Colors.black,
+                                      width: medijakveri.size.width * 0.15,
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          IconButton(
+                                            // padding: EdgeInsets.only(right: medijakveri.size.width * 0.03),
+                                            onPressed: () {
+                                              korpa.addItem(
+                                                proizvodi.listaProizvoda[i].id,
+                                                proizvodi.listaProizvoda[i].cijena,
+                                                proizvodi.listaProizvoda[i].ime,
+                                                proizvodi.listaProizvoda[i].imageUrl,
+                                                proizvodi.listaProizvoda[i].litara_kg,
+                                              );
 
-                                        showSnackBar();
-                                      },
-                                      icon: Icon(
-                                        Iconsax.add_circle,
-                                        size: 34,
+                                              showSnackBar();
+                                            },
+                                            icon: Icon(
+                                              Iconsax.add_circle,
+                                              size: 34,
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ),
                                   ],

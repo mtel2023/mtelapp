@@ -100,7 +100,8 @@ class _TrgovanjeScreenState extends State<TrgovanjeScreen> {
                                 height: (medijakveri.size.height - medijakveri.padding.top) * 0.4,
                                 child: Center(
                                   child: Text(
-                                    'Prazno',
+                                    'Nemate sačuvanih kupovina',
+                                    textAlign: TextAlign.center,
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 25,

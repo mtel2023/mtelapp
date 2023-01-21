@@ -46,6 +46,7 @@ class Orders with ChangeNotifier {
     final List<OrderItem> loadedOrders = [];
 
     final extractedData = json.decode(response.body) as Map<String, dynamic>;
+    print(extractedData);
     extractedData.forEach((orderId, orderData) {
       loadedOrders.add(
         OrderItem(
@@ -60,6 +61,7 @@ class Orders with ChangeNotifier {
                   cijena: proizvod['cijena'],
                   imageUrl: proizvod['imageUrl'],
                   kolicina: proizvod['kolicina'],
+                  litara_kg: proizvod['litara_kg'],
                 ),
               )
               .toList(),
@@ -93,6 +95,7 @@ class Orders with ChangeNotifier {
                     'imageUrl': proizvod.imageUrl,
                     'cijena': proizvod.cijena,
                     'kolicina': proizvod.kolicina,
+                    'litara_kg': proizvod.litara_kg,
                   },
                 )
                 .toList(),
