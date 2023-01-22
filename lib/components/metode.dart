@@ -103,4 +103,15 @@ class Metode {
       return 'stavki';
     }
   }
+
+  static Future<String?> stavke2(Future<int> kolicina) async {
+    int kolicinaValue = await kolicina;
+    if (kolicinaValue % 10 == 1 && kolicinaValue != 11) {
+      return 'stavka';
+    } else if (kolicinaValue % 10 <= 4 && (kolicinaValue % 100 != 12 && kolicinaValue % 100 != 13 && kolicinaValue % 100 != 14)) {
+      return 'stavke';
+    } else {
+      return 'stavki';
+    }
+  }
 }

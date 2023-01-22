@@ -27,17 +27,22 @@ class _SearchBarState extends State<SearchBar> {
             return;
           }
           if (widget.pretraga == 'proizvod') {
+            print('PROIZVOD');
             Provider.of<Proizvodi>(context, listen: false).searchProizvod(searchcontroller.text);
-          }
-          if (widget.pretraga == 'market') {
+          } else if (widget.pretraga == 'market') {
+            print('MARKET');
+
             Provider.of<Marketi>(context, listen: false).searchMarket(searchcontroller.text);
           }
 
-          Navigator.of(context).push(MaterialPageRoute(
+          Navigator.of(context).push(
+            MaterialPageRoute(
               builder: (ctx) => SearchScreen(
-                    searchText: searchcontroller.text,
-                    pretraga: widget.pretraga,
-                  )));
+                searchText: searchcontroller.text,
+                pretraga: widget.pretraga,
+              ),
+            ),
+          );
         },
         decoration: InputDecoration(
           filled: true,
@@ -62,15 +67,17 @@ class _SearchBarState extends State<SearchBar> {
           suffixIcon: Container(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: InkWell(
-              onTap: () {
+              onTap: () async {
                 if (searchcontroller.text == '') {
                   return;
                 }
 
                 if (widget.pretraga == 'proizvod') {
+                  print('PROIZVOD');
                   Provider.of<Proizvodi>(context, listen: false).searchProizvod(searchcontroller.text);
-                }
-                if (widget.pretraga == 'market') {
+                } else if (widget.pretraga == 'market') {
+                  print('MARKET');
+
                   Provider.of<Marketi>(context, listen: false).searchMarket(searchcontroller.text);
                 }
                 Navigator.of(context).push(MaterialPageRoute(
