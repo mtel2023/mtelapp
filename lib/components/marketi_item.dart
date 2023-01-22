@@ -29,11 +29,11 @@ class MarketiItem extends StatelessWidget {
         );
       },
       // onTap: () => Provider.of<Proizvodi>(context, listen: false).addProizvod(
-      //   ime: 'Knjaz Miloš gazirana voda sa ukusom maline',
-      //   cijena: 0.65,
-      //   litara_kg: '0.5l',
+      //   ime: 'Smoki flips sa kikirikijem Soko Štark',
+      //   cijena: 1.60,
+      //   litara_kg: '225g',
       //   marketId: marketId,
-      //   imageUrl: 'https://voli.me/storage/images/products/knjaz-milos-carbonated-water-with-raspberry-taste-05-l/sdgw-2022-06-06-09-25-45-knjaz_milos_aromaticna-malina_0.5l.jpg',
+      //   imageUrl: 'https://voli.me/storage/images/products/57349/57349_1.jpg',
       // ),
       child: Container(
         height: (medijakveri.size.height - medijakveri.padding.top) * 0.1,

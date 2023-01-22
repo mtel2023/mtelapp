@@ -46,13 +46,8 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
       setState(() {
         isLoading = false;
       });
-      // await Provider.of<Marketi>(context).readMarkete().then((value) {
-      //   setState(() {
-      //     isLoading = false;
-      //   });
-      // });
     }
-    // isInit = false;
+    isInit = false;
   }
 
   void _selectPage(int index) {

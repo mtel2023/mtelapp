@@ -52,6 +52,32 @@ class Marketi with ChangeNotifier {
     );
   }
 
+  Future<List<Proizvod>> searchAllProducts(String value) async {
+    final url = Uri.parse('https://mtelapp-ac423-default-rtdb.europe-west1.firebasedatabase.app/marketi.json?auth=$authToken');
+
+    final response = await http.get(url);
+    final marketsMap = jsonDecode(response.body) as Map<String, dynamic>;
+    final List<Proizvod> foundProducts = [];
+    final List<String> foundProductsNames = [];
+    marketsMap.forEach((marketId, marketData) {
+      final productsList = marketData['proizvodi'] as Map<String, dynamic>;
+      productsList.forEach((productId, productData) {
+        final productName = productData['ime'] as String;
+        if (productName.toLowerCase().contains(value.toLowerCase()) && !foundProductsNames.contains(productName)) {
+          foundProducts.add(Proizvod(
+            id: productId,
+            ime: productName,
+            cijena: productData['cijena'],
+            imageUrl: productData['imageUrl'],
+            litara_kg: productData['litara_kg'],
+          ));
+          foundProductsNames.add(productName);
+        }
+      });
+    });
+    return foundProducts;
+  }
+
   Future<void> addMarket(
     String ime,
     String logo,

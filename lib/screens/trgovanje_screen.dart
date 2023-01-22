@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:mtelapp/components/customAppbar.dart';
 import 'package:mtelapp/components/metode.dart';
 import 'package:mtelapp/components/search_bar.dart';
+import 'package:mtelapp/providers/market_provider.dart';
 import 'package:mtelapp/providers/orders_provider.dart';
 import 'package:mtelapp/screens/korpa_screen.dart';
 import 'package:provider/provider.dart';
@@ -70,8 +71,8 @@ class _TrgovanjeScreenState extends State<TrgovanjeScreen> {
                       children: [
                         SizedBox(height: (medijakveri.size.height - medijakveri.padding.top) * 0.01),
                         SearchBar(
-                          hintText: 'Pretražite grad...',
-                          pretraga: 'proizvod',
+                          hintText: 'Pretražite proizvod...',
+                          pretraga: 'allProizvod',
                         ),
                         SizedBox(height: (medijakveri.size.height - medijakveri.padding.top) * 0.005),
                         Row(
