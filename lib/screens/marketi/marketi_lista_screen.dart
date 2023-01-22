@@ -72,7 +72,10 @@ class _MarketiListaScreenState extends State<MarketiListaScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     SizedBox(height: (medijakveri.size.height - medijakveri.padding.top) * 0.025),
-                    SearchBar('Pretražite market...'),
+                    SearchBar(
+                      hintText: 'Pretražite market...',
+                      pretraga: 'market',
+                    ),
                     Container(
                       height: (medijakveri.size.height - medijakveri.padding.top) * 0.75,
                       child: ListView.builder(

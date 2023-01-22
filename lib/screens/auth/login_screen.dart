@@ -109,7 +109,6 @@ class _LoginScreenState extends State<LoginScreen> {
         Navigator.of(context).pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
       });
     } on HttpException catch (error) {
-      print(error);
       String emessage = 'Došlo je do greške';
       if (error.toString().contains('INVALID_EMAIL')) {
         emessage = 'E-mail nije validan';

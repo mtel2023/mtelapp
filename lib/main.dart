@@ -80,7 +80,7 @@ class MyApp extends StatelessWidget {
             LoginScreen.routeName: (context) => LoginScreen(),
             RegisterScreen.routeName: (context) => RegisterScreen(),
             ForgottenPasswordScreen.routeName: (context) => ForgottenPasswordScreen(),
-            SearchScreen.routeName: (context) => SearchScreen(),
+            // SearchScreen.routeName: (context) => SearchScreen(),
           },
         ),
       ),

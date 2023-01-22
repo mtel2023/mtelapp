@@ -46,7 +46,7 @@ class Marketi1Screen extends StatelessWidget {
                   // search bar
                   SizedBox(height: (medijakveri.size.height - medijakveri.padding.top) * 0.01),
 
-                  SearchBar('Pretražite market...'),
+                  SearchBar(hintText: 'Pretražite market...', pretraga: 'market'),
                   SizedBox(height: (medijakveri.size.height - medijakveri.padding.top) * 0.01),
 
                   Row(

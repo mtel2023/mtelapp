@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:mtelapp/components/marketi_item.dart';
 import 'package:mtelapp/components/metode.dart';
+import 'package:mtelapp/components/search_bar.dart';
 import 'package:mtelapp/providers/korpa_provider.dart';
+import 'package:mtelapp/providers/market_provider.dart';
 import 'package:mtelapp/providers/proizvod_provider.dart';
 import 'package:mtelapp/screens/korpa_screen.dart';
 import 'package:provider/provider.dart';
 
 class SearchScreen extends StatefulWidget {
-  static const String routeName = '/search-screen';
-  const SearchScreen({super.key});
+  // static const String routeName = '/search-screen';
+  final String pretraga;
+  final String searchText;
+  const SearchScreen({required this.pretraga, required this.searchText});
 
   @override
   State<SearchScreen> createState() => _SearchScreenState();
@@ -16,6 +21,7 @@ class SearchScreen extends StatefulWidget {
 
 class _SearchScreenState extends State<SearchScreen> {
   bool _itemAdded = false;
+
   void showSnackBar() {
     ScaffoldMessenger.of(context).hideCurrentSnackBar();
     ScaffoldMessenger.of(context).showSnackBar(
@@ -43,8 +49,8 @@ class _SearchScreenState extends State<SearchScreen> {
   Widget build(BuildContext context) {
     final medijakveri = MediaQuery.of(context);
     final korpa = Provider.of<Korpa>(context, listen: false);
+    final marketi = Provider.of<Marketi>(context, listen: false);
 
-    final searchText = ModalRoute.of(context)!.settings.arguments;
     final proizvodi = Provider.of<Proizvodi>(context);
     return Scaffold(
       backgroundColor: Color.fromRGBO(243, 243, 243, 1),
@@ -72,7 +78,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     ),
                     SizedBox(width: medijakveri.size.width * 0.05),
                     Text(
-                      '$searchText',
+                      '${widget.searchText}',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 22,
@@ -85,7 +91,7 @@ class _SearchScreenState extends State<SearchScreen> {
             ),
           ),
           Container(
-            margin: EdgeInsets.symmetric(horizontal: medijakveri.size.width * 0.09),
+            margin: const EdgeInsets.symmetric(horizontal: 30),
             child: Column(
               children: [
                 SizedBox(
@@ -102,7 +108,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       ),
                     ),
                     Text(
-                      '${proizvodi.getSearchItems.length} ${Metode.stavke(proizvodi.getSearchItems.length)}',
+                      widget.pretraga == 'proizvod' ? '${proizvodi.getSearchItems.length} ${Metode.stavke(proizvodi.getSearchItems.length)}' : '${marketi.getSearchMarket.length} ${Metode.stavke(proizvodi.getSearchItems.length)}',
                       style: TextStyle(
                         color: Colors.grey,
                         fontSize: 18,
@@ -111,89 +117,23 @@ class _SearchScreenState extends State<SearchScreen> {
                     ),
                   ],
                 ),
-                Container(
-                  height: (medijakveri.size.height - medijakveri.padding.top) * 0.8,
-                  child: ListView.builder(
-                    padding: EdgeInsets.symmetric(vertical: (medijakveri.size.height - medijakveri.padding.top) * 0.03),
-                    itemCount: proizvodi.getSearchItems.length,
-                    itemBuilder: (ctx, i) => Column(
-                      children: [
-                        Dismissible(
-                          key: ValueKey(proizvodi.getSearchItems[i].id),
-                          dismissThresholds: {DismissDirection.startToEnd: 6},
-                          direction: DismissDirection.startToEnd,
-                          onUpdate: (value) {
-                            if (value.progress < 0.1) {
-                              _itemAdded = false;
-                            }
-                            if (value.progress > 0.8 && !_itemAdded) {
-                              korpa.addItem(
-                                proizvodi.getSearchItems[i].id,
-                                proizvodi.getSearchItems[i].cijena,
-                                proizvodi.getSearchItems[i].ime,
-                                proizvodi.getSearchItems[i].imageUrl,
-                                proizvodi.getSearchItems[i].litara_kg,
-                              );
-
-                              _itemAdded = true;
-                              showSnackBar();
-                            }
-                          },
-                          background: Container(
-                            decoration: BoxDecoration(color: Color.fromARGB(255, 12, 223, 65), borderRadius: BorderRadius.circular(20)),
-                            alignment: Alignment.centerLeft,
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 20),
-                              child: Icon(
-                                Iconsax.add_circle,
-                                color: Colors.white,
-                                size: 40,
-                              ),
-                            ),
-                          ),
-                          child: Container(
-                            padding: EdgeInsets.symmetric(vertical: (medijakveri.size.height - medijakveri.padding.top) * 0.015),
-                            // margin: EdgeInsets.symmetric(vertical: (medijakveri.size.height - medijakveri.padding.top) * 0.013),
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Row(
-                                  children: [
-                                    ClipRRect(
-                                      borderRadius: BorderRadius.circular(20),
-                                      child: Container(
-                                        height: 80,
-                                        width: 80,
-                                        child: Image.network(
-                                          '${proizvodi.getSearchItems[i].imageUrl}',
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ),
-                                    ),
-                                    SizedBox(width: medijakveri.size.width * 0.04),
-                                    Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                      children: [
-                                        Text(
-                                          proizvodi.getSearchItems[i].ime.length > 15 ? '${proizvodi.getSearchItems[i].ime.substring(0, 18)}...' : proizvodi.getSearchItems[i].ime,
-                                          style: TextStyle(fontSize: 16),
-                                        ),
-                                        Text(
-                                          '${proizvodi.getSearchItems[i].cijena} €',
-                                          style: TextStyle(fontSize: 16, color: Theme.of(context).primaryColor),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                                IconButton(
-                                  padding: EdgeInsets.only(right: 14),
-                                  onPressed: () {
+                widget.pretraga == 'proizvod'
+                    ? Container(
+                        height: (medijakveri.size.height - medijakveri.padding.top) * 0.8,
+                        child: ListView.builder(
+                          padding: EdgeInsets.symmetric(vertical: (medijakveri.size.height - medijakveri.padding.top) * 0.03),
+                          itemCount: proizvodi.getSearchItems.length,
+                          itemBuilder: (ctx, i) => Column(
+                            children: [
+                              Dismissible(
+                                key: ValueKey(proizvodi.getSearchItems[i].id),
+                                dismissThresholds: {DismissDirection.startToEnd: 6},
+                                direction: DismissDirection.startToEnd,
+                                onUpdate: (value) {
+                                  if (value.progress < 0.1) {
+                                    _itemAdded = false;
+                                  }
+                                  if (value.progress > 0.8 && !_itemAdded) {
                                     korpa.addItem(
                                       proizvodi.getSearchItems[i].id,
                                       proizvodi.getSearchItems[i].cijena,
@@ -202,24 +142,142 @@ class _SearchScreenState extends State<SearchScreen> {
                                       proizvodi.getSearchItems[i].litara_kg,
                                     );
 
+                                    _itemAdded = true;
                                     showSnackBar();
-                                  },
-                                  icon: Icon(
-                                    Iconsax.add_circle,
-                                    size: 34,
+                                  }
+                                },
+                                background: Container(
+                                  decoration: BoxDecoration(color: Color.fromARGB(255, 12, 223, 65), borderRadius: BorderRadius.circular(20)),
+                                  alignment: Alignment.centerLeft,
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                                    child: Icon(
+                                      Iconsax.add_circle,
+                                      color: Colors.white,
+                                      size: 40,
+                                    ),
                                   ),
                                 ),
-                              ],
-                            ),
+                                child: Container(
+                                  padding: EdgeInsets.symmetric(vertical: (medijakveri.size.height - medijakveri.padding.top) * 0.015),
+                                  // margin: EdgeInsets.symmetric(vertical: (medijakveri.size.height - medijakveri.padding.top) * 0.013),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          ClipRRect(
+                                            borderRadius: BorderRadius.circular(20),
+                                            child: Container(
+                                              height: 80,
+                                              width: 80,
+                                              child: Image.network(
+                                                '${proizvodi.getSearchItems[i].imageUrl}',
+                                                fit: BoxFit.cover,
+                                              ),
+                                            ),
+                                          ),
+                                          SizedBox(width: medijakveri.size.width * 0.02),
+                                          Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                            children: [
+                                              medijakveri.size.width > 350
+                                                  ? Container(
+                                                      width: 200,
+                                                      child: Text(
+                                                        proizvodi.getSearchItems[i].ime.length > 30 ? '${proizvodi.getSearchItems[i].ime.substring(0, 30)}...' : proizvodi.getSearchItems[i].ime,
+                                                        style: TextStyle(fontSize: 16),
+                                                      ),
+                                                    )
+                                                  : Container(
+                                                      width: 150,
+                                                      child: Text(
+                                                        proizvodi.getSearchItems[i].ime.length > 15 ? '${proizvodi.getSearchItems[i].ime.substring(0, 18)}...' : proizvodi.getSearchItems[i].ime,
+                                                        style: TextStyle(fontSize: 16),
+                                                      ),
+                                                    ),
+                                              Row(
+                                                children: [
+                                                  Text(
+                                                    '${proizvodi.getSearchItems[i].cijena} €',
+                                                    style: TextStyle(fontSize: 16, color: Theme.of(context).primaryColor),
+                                                  ),
+                                                  // SizedBox(width: 10),
+                                                  Container(
+                                                    margin: EdgeInsets.symmetric(horizontal: 10),
+                                                    height: 20,
+                                                    width: 1,
+                                                    color: Colors.black,
+                                                  ),
+                                                  Text(
+                                                    '${proizvodi.getSearchItems[i].litara_kg}',
+                                                    style: TextStyle(color: Theme.of(context).primaryColor, fontSize: 16),
+                                                  )
+                                                ],
+                                              )
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                      Container(
+                                        // color: Colors.black,
+                                        width: medijakveri.size.width * 0.13,
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            IconButton(
+                                              onPressed: () {
+                                                korpa.addItem(
+                                                  proizvodi.getSearchItems[i].id,
+                                                  proizvodi.getSearchItems[i].cijena,
+                                                  proizvodi.getSearchItems[i].ime,
+                                                  proizvodi.getSearchItems[i].imageUrl,
+                                                  proizvodi.getSearchItems[i].litara_kg,
+                                                );
+
+                                                showSnackBar();
+                                              },
+                                              icon: Icon(
+                                                Iconsax.add_circle,
+                                                size: 34,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                height: (medijakveri.size.height - medijakveri.padding.top) * 0.026,
+                              )
+                            ],
                           ),
                         ),
-                        Container(
-                          height: (medijakveri.size.height - medijakveri.padding.top) * 0.026,
-                        )
-                      ],
-                    ),
-                  ),
-                ),
+                      )
+                    : Container(
+                        height: (medijakveri.size.height - medijakveri.padding.top) * 0.8,
+                        child: ListView.builder(
+                          itemCount: marketi.getSearchMarket.length,
+                          itemBuilder: (ctx, i) => Column(
+                            children: [
+                              SizedBox(height: (medijakveri.size.height - medijakveri.padding.top) * 0.02),
+                              MarketiItem(
+                                medijakveri: medijakveri,
+                                ime: '${marketi.getSearchMarket[i].ime}',
+                                logo: '${marketi.getSearchMarket[i].logo}',
+                                marketId: marketi.getSearchMarket[i].id,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
               ],
             ),
           )

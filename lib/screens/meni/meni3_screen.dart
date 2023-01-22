@@ -120,7 +120,6 @@ class _Meni3ScreenState extends State<Meni3Screen> {
         });
       });
     } on HttpException catch (error) {
-      print(error);
       String emessage = 'Došlo je do greške';
       if (error.toString().contains('EMAIL_EXISTS')) {
         emessage = 'Taj E-mail je već u upotrebi';

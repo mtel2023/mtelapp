@@ -122,9 +122,7 @@ class _MarketiInfoScreenState extends State<MarketiInfoScreen> {
                           ),
                         ),
                         TextButton(
-                          onPressed: () {
-                            print(medijakveri.size.width);
-                          },
+                          onPressed: () {},
                           child: Text(
                             'Pogledaj lokacije',
                             style: TextStyle(
@@ -134,7 +132,10 @@ class _MarketiInfoScreenState extends State<MarketiInfoScreen> {
                         ),
                       ],
                     ),
-                    SearchBar('Pretražite proizvod...'),
+                    SearchBar(
+                      hintText: 'Pretražite proizvod...',
+                      pretraga: 'proizvod',
+                    ),
                     SizedBox(
                       height: (medijakveri.size.height - medijakveri.padding.top) * 0.025,
                     ),

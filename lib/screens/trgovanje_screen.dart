@@ -69,7 +69,10 @@ class _TrgovanjeScreenState extends State<TrgovanjeScreen> {
                     child: Column(
                       children: [
                         SizedBox(height: (medijakveri.size.height - medijakveri.padding.top) * 0.01),
-                        SearchBar('Pretražite proizvod...'),
+                        SearchBar(
+                          hintText: 'Pretražite grad...',
+                          pretraga: 'proizvod',
+                        ),
                         SizedBox(height: (medijakveri.size.height - medijakveri.padding.top) * 0.005),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
