@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:mtelapp/providers/market_provider.dart';
 import 'package:mtelapp/providers/proizvod_provider.dart';
 import 'package:mtelapp/screens/search_screen.dart';
 import 'package:provider/provider.dart';
 
 class SearchBar extends StatefulWidget {
   final String hintText;
-  const SearchBar(this.hintText);
+  final String pretraga;
+  const SearchBar({required this.hintText, required this.pretraga});
 
   @override
   State<SearchBar> createState() => _SearchBarState();
@@ -16,7 +18,6 @@ class _SearchBarState extends State<SearchBar> {
   final searchcontroller = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    final prozivod = Provider.of<Proizvodi>(context, listen: false);
     return Container(
       height: 60,
       child: TextField(
@@ -25,9 +26,18 @@ class _SearchBarState extends State<SearchBar> {
           if (searchcontroller.text == '') {
             return;
           }
+          if (widget.pretraga == 'proizvod') {
+            Provider.of<Proizvodi>(context, listen: false).searchProizvod(searchcontroller.text);
+          }
+          if (widget.pretraga == 'market') {
+            Provider.of<Marketi>(context, listen: false).searchMarket(searchcontroller.text);
+          }
 
-          prozivod.searchProizvod(searchcontroller.text);
-          Navigator.pushNamed(context, SearchScreen.routeName, arguments: searchcontroller.text);
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (ctx) => SearchScreen(
+                    searchText: searchcontroller.text,
+                    pretraga: widget.pretraga,
+                  )));
         },
         decoration: InputDecoration(
           filled: true,
@@ -57,8 +67,17 @@ class _SearchBarState extends State<SearchBar> {
                   return;
                 }
 
-                prozivod.searchProizvod(searchcontroller.text);
-                Navigator.pushNamed(context, SearchScreen.routeName, arguments: searchcontroller.text);
+                if (widget.pretraga == 'proizvod') {
+                  Provider.of<Proizvodi>(context, listen: false).searchProizvod(searchcontroller.text);
+                }
+                if (widget.pretraga == 'market') {
+                  Provider.of<Marketi>(context, listen: false).searchMarket(searchcontroller.text);
+                }
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (ctx) => SearchScreen(
+                          searchText: searchcontroller.text,
+                          pretraga: widget.pretraga,
+                        )));
               },
               child: Icon(
                 Iconsax.search_normal,

@@ -29,7 +29,10 @@ class MapeScreen extends StatelessWidget {
           ),
           Container(
             margin: const EdgeInsets.symmetric(horizontal: 30),
-            child: SearchBar('Pretražite grad...'),
+            child: SearchBar(
+              hintText: 'Pretražite grad...',
+              pretraga: 'market',
+            ),
           ),
         ],
       ),

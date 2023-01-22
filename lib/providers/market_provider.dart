@@ -7,12 +7,17 @@ import 'package:mtelapp/models/proizvod.dart';
 
 class Marketi with ChangeNotifier {
   List<Market> _marketi = [];
+  List<Market> _searchMarketi = [];
 
   String? authToken;
   Marketi(this.authToken, this._marketi);
 
   List<Market> get listaMarketa {
     return [..._marketi];
+  }
+
+  List<Market> get getSearchMarket {
+    return [..._searchMarketi];
   }
 
   Future<void> readMarkete() async {
@@ -26,6 +31,25 @@ class Marketi with ChangeNotifier {
         notifyListeners();
       });
     });
+  }
+
+  void searchMarket(String value) {
+    _searchMarketi = [];
+    _marketi.forEach(
+      (element) {
+        if (element.ime.toLowerCase().contains(value.toLowerCase())) {
+          _searchMarketi.add(
+            Market(
+              id: element.id,
+              ime: element.ime,
+              logo: element.logo,
+              proizvodi: element.proizvodi,
+            ),
+          );
+          notifyListeners();
+        }
+      },
+    );
   }
 
   Future<void> addMarket(

@@ -68,7 +68,6 @@ class Proizvodi with ChangeNotifier {
         });
       });
     } catch (e) {
-      // print(e);
       throw e;
     }
   }
@@ -78,6 +77,7 @@ class Proizvodi with ChangeNotifier {
   }
 
   void searchProizvod(String value) {
+    _searchItems = [];
     _items.forEach(
       (element) {
         if (element.ime.toLowerCase().contains(value.toLowerCase())) {
@@ -90,11 +90,11 @@ class Proizvodi with ChangeNotifier {
               litara_kg: element.litara_kg,
             ),
           );
+
           notifyListeners();
         }
       },
     );
-    print(_searchItems);
   }
 
   Future<void> addProizvod({required String ime, required double cijena, required String imageUrl, required String marketId, required String litara_kg}) async {
