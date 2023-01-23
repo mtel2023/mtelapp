@@ -267,24 +267,18 @@ class _KorpaScreenState extends State<KorpaScreen> {
                                                   crossAxisAlignment: CrossAxisAlignment.start,
                                                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                   children: [
-                                                    // Text(
-                                                    //   korpa.items.values.toList()[i].ime.length > 15 ? '${korpa.items.values.toList()[i].ime.substring(0, 18)}...' : korpa.items.values.toList()[i].ime,
-                                                    //   style: TextStyle(fontSize: 16),
-                                                    // ),
-                                                    // Text(
-                                                    //   '${korpa.items.values.toList()[i].cijena} €',
-                                                    //   style: TextStyle(fontSize: 16, color: Theme.of(context).primaryColor),
-                                                    // ),
                                                     medijakveri.size.width > 350
                                                         ? Container(
-                                                            width: 190,
+                                                            // color: Colors.black.withOpacity(.3),
+                                                            constraints: BoxConstraints(maxWidth: 175),
+                                                            // width: 190,
                                                             child: Text(
                                                               korpa.items.values.toList()[i].ime.length > 30 ? '${korpa.items.values.toList()[i].ime.substring(0, 30)}...' : korpa.items.values.toList()[i].ime,
                                                               style: TextStyle(fontSize: 16),
                                                             ),
                                                           )
                                                         : Container(
-                                                            width: 150,
+                                                            constraints: BoxConstraints(maxWidth: 150),
                                                             child: Text(
                                                               korpa.items.values.toList()[i].ime.length > 15 ? '${korpa.items.values.toList()[i].ime.substring(0, 18)}...' : korpa.items.values.toList()[i].ime,
                                                               style: TextStyle(fontSize: 16),
@@ -315,8 +309,7 @@ class _KorpaScreenState extends State<KorpaScreen> {
                                             ],
                                           ),
                                           Container(
-                                            height: 80,
-                                            width: 30,
+                                            height: (medijakveri.size.height - medijakveri.padding.top) * 0.09,
                                             margin: EdgeInsets.only(right: medijakveri.size.width * 0.03),
                                             decoration: BoxDecoration(
                                               color: Color.fromRGBO(243, 243, 243, 1),
