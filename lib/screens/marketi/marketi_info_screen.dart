@@ -207,14 +207,14 @@ class _MarketiInfoScreenState extends State<MarketiInfoScreen> {
                                           children: [
                                             medijakveri.size.width > 350
                                                 ? Container(
-                                                    width: 200,
+                                                    constraints: BoxConstraints(maxWidth: 175),
                                                     child: Text(
                                                       proizvodi.listaProizvoda[i].ime.length > 30 ? '${proizvodi.listaProizvoda[i].ime.substring(0, 30)}...' : proizvodi.listaProizvoda[i].ime,
                                                       style: TextStyle(fontSize: 16),
                                                     ),
                                                   )
                                                 : Container(
-                                                    width: 150,
+                                                    constraints: BoxConstraints(maxWidth: 150),
                                                     child: Text(
                                                       proizvodi.listaProizvoda[i].ime.length > 15 ? '${proizvodi.listaProizvoda[i].ime.substring(0, 18)}...' : proizvodi.listaProizvoda[i].ime,
                                                       style: TextStyle(fontSize: 16),
