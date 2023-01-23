@@ -198,14 +198,14 @@ class _SearchScreenState extends State<SearchScreen> {
                                             children: [
                                               medijakveri.size.width > 350
                                                   ? Container(
-                                                      width: 200,
+                                                      constraints: BoxConstraints(maxWidth: 175),
                                                       child: Text(
                                                         proizvodi.getSearchItems[i].ime.length > 30 ? '${proizvodi.getSearchItems[i].ime.substring(0, 30)}...' : proizvodi.getSearchItems[i].ime,
                                                         style: TextStyle(fontSize: 16),
                                                       ),
                                                     )
                                                   : Container(
-                                                      width: 150,
+                                                      constraints: BoxConstraints(maxWidth: 150),
                                                       child: Text(
                                                         proizvodi.getSearchItems[i].ime.length > 15 ? '${proizvodi.getSearchItems[i].ime.substring(0, 18)}...' : proizvodi.getSearchItems[i].ime,
                                                         style: TextStyle(fontSize: 16),
@@ -235,7 +235,6 @@ class _SearchScreenState extends State<SearchScreen> {
                                         ],
                                       ),
                                       Container(
-                                        // color: Colors.black,
                                         width: medijakveri.size.width * 0.13,
                                         child: Column(
                                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -273,7 +272,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       )
                     : widget.pretraga == 'allProizvod'
                         ? Container(
-                            height: 600,
+                            height: (medijakveri.size.height - medijakveri.padding.top) * 0.8,
                             child: FutureBuilder(
                               future: marketi.searchAllProducts(widget.searchText),
                               builder: (BuildContext context, AsyncSnapshot<List<Proizvod>> snapshot) {
@@ -348,14 +347,14 @@ class _SearchScreenState extends State<SearchScreen> {
                                                         children: [
                                                           medijakveri.size.width > 350
                                                               ? Container(
-                                                                  width: 200,
+                                                                  constraints: BoxConstraints(maxWidth: 175),
                                                                   child: Text(
                                                                     product.ime.length > 30 ? '${product.ime.substring(0, 30)}...' : product.ime,
                                                                     style: TextStyle(fontSize: 16),
                                                                   ),
                                                                 )
                                                               : Container(
-                                                                  width: 150,
+                                                                  constraints: BoxConstraints(maxWidth: 150),
                                                                   child: Text(
                                                                     product.ime.length > 15 ? '${product.ime.substring(0, 18)}...' : product.ime,
                                                                     style: TextStyle(fontSize: 16),
