@@ -66,12 +66,14 @@ class LoginRegisterScreen extends StatelessWidget {
                       children: [
                         Image.asset('assets/icons/google1.png'),
                         SizedBox(width: 15),
-                        Text(
-                          'Prijava pomoću Googla',
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            letterSpacing: 0.5,
+                        FittedBox(
+                          child: Text(
+                            'Prijava pomoću Googla',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              letterSpacing: 0.5,
+                            ),
                           ),
                         ),
                       ],

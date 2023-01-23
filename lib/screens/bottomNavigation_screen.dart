@@ -35,27 +35,27 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
     // TODO: implement didChangeDependencies
 
     super.didChangeDependencies();
-    if (isInit) {
+    setState(() {
       isLoading = true;
-      Provider.of<Auth>(context).readUserData().then((value) {
-        setState(() {
-          isInit = false;
-        });
-      });
-      Provider.of<Marketi>(context).readMarkete();
+    });
+    Provider.of<Auth>(context).readUserData().then((value) {
       setState(() {
-        isLoading = false;
+        isInit = false;
       });
-    }
-    isInit = false;
+    });
+    Provider.of<Marketi>(context).readMarkete();
+    setState(() {
+      isLoading = false;
+    });
+    Provider.of<Orders>(context).readOrders();
+    setState(() {
+      isLoading = false;
+    });
   }
 
   void _selectPage(int index) {
     setState(() {
       _selectedIndex = index;
-      if (_selectedIndex == 2) {
-        Provider.of<Orders>(context, listen: false).readOrders();
-      }
     });
   }
 

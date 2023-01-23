@@ -242,69 +242,67 @@ class _KorpaScreenState extends State<KorpaScreen> {
                                       ),
                                     ),
                                     child: Container(
+                                      padding: EdgeInsets.symmetric(vertical: (medijakveri.size.height - medijakveri.padding.top) * 0.015),
                                       decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(20),
                                         color: Colors.white,
+                                        borderRadius: BorderRadius.circular(20),
                                       ),
-                                      height: (medijakveri.size.height - medijakveri.padding.top) * 0.13,
                                       child: Row(
                                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: [
                                           Row(
                                             children: [
-                                              Container(
-                                                margin: EdgeInsets.symmetric(horizontal: 5),
-                                                child: ClipRRect(
-                                                  borderRadius: BorderRadius.circular(20),
+                                              ClipRRect(
+                                                borderRadius: BorderRadius.circular(20),
+                                                child: Container(
+                                                  height: 80,
+                                                  width: 80,
                                                   child: Image.network(
-                                                    korpa.items.values.toList()[i].imageUrl,
+                                                    '${korpa.items.values.toList()[i].imageUrl}',
+                                                    fit: BoxFit.cover,
                                                   ),
                                                 ),
                                               ),
-                                              Container(
-                                                height: medijakveri.size.height * 0.11,
-                                                child: Column(
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                                  children: [
-                                                    medijakveri.size.width > 350
-                                                        ? Container(
-                                                            // color: Colors.black.withOpacity(.3),
-                                                            constraints: BoxConstraints(maxWidth: 175),
-                                                            // width: 190,
-                                                            child: Text(
-                                                              korpa.items.values.toList()[i].ime.length > 30 ? '${korpa.items.values.toList()[i].ime.substring(0, 30)}...' : korpa.items.values.toList()[i].ime,
-                                                              style: TextStyle(fontSize: 16),
-                                                            ),
-                                                          )
-                                                        : Container(
-                                                            constraints: BoxConstraints(maxWidth: 150),
-                                                            child: Text(
-                                                              korpa.items.values.toList()[i].ime.length > 15 ? '${korpa.items.values.toList()[i].ime.substring(0, 18)}...' : korpa.items.values.toList()[i].ime,
-                                                              style: TextStyle(fontSize: 16),
-                                                            ),
+                                              SizedBox(width: medijakveri.size.width * 0.01),
+                                              Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                children: [
+                                                  medijakveri.size.width > 350
+                                                      ? Container(
+                                                          constraints: BoxConstraints(maxWidth: 175),
+                                                          child: Text(
+                                                            korpa.items.values.toList()[i].ime.length > 30 ? '${korpa.items.values.toList()[i].ime.substring(0, 30)}...' : korpa.items.values.toList()[i].ime,
+                                                            style: TextStyle(fontSize: 16),
                                                           ),
-                                                    Row(
-                                                      children: [
-                                                        Text(
-                                                          '${korpa.items.values.toList()[i].cijena} €',
-                                                          style: TextStyle(fontSize: 16, color: Theme.of(context).primaryColor),
-                                                        ),
-                                                        // SizedBox(width: 10),
-                                                        Container(
-                                                          margin: EdgeInsets.symmetric(horizontal: 10),
-                                                          height: 20,
-                                                          width: 1,
-                                                          color: Colors.black,
-                                                        ),
-                                                        Text(
-                                                          '${korpa.items.values.toList()[i].litara_kg}',
-                                                          style: TextStyle(color: Theme.of(context).primaryColor, fontSize: 16),
                                                         )
-                                                      ],
-                                                    )
-                                                  ],
-                                                ),
+                                                      : Container(
+                                                          constraints: BoxConstraints(maxWidth: 150),
+                                                          child: Text(
+                                                            korpa.items.values.toList()[i].ime.length > 15 ? '${korpa.items.values.toList()[i].ime.substring(0, 18)}...' : korpa.items.values.toList()[i].ime,
+                                                            style: TextStyle(fontSize: 16),
+                                                          ),
+                                                        ),
+                                                  Row(
+                                                    children: [
+                                                      Text(
+                                                        '${korpa.items.values.toList()[i].cijena} €',
+                                                        style: TextStyle(fontSize: 16, color: Theme.of(context).primaryColor),
+                                                      ),
+                                                      // SizedBox(width: 10),
+                                                      Container(
+                                                        margin: EdgeInsets.symmetric(horizontal: 10),
+                                                        height: 20,
+                                                        width: 1,
+                                                        color: Colors.black,
+                                                      ),
+                                                      Text(
+                                                        '${korpa.items.values.toList()[i].litara_kg}',
+                                                        style: TextStyle(color: Theme.of(context).primaryColor, fontSize: 16),
+                                                      )
+                                                    ],
+                                                  )
+                                                ],
                                               ),
                                             ],
                                           ),

@@ -21,26 +21,9 @@ class _TrgovanjeScreenState extends State<TrgovanjeScreen> {
   bool isLoading = false;
 
   @override
-  void didChangeDependencies() async {
-    // TODO: implement didChangeDependencies
-    super.didChangeDependencies();
-    if (isInit) {
-      setState(() {
-        isLoading = true;
-      });
-      await Provider.of<Orders>(context, listen: false).readOrders().then((value) {
-        setState(() {
-          isLoading = false;
-        });
-      });
-    }
-    isInit = false;
-  }
-
-  @override
   Widget build(BuildContext context) {
     final medijakveri = MediaQuery.of(context);
-    final orders = Provider.of<Orders>(context, listen: false);
+    final orders = Provider.of<Orders>(context);
     return isLoading
         ? Center(
             child: CircularProgressIndicator(),
