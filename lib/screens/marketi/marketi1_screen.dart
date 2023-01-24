@@ -4,14 +4,28 @@ import 'package:mtelapp/components/customAppbar.dart';
 import 'package:mtelapp/components/marketi_item.dart';
 import 'package:mtelapp/components/search_bar.dart';
 import 'package:mtelapp/main.dart';
+import 'package:mtelapp/providers/auth_provider.dart';
 import 'package:mtelapp/providers/market_provider.dart';
+import 'package:mtelapp/providers/orders_provider.dart';
 import 'package:mtelapp/providers/proizvod_provider.dart';
 import 'package:mtelapp/screens/korpa_screen.dart';
 import 'package:mtelapp/screens/marketi/marketi_lista_screen.dart';
 import 'package:provider/provider.dart';
 
-class Marketi1Screen extends StatelessWidget {
+class Marketi1Screen extends StatefulWidget {
   const Marketi1Screen({super.key});
+
+  @override
+  State<Marketi1Screen> createState() => _Marketi1ScreenState();
+}
+
+class _Marketi1ScreenState extends State<Marketi1Screen> {
+  @override
+  void didChangeDependencies() {
+    // TODO: implement didChangeDependencies
+    super.didChangeDependencies();
+    Provider.of<Marketi>(context, listen: false).readMarkete();
+  }
 
   @override
   Widget build(BuildContext context) {

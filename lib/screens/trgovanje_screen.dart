@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:intl/intl.dart';
@@ -18,12 +20,26 @@ class TrgovanjeScreen extends StatefulWidget {
 
 class _TrgovanjeScreenState extends State<TrgovanjeScreen> {
   bool isInit = true;
-  bool isLoading = false;
+  bool isLoading = true;
+  @override
+  void didChangeDependencies() async {
+    // TODO: implement didChangeDependencies
+    if (isInit) {
+      Provider.of<Orders>(context, listen: false).readOrders();
+    }
+    isInit = false;
+    Timer(Duration(milliseconds: 200), () {
+      setState(() {
+        isLoading = false;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     final medijakveri = MediaQuery.of(context);
     final orders = Provider.of<Orders>(context);
+
     return isLoading
         ? Center(
             child: CircularProgressIndicator(),

@@ -28,9 +28,9 @@ class Marketi with ChangeNotifier {
       data.forEach((key, data) {
         loadedMarketi.add(Market(id: key, ime: data['ime'], logo: data['logo'], proizvodi: []));
         _marketi = loadedMarketi;
-        notifyListeners();
       });
     });
+    notifyListeners();
   }
 
   void searchMarket(String value) {
