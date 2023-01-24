@@ -9,6 +9,7 @@ import 'package:mtelapp/providers/market_provider.dart';
 import 'package:mtelapp/providers/proizvod_provider.dart';
 import 'package:mtelapp/screens/korpa_screen.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MarketiInfoScreen extends StatefulWidget {
   static const String routeName = '/marketi_info';
@@ -39,6 +40,16 @@ class _MarketiInfoScreenState extends State<MarketiInfoScreen> {
       });
     }
     isInit = false;
+  }
+
+  Future<void> _launchInBrowser(String juarel) async {
+    final url = Uri.parse(juarel);
+    if (!await launchUrl(
+      url,
+      mode: LaunchMode.externalApplication,
+    )) {
+      throw Exception('Could not launch $url');
+    }
   }
 
   void showSnackBar() {
@@ -122,7 +133,9 @@ class _MarketiInfoScreenState extends State<MarketiInfoScreen> {
                           ),
                         ),
                         TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            _launchInBrowser('https://www.google.com/maps/search/${args['ime']}/');
+                          },
                           child: Text(
                             'Pogledaj lokacije',
                             style: TextStyle(
