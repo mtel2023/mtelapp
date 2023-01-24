@@ -26,17 +26,20 @@ class _Meni1ScreenState extends State<Meni1Screen> {
   void didChangeDependencies() async {
     // TODO: implement didChangeDependencies
     super.didChangeDependencies();
-    setState(() {
-      isLoading = true;
-    });
+
     if (isInit) {
-      await Provider.of<Auth>(context).readUserData();
-    }
-    Timer(Duration(milliseconds: 200), () {
       setState(() {
-        isLoading = false;
+        isLoading = true;
       });
-    });
+      await Provider.of<Auth>(context).readUserData().then((value) {
+        Timer(Duration(milliseconds: 200), () {
+          setState(() {
+            isLoading = false;
+          });
+        });
+      });
+    }
+
     isInit = false;
   }
 

@@ -90,7 +90,7 @@ class LoginRegisterScreen extends StatelessWidget {
                     fontsize: 18,
                     borderRadius: 20,
                     funkcija: () {
-                      Navigator.of(context).pushReplacementNamed(RegisterScreen.routeName);
+                      Navigator.of(context).pushNamed(RegisterScreen.routeName);
                     },
                   ),
                   SizedBox(height: 20),
@@ -103,7 +103,7 @@ class LoginRegisterScreen extends StatelessWidget {
                     textColor: Colors.black,
                     isBorder: true,
                     funkcija: () {
-                      Navigator.of(context).pushReplacementNamed(LoginScreen.routeName);
+                      Navigator.of(context).pushNamed(LoginScreen.routeName);
                     },
                   ),
                 ],
