@@ -5,7 +5,7 @@ import 'package:iconsax/iconsax.dart';
 import 'package:mtelapp/providers/auth_provider.dart';
 import 'package:mtelapp/providers/market_provider.dart';
 import 'package:mtelapp/providers/orders_provider.dart';
-import 'package:mtelapp/screens/mape_screen.dart';
+
 import 'package:mtelapp/screens/marketi/marketi1_screen.dart';
 import 'package:mtelapp/screens/meni/meni1_screen.dart';
 import 'package:mtelapp/screens/trgovanje_screen.dart';
@@ -21,9 +21,8 @@ class BottomNavigationScreen extends StatefulWidget {
 class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
   final List<Widget> _pages = [
     Marketi1Screen(),
-    MapeScreen(),
     TrgovanjeScreen(),
-    MapeScreen(),
+    TrgovanjeScreen(),
     Meni1Screen(),
   ];
 
@@ -68,10 +67,6 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
             BottomNavigationBarItem(
               icon: Icon(Iconsax.shop),
               label: 'Marketi',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Iconsax.map_1),
-              label: 'Mape',
             ),
             BottomNavigationBarItem(
               icon: Icon(Iconsax.wallet_money),
