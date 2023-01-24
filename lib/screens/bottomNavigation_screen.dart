@@ -28,30 +28,6 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
   ];
 
   int _selectedIndex = 0;
-  bool isInit = true;
-  bool isLoading = false;
-  @override
-  void didChangeDependencies() async {
-    // TODO: implement didChangeDependencies
-
-    super.didChangeDependencies();
-    setState(() {
-      isLoading = true;
-    });
-    Provider.of<Auth>(context).readUserData().then((value) {
-      setState(() {
-        isInit = false;
-      });
-    });
-    Provider.of<Marketi>(context).readMarkete();
-    setState(() {
-      isLoading = false;
-    });
-    Provider.of<Orders>(context).readOrders();
-    setState(() {
-      isLoading = false;
-    });
-  }
 
   void _selectPage(int index) {
     setState(() {
@@ -62,11 +38,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: isLoading
-          ? Center(
-              child: CircularProgressIndicator(),
-            )
-          : _pages[_selectedIndex],
+      body: _pages[_selectedIndex],
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
           color: Colors.white,
@@ -82,15 +54,6 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
           onTap: _selectPage,
           type: BottomNavigationBarType.fixed,
           currentIndex: _selectedIndex,
-
-          // tabBackgroundColor: Theme.of(context).primaryColor,
-          // // backgroundColor: Colors.grey.shade500,
-          // activeColor: Colors.white,
-          // color: Colors.black,
-
-          // tabBorderRadius: 10,
-          // duration: Duration(milliseconds: 500),
-          // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
 
           iconSize: 24,
 
@@ -122,21 +85,6 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
               icon: Icon(Iconsax.menu),
               label: 'Meni',
             ),
-            // GButton(
-            //   icon: Iconsax.shop,
-            // ),
-            // GButton(
-            //   icon: Iconsax.map_1,
-            // ),
-            // GButton(
-            //   icon: Iconsax.wallet_money,
-            // ),
-            // GButton(
-            //   icon: Iconsax.status_up,
-            // ),
-            // GButton(
-            //   icon: Iconsax.menu,
-            // ),
           ],
         ),
       ),
