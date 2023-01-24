@@ -19,6 +19,7 @@ class OrderItem {
 class Orders with ChangeNotifier {
   List<OrderItem> _orders = [];
   late OrderItem _lastOrder;
+  late OrderItem _loadedOrder;
   final String? authToken;
   final String? userId;
 
@@ -31,6 +32,16 @@ class Orders with ChangeNotifier {
     _lastOrder = _orders[0];
     // _orders.removeAt(0);
     return _lastOrder;
+  }
+
+  OrderItem get getLoadedOrder {
+    return _loadedOrder;
+  }
+
+  void readOrderById(String orderId) async {
+    _loadedOrder = _orders.firstWhere((element) => element.id == orderId);
+
+    print(_loadedOrder.total);
   }
 
   Future<void> readOrders() async {

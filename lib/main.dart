@@ -12,6 +12,7 @@ import 'package:mtelapp/screens/auth/login_screen.dart';
 import 'package:mtelapp/screens/auth/register_screen.dart';
 import 'package:mtelapp/screens/bottomNavigation_screen.dart';
 import 'package:mtelapp/screens/korpa_screen.dart';
+import 'package:mtelapp/screens/kupovina_screen.dart';
 import 'package:mtelapp/screens/marketi/marketi_info_screen.dart';
 import 'package:mtelapp/screens/marketi/marketi_lista_screen.dart';
 import 'package:mtelapp/screens/meni/meni2_screen.dart';
@@ -80,7 +81,7 @@ class MyApp extends StatelessWidget {
             LoginScreen.routeName: (context) => LoginScreen(),
             RegisterScreen.routeName: (context) => RegisterScreen(),
             ForgottenPasswordScreen.routeName: (context) => ForgottenPasswordScreen(),
-            // SearchScreen.routeName: (context) => SearchScreen(),
+            KupovinaScreen.routeName: (context) => KupovinaScreen(),
           },
         ),
       ),

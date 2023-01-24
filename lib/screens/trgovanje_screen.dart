@@ -9,6 +9,7 @@ import 'package:mtelapp/components/search_bar.dart';
 import 'package:mtelapp/providers/market_provider.dart';
 import 'package:mtelapp/providers/orders_provider.dart';
 import 'package:mtelapp/screens/korpa_screen.dart';
+import 'package:mtelapp/screens/kupovina_screen.dart';
 import 'package:provider/provider.dart';
 
 class TrgovanjeScreen extends StatefulWidget {
@@ -113,65 +114,71 @@ class _TrgovanjeScreenState extends State<TrgovanjeScreen> {
                                   ),
                                 ),
                               )
-                            : Container(
-                                height: (medijakveri.size.height - medijakveri.padding.top) * 0.23,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
-                                  gradient: LinearGradient(
-                                    colors: [
-                                      Theme.of(context).primaryColor,
-                                      Theme.of(context).primaryColor.withOpacity(.7),
-                                    ],
-                                    begin: Alignment.topCenter,
-                                    end: Alignment.bottomCenter,
-                                  ),
-                                ),
+                            : InkWell(
+                                onTap: () {
+                                  orders.readOrderById(orders.lastOrder.id);
+                                  Navigator.pushNamed(context, KupovinaScreen.routeName);
+                                },
                                 child: Container(
-                                  margin: EdgeInsets.symmetric(horizontal: medijakveri.size.width * 0.06),
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                'Poslednje trgovanje',
-                                                style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 18,
+                                  height: (medijakveri.size.height - medijakveri.padding.top) * 0.23,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20),
+                                    gradient: LinearGradient(
+                                      colors: [
+                                        Theme.of(context).primaryColor,
+                                        Theme.of(context).primaryColor.withOpacity(.7),
+                                      ],
+                                      begin: Alignment.topCenter,
+                                      end: Alignment.bottomCenter,
+                                    ),
+                                  ),
+                                  child: Container(
+                                    margin: EdgeInsets.symmetric(horizontal: medijakveri.size.width * 0.06),
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  'Poslednje trgovanje',
+                                                  style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 18,
+                                                  ),
                                                 ),
-                                              ),
-                                              Text(
-                                                '${orders.lastOrder.proizvodi.length} ${Metode.stavke(orders.lastOrder.proizvodi.length)}',
-                                                style: TextStyle(
-                                                  color: Colors.white.withOpacity(.7),
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 14,
+                                                Text(
+                                                  '${orders.lastOrder.proizvodi.length} ${Metode.stavke(orders.lastOrder.proizvodi.length)}',
+                                                  style: TextStyle(
+                                                    color: Colors.white.withOpacity(.7),
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 14,
+                                                  ),
                                                 ),
-                                              ),
-                                            ],
-                                          ),
-                                          Icon(
-                                            Iconsax.money_send,
-                                            color: Colors.white,
-                                            size: 34,
-                                          ),
-                                        ],
-                                      ),
-                                      Text(
-                                        '${orders.lastOrder.total}€',
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 34,
+                                              ],
+                                            ),
+                                            Icon(
+                                              Iconsax.money_send,
+                                              color: Colors.white,
+                                              size: 34,
+                                            ),
+                                          ],
                                         ),
-                                      )
-                                    ],
+                                        Text(
+                                          '${orders.lastOrder.total}€',
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 34,
+                                          ),
+                                        )
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
@@ -182,54 +189,60 @@ class _TrgovanjeScreenState extends State<TrgovanjeScreen> {
                               vertical: (medijakveri.size.height - medijakveri.padding.top) * 0.03,
                             ),
                             itemCount: orders.getOrders.length == 0 ? orders.getOrders.length : orders.getOrders.length - 1,
-                            itemBuilder: ((context, i) => Container(
-                                  height: (medijakveri.size.height - medijakveri.padding.top) * 0.1,
-                                  margin: EdgeInsets.only(bottom: (medijakveri.size.height - medijakveri.padding.top) * 0.02),
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(20),
-                                  ),
+                            itemBuilder: ((context, i) => InkWell(
+                                  onTap: () {
+                                    orders.readOrderById(orders.getOrders[i < orders.getOrders.length ? i + 1 : i].id);
+                                    Navigator.pushNamed(context, KupovinaScreen.routeName);
+                                  },
                                   child: Container(
-                                    margin: EdgeInsets.symmetric(horizontal: medijakveri.size.width * 0.03),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Row(
-                                          children: [
-                                            Icon(
-                                              Iconsax.dollar_circle,
-                                              size: 43,
-                                            ),
-                                            SizedBox(width: medijakveri.size.width * 0.05),
-                                            Container(
-                                              height: (medijakveri.size.height - medijakveri.padding.top) * 0.053,
-                                              child: Column(
-                                                // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                                crossAxisAlignment: CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    '${DateFormat('d. MMM y').format(orders.getOrders[i < orders.getOrders.length ? i + 1 : i].vrijeme)}',
-                                                    style: TextStyle(
-                                                      fontWeight: FontWeight.bold,
-                                                    ),
-                                                  ),
-                                                  Text(
-                                                    '${orders.getOrders[i < orders.getOrders.length ? i + 1 : i].proizvodi.length} ${Metode.stavke(orders.getOrders[i < orders.getOrders.length ? i + 1 : i].proizvodi.length)}',
-                                                    style: TextStyle(
-                                                      fontWeight: FontWeight.bold,
-                                                      color: Colors.grey.withOpacity(0.7),
-                                                    ),
-                                                  ),
-                                                ],
+                                    height: (medijakveri.size.height - medijakveri.padding.top) * 0.1,
+                                    margin: EdgeInsets.only(bottom: (medijakveri.size.height - medijakveri.padding.top) * 0.02),
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
+                                    child: Container(
+                                      margin: EdgeInsets.symmetric(horizontal: medijakveri.size.width * 0.03),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Row(
+                                            children: [
+                                              Icon(
+                                                Iconsax.dollar_circle,
+                                                size: 43,
                                               ),
-                                            ),
-                                          ],
-                                        ),
-                                        Text(
-                                          '${orders.getOrders[i < orders.getOrders.length ? i + 1 : i].total}€',
-                                          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                                        ),
-                                      ],
+                                              SizedBox(width: medijakveri.size.width * 0.05),
+                                              Container(
+                                                height: (medijakveri.size.height - medijakveri.padding.top) * 0.053,
+                                                child: Column(
+                                                  // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      '${DateFormat('d. MMM y').format(orders.getOrders[i < orders.getOrders.length ? i + 1 : i].vrijeme)}',
+                                                      style: TextStyle(
+                                                        fontWeight: FontWeight.bold,
+                                                      ),
+                                                    ),
+                                                    Text(
+                                                      '${orders.getOrders[i < orders.getOrders.length ? i + 1 : i].proizvodi.length} ${Metode.stavke(orders.getOrders[i < orders.getOrders.length ? i + 1 : i].proizvodi.length)}',
+                                                      style: TextStyle(
+                                                        fontWeight: FontWeight.bold,
+                                                        color: Colors.grey.withOpacity(0.7),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          Text(
+                                            '${orders.getOrders[i < orders.getOrders.length ? i + 1 : i].total}€',
+                                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 )),

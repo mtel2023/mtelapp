@@ -83,29 +83,29 @@ class Auth with ChangeNotifier {
               ),
             ),
           );
-
-          final response = http.patch(
-            url,
-            body: (json.encode({
-              'email': email,
-              'ime': ime,
-              'prezime': prezime,
-              'telefon': telefon.isEmpty ? 'Prazno' : telefon,
-            })),
-          );
-          final prefs = await SharedPreferences.getInstance();
-          final userData = json.encode(
-            {
-              'token': _token,
-              'userId': _userId,
-              'expiryDate': _expiryDate!.toIso8601String(),
-            },
-          );
-          prefs.setString('userData', userData);
-          notifyListeners();
         } catch (e) {
           throw e;
         }
+      } else {
+        final response = http.patch(
+          url,
+          body: (json.encode({
+            'email': email,
+            'ime': ime,
+            'prezime': prezime,
+            'telefon': telefon.isEmpty ? 'Prazno' : telefon,
+          })),
+        );
+        final prefs = await SharedPreferences.getInstance();
+        final userData = json.encode(
+          {
+            'token': _token,
+            'userId': _userId,
+            'expiryDate': _expiryDate!.toIso8601String(),
+          },
+        );
+        prefs.setString('userData', userData);
+        notifyListeners();
       }
     } catch (e) {
       throw e;
@@ -114,22 +114,25 @@ class Auth with ChangeNotifier {
 
   Future<void> readUserData() async {
     final url = Uri.parse('https://mtelapp-ac423-default-rtdb.europe-west1.firebasedatabase.app/userData.json?auth=$token');
+    try {
+      final response = http.get(url).then((response) {
+        final data = json.decode(response.body) as Map<String, dynamic>;
 
-    final response = http.get(url).then((response) {
-      final data = json.decode(response.body) as Map<String, dynamic>;
+        data.forEach((key, value) {
+          if (value['userId'].toString() == userId.toString()) {
+            loadedId = key;
+            loadedIme = value['ime'];
+            loadedPrezime = value['prezime'];
+            loadedEmail = value['email'];
+            loadedTelefon = value['telefon'];
 
-      data.forEach((key, value) {
-        if (value['userId'].toString() == userId.toString()) {
-          loadedId = key;
-          loadedIme = value['ime'];
-          loadedPrezime = value['prezime'];
-          loadedEmail = value['email'];
-          loadedTelefon = value['telefon'];
-
-          notifyListeners();
-        }
+            notifyListeners();
+          }
+        });
       });
-    });
+    } catch (e) {
+      throw e;
+    }
   }
 
   Future<void> register(String ime, String prezime, String email, String password) async {
