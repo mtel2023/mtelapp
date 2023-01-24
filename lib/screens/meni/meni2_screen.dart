@@ -74,17 +74,14 @@ class _Meni2ScreenState extends State<Meni2Screen> {
   void didChangeDependencies() async {
     super.didChangeDependencies();
 
-    if (isInit) {
+    setState(() {
+      isLoading = true;
+    });
+    await Provider.of<Auth>(context).readUserData().then((value) {
       setState(() {
-        isLoading = true;
+        isLoading = false;
       });
-      await Provider.of<Auth>(context).readUserData().then((value) {
-        setState(() {
-          isLoading = false;
-        });
-      });
-    }
-    isInit = false;
+    });
   }
 
   @override

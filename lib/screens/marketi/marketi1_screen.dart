@@ -40,7 +40,7 @@ class _Marketi1ScreenState extends State<Marketi1Screen> {
             // custom app bar
             CustomAppBar(
               funkcija: () {
-                // Provider.of<Marketi>(context, listen: false).addMarket('Laković', 'https://barinfo.me/wp-content/uploads/2021/06/HDL-LAKOVI%C4%86-logo.jpg', []);
+                // Provider.of<Auth>(context, listen: false).logOut();
               },
               prvaIkonica: Iconsax.home,
               pageTitle: 'Marketi',
