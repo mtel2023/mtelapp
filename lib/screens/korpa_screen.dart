@@ -158,7 +158,7 @@ class _KorpaScreenState extends State<KorpaScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'Market Voli',
+                        'Proizvodi',
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,

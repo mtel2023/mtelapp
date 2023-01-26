@@ -97,7 +97,7 @@ class Metode {
   static String? stavke(int kolicina) {
     if (kolicina % 10 == 1 && kolicina != 11) {
       return 'stavka';
-    } else if (kolicina % 10 <= 4 && (kolicina % 100 != 12 && kolicina % 100 != 13 && kolicina % 100 != 14)) {
+    } else if ((kolicina % 10 <= 4 && (kolicina % 100 != 12 && kolicina % 100 != 13 && kolicina % 100 != 14) && kolicina != 0)) {
       return 'stavke';
     } else {
       return 'stavki';
