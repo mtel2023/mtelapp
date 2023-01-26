@@ -87,7 +87,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       '${widget.searchText}',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: 22,
+                        fontSize: 16,
                         color: Colors.black,
                       ),
                     ),

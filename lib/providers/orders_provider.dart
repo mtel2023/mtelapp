@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:intl/intl.dart';
 import 'package:mtelapp/models/http_exception.dart';
 import 'package:mtelapp/models/korpa_item.dart';
 import 'package:http/http.dart' as http;
@@ -16,16 +17,29 @@ class OrderItem {
   OrderItem({required this.id, required this.total, required this.proizvodi, required this.vrijeme});
 }
 
+class ChartSampleData {
+  ChartSampleData({required this.x, required this.y});
+  final String x;
+  final double y;
+}
+
 class Orders with ChangeNotifier {
   List<OrderItem> _orders = [];
+  List<ChartSampleData> _statistikaOrders = [];
+  double _statistikaTotal = 0;
   late OrderItem _lastOrder;
   late OrderItem _loadedOrder;
+
   final String? authToken;
   final String? userId;
 
   Orders(this.authToken, this.userId, this._orders);
   List<OrderItem> get getOrders {
     return [..._orders];
+  }
+
+  double get getStatistikaTotal {
+    return _statistikaTotal;
   }
 
   OrderItem get lastOrder {
@@ -38,10 +52,45 @@ class Orders with ChangeNotifier {
     return _loadedOrder;
   }
 
+  List<ChartSampleData> get getStatistikaOders {
+    _statistikaOrders.sort((a, b) => b.x.compareTo(a.x));
+    // _statistikaOrders.forEach((element) {
+    //   print(element.x);
+    // });
+    return [..._statistikaOrders];
+  }
+
+  Future<void> readOrdersByDate(DateTime startDate, DateTime endDate) async {
+    _statistikaTotal = 0;
+    double danTotal = 0;
+    Map<String, int>? danVrijeme;
+    _statistikaOrders = [];
+    _orders.sort((a, b) => a.vrijeme.compareTo(b.vrijeme));
+    // _orders.forEach((element) {
+    //   print('${element.vrijeme.day} = ${element.total}');
+    // });
+    _orders.forEach((order) {
+      if (order.vrijeme.isAfter(startDate) && order.vrijeme.isBefore(endDate)) {
+        if (danVrijeme == null) {
+          danVrijeme = {'dan': order.vrijeme.day, 'mesec': order.vrijeme.month};
+        }
+
+        if (order.vrijeme.day == danVrijeme!['dan'] && order.vrijeme.month == danVrijeme!['mesec']) {
+          danTotal += order.total;
+        } else {
+          danTotal = order.total;
+          danVrijeme = {'dan': order.vrijeme.day, 'mesec': order.vrijeme.month};
+        }
+        _statistikaOrders.add(ChartSampleData(x: DateFormat('dd MMM').format(order.vrijeme), y: danTotal));
+        _statistikaTotal += order.total;
+      }
+    });
+    notifyListeners();
+  }
+
   void readOrderById(String orderId) async {
     _loadedOrder = _orders.firstWhere((element) => element.id == orderId);
-
-    print(_loadedOrder.total);
+    notifyListeners();
   }
 
   Future<void> readOrders() async {

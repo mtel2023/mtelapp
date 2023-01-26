@@ -54,31 +54,6 @@ class LoginRegisterScreen extends StatelessWidget {
               margin: EdgeInsets.symmetric(horizontal: medijakveri.size.width * 0.02),
               child: Column(
                 children: [
-                  Container(
-                    margin: EdgeInsets.symmetric(horizontal: medijakveri.size.width * 0.07),
-                    padding: EdgeInsets.symmetric(vertical: 16),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Image.asset('assets/icons/google1.png'),
-                        SizedBox(width: 15),
-                        FittedBox(
-                          child: Text(
-                            'Prijava pomoću Googla',
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              letterSpacing: 0.5,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
                   SizedBox(height: 20),
                   Button(
                     buttonText: 'Registrujte se',

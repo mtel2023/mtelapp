@@ -1,5 +1,7 @@
 import 'package:flutter/foundation.dart';
+
 import 'package:http/http.dart' as http;
+
 import 'dart:convert';
 
 import 'package:mtelapp/models/http_exception.dart';
@@ -71,6 +73,7 @@ class Auth with ChangeNotifier {
 
           final response2Data = json.decode(response2.body);
           if (response2Data['error'] != null) {
+            print(response2Data['error']['message']);
             throw HttpException(response2Data['error']['message']);
           }
 
@@ -86,27 +89,26 @@ class Auth with ChangeNotifier {
         } catch (e) {
           throw e;
         }
-      } else {
-        final response = http.patch(
-          url,
-          body: (json.encode({
-            'email': email,
-            'ime': ime,
-            'prezime': prezime,
-            'telefon': telefon.isEmpty ? 'Prazno' : telefon,
-          })),
-        );
-        final prefs = await SharedPreferences.getInstance();
-        final userData = json.encode(
-          {
-            'token': _token,
-            'userId': _userId,
-            'expiryDate': _expiryDate!.toIso8601String(),
-          },
-        );
-        prefs.setString('userData', userData);
-        notifyListeners();
       }
+      final response = http.patch(
+        url,
+        body: (json.encode({
+          'email': email,
+          'ime': ime,
+          'prezime': prezime,
+          'telefon': telefon.isEmpty ? 'Prazno' : telefon,
+        })),
+      );
+      final prefs = await SharedPreferences.getInstance();
+      final userData = json.encode(
+        {
+          'token': _token,
+          'userId': _userId,
+          'expiryDate': _expiryDate!.toIso8601String(),
+        },
+      );
+      prefs.setString('userData', userData);
+      notifyListeners();
     } catch (e) {
       throw e;
     }

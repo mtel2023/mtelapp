@@ -26,14 +26,15 @@ class _TrgovanjeScreenState extends State<TrgovanjeScreen> {
   void didChangeDependencies() async {
     // TODO: implement didChangeDependencies
     if (isInit) {
-      Provider.of<Orders>(context, listen: false).readOrders();
-    }
-    isInit = false;
-    Timer(Duration(milliseconds: 200), () {
-      setState(() {
-        isLoading = false;
+      await Provider.of<Orders>(context, listen: false).readOrders().then((value) {
+        isInit = false;
+        Timer(Duration(milliseconds: 200), () {
+          setState(() {
+            isLoading = false;
+          });
+        });
       });
-    });
+    }
   }
 
   @override
@@ -170,7 +171,7 @@ class _TrgovanjeScreenState extends State<TrgovanjeScreen> {
                                           ],
                                         ),
                                         Text(
-                                          '${orders.lastOrder.total}€',
+                                          '${orders.lastOrder.total.toStringAsFixed(2)}€',
                                           style: TextStyle(
                                             color: Colors.white,
                                             fontWeight: FontWeight.bold,
@@ -238,7 +239,7 @@ class _TrgovanjeScreenState extends State<TrgovanjeScreen> {
                                             ],
                                           ),
                                           Text(
-                                            '${orders.getOrders[i < orders.getOrders.length ? i + 1 : i].total}€',
+                                            '${orders.getOrders[i < orders.getOrders.length ? i + 1 : i].total.toStringAsFixed(2)}€',
                                             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                                           ),
                                         ],

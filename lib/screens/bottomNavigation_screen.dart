@@ -8,6 +8,7 @@ import 'package:mtelapp/providers/orders_provider.dart';
 
 import 'package:mtelapp/screens/marketi/marketi1_screen.dart';
 import 'package:mtelapp/screens/meni/meni1_screen.dart';
+import 'package:mtelapp/screens/statistika_screen.dart';
 import 'package:mtelapp/screens/trgovanje_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -22,7 +23,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
   final List<Widget> _pages = [
     Marketi1Screen(),
     TrgovanjeScreen(),
-    TrgovanjeScreen(),
+    StatistikaScreen(),
     Meni1Screen(),
   ];
 
@@ -53,13 +54,9 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
           onTap: _selectPage,
           type: BottomNavigationBarType.fixed,
           currentIndex: _selectedIndex,
-
           iconSize: 24,
-
           selectedLabelStyle: TextStyle(fontSize: 12),
           unselectedLabelStyle: TextStyle(fontSize: 12),
-          // padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-          // tabActiveBorder: Border.all(color: Colors.indigo.shade700, width: 1),
           selectedItemColor: Theme.of(context).primaryColor,
           unselectedItemColor: Color.fromRGBO(76, 76, 76, 1),
           showUnselectedLabels: true,

@@ -15,7 +15,6 @@ class MarketiListaScreen extends StatefulWidget {
   static const String routeName = '/marketi2';
 
   const MarketiListaScreen({super.key});
-  static bool isInit = true;
 
   @override
   State<MarketiListaScreen> createState() => _MarketiListaScreenState();
@@ -23,12 +22,12 @@ class MarketiListaScreen extends StatefulWidget {
 
 class _MarketiListaScreenState extends State<MarketiListaScreen> {
   bool isLoading = false;
-
+  bool isInit = true;
   void didChangeDependencies() {
     // TODO: implement didChangeDependencies
     super.didChangeDependencies();
 
-    if (MarketiListaScreen.isInit) {
+    if (isInit) {
       setState(() {
         isLoading = true;
       });
@@ -38,7 +37,7 @@ class _MarketiListaScreenState extends State<MarketiListaScreen> {
         });
       });
     }
-    MarketiListaScreen.isInit = false;
+    isInit = false;
   }
 
   @override
@@ -98,5 +97,11 @@ class _MarketiListaScreenState extends State<MarketiListaScreen> {
               ),
             ),
     );
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    Provider.of<Marketi>(context, listen: false).dispose();
   }
 }
