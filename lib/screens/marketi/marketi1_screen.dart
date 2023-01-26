@@ -113,4 +113,10 @@ class _Marketi1ScreenState extends State<Marketi1Screen> {
       ),
     );
   }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    Provider.of<Marketi>(context, listen: false).dispose();
+  }
 }

@@ -170,8 +170,8 @@ class _Meni3ScreenState extends State<Meni3Screen> {
                 ),
                 isLoading
                     ? SizedBox(
-                        height: 26,
-                        width: 26,
+                        height: 22,
+                        width: 22,
                         child: CircularProgressIndicator(),
                       )
                     : IconButton(

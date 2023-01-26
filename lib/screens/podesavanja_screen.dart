@@ -117,11 +117,8 @@ class _PodesavanjaScreenState extends State<PodesavanjaScreen> {
                   child: Transform.scale(
                     scale: 1.5,
                     child: Switch(
-                      inactiveThumbColor: Colors.grey.shade700,
+                      inactiveThumbColor: Colors.grey,
                       trackColor: MaterialStateProperty.all<Color>(Color.fromRGBO(217, 217, 217, 1)),
-                      thumbColor: MaterialStateProperty.all<Color>(
-                        Theme.of(context).primaryColor,
-                      ),
                       value: value,
                       onChanged: (newvalue) {
                         setState(

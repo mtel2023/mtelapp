@@ -86,7 +86,7 @@ class KupovinaScreen extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          '${orders.getLoadedOrder.total}€',
+                          '${orders.getLoadedOrder.total.toStringAsFixed(2)}€',
                           style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
@@ -151,7 +151,7 @@ class KupovinaScreen extends StatelessWidget {
                                   Row(
                                     children: [
                                       Text(
-                                        '${orders.getLoadedOrder.proizvodi[i].kolicina} x',
+                                        '${orders.getLoadedOrder.proizvodi[i].kolicina} x ',
                                         style: TextStyle(color: Theme.of(context).primaryColor, fontSize: 16),
                                       ),
                                       Text(
@@ -171,7 +171,7 @@ class KupovinaScreen extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  '${orders.getLoadedOrder.proizvodi[i].cijena} €',
+                                  '${orders.getLoadedOrder.proizvodi[i].cijena.toStringAsFixed(2)} €',
                                   style: TextStyle(fontSize: 16, color: Theme.of(context).primaryColor),
                                 ),
                               ],

@@ -57,6 +57,7 @@ class _Meni1ScreenState extends State<Meni1Screen> {
                 PreferredSize(
                   preferredSize: Size(0, 100),
                   child: Container(
+                    // color: Colors.black,
                     child: CustomAppBar(
                       funkcija: () {},
                       prvaIkonica: Iconsax.home,
@@ -72,7 +73,10 @@ class _Meni1ScreenState extends State<Meni1Screen> {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.symmetric(horizontal: medijakveri.size.width * 0.08, vertical: (medijakveri.size.height - medijakveri.padding.top) * 0.025),
+                  margin: EdgeInsets.symmetric(
+                    horizontal: medijakveri.size.width * 0.08,
+                    vertical: (medijakveri.size.height - medijakveri.padding.top) * 0.025,
+                  ),
                   child: Column(
                     children: [
                       InkWell(
@@ -97,16 +101,12 @@ class _Meni1ScreenState extends State<Meni1Screen> {
                               Row(
                                 children: [
                                   Container(
-                                    padding: EdgeInsets.all(medijakveri.size.longestSide * 0.017),
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(20),
-                                    ),
-                                    child: Text(
-                                      '👋',
-                                      style: TextStyle(fontSize: 35),
-                                    ),
-                                  ),
+                                      padding: EdgeInsets.all(medijakveri.size.longestSide * 0.017),
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(20),
+                                      ),
+                                      child: Image.asset('assets/icons/ruka.png')),
                                   SizedBox(width: medijakveri.size.width * 0.035),
                                   Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
