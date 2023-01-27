@@ -3,13 +3,13 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:intl/intl.dart';
-import 'package:mtelapp/components/customAppbar.dart';
-import 'package:mtelapp/components/metode.dart';
-import 'package:mtelapp/components/search_bar.dart';
-import 'package:mtelapp/providers/market_provider.dart';
-import 'package:mtelapp/providers/orders_provider.dart';
-import 'package:mtelapp/screens/korpa_screen.dart';
-import 'package:mtelapp/screens/kupovina_screen.dart';
+import 'package:Trebovanje/components/customAppbar.dart';
+import 'package:Trebovanje/components/metode.dart';
+import 'package:Trebovanje/components/search_bar.dart';
+import 'package:Trebovanje/providers/market_provider.dart';
+import 'package:Trebovanje/providers/orders_provider.dart';
+import 'package:Trebovanje/screens/korpa_screen.dart';
+import 'package:Trebovanje/screens/kupovina_screen.dart';
 import 'package:provider/provider.dart';
 
 class TrgovanjeScreen extends StatefulWidget {

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:intl/intl.dart';
-import 'package:mtelapp/components/customAppbar.dart';
-import 'package:mtelapp/providers/orders_provider.dart';
-import 'package:mtelapp/screens/korpa_screen.dart';
+import 'package:Trebovanje/components/customAppbar.dart';
+import 'package:Trebovanje/providers/orders_provider.dart';
+import 'package:Trebovanje/screens/korpa_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:syncfusion_flutter_charts/sparkcharts.dart';

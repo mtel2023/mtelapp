@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:mtelapp/models/http_exception.dart';
-import 'package:mtelapp/models/proizvod.dart';
+import 'package:Trebovanje/models/http_exception.dart';
+import 'package:Trebovanje/models/proizvod.dart';
 import 'dart:convert';
 
 class Proizvodi with ChangeNotifier {

@@ -3,11 +3,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:mtelapp/components/customAppbar.dart';
-import 'package:mtelapp/components/inputField.dart';
-import 'package:mtelapp/models/http_exception.dart';
-import 'package:mtelapp/providers/auth_provider.dart';
-import 'package:mtelapp/screens/meni/meni2_screen.dart';
+import 'package:Trebovanje/components/customAppbar.dart';
+import 'package:Trebovanje/components/inputField.dart';
+import 'package:Trebovanje/models/http_exception.dart';
+import 'package:Trebovanje/providers/auth_provider.dart';
+import 'package:Trebovanje/screens/meni/meni2_screen.dart';
 import 'package:provider/provider.dart';
 
 class Meni4Screen extends StatefulWidget {

@@ -1,8 +1,8 @@
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
-import 'package:mtelapp/providers/proizvod_provider.dart';
-import 'package:mtelapp/screens/marketi/marketi_info_screen.dart';
+import 'package:Trebovanje/providers/proizvod_provider.dart';
+import 'package:Trebovanje/screens/marketi/marketi_info_screen.dart';
 import 'package:provider/provider.dart';
 
 class MarketiItem extends StatelessWidget {

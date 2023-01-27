@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
-import 'package:mtelapp/models/korpa_item.dart';
+import 'package:Trebovanje/models/korpa_item.dart';
 
 class Korpa with ChangeNotifier {
   late Map<String, KorpaItem> _items;

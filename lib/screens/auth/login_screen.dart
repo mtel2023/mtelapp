@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:mtelapp/components/allButtons.dart';
-import 'package:mtelapp/components/button.dart';
-import 'package:mtelapp/components/inputField.dart';
-import 'package:mtelapp/models/http_exception.dart';
-import 'package:mtelapp/providers/auth_provider.dart';
-import 'package:mtelapp/screens/auth/forgotten_password_screen.dart';
-import 'package:mtelapp/screens/auth/register_screen.dart';
+import 'package:Trebovanje/components/allButtons.dart';
+import 'package:Trebovanje/components/button.dart';
+import 'package:Trebovanje/components/inputField.dart';
+import 'package:Trebovanje/models/http_exception.dart';
+import 'package:Trebovanje/providers/auth_provider.dart';
+import 'package:Trebovanje/screens/auth/forgotten_password_screen.dart';
+import 'package:Trebovanje/screens/auth/register_screen.dart';
 import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {

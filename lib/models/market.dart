@@ -1,4 +1,4 @@
-import 'package:mtelapp/models/proizvod.dart';
+import 'package:Trebovanje/models/proizvod.dart';
 
 class Market {
   final String id;

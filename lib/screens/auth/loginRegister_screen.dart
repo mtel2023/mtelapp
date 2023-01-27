@@ -2,9 +2,9 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:mtelapp/components/button.dart';
-import 'package:mtelapp/screens/auth/login_screen.dart';
-import 'package:mtelapp/screens/auth/register_screen.dart';
+import 'package:Trebovanje/components/button.dart';
+import 'package:Trebovanje/screens/auth/login_screen.dart';
+import 'package:Trebovanje/screens/auth/register_screen.dart';
 
 class LoginRegisterScreen extends StatelessWidget {
   const LoginRegisterScreen({super.key});

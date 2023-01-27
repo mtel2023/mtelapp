@@ -3,9 +3,9 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:intl/intl.dart';
-import 'package:mtelapp/components/customAppbar.dart';
-import 'package:mtelapp/components/metode.dart';
-import 'package:mtelapp/providers/orders_provider.dart';
+import 'package:Trebovanje/components/customAppbar.dart';
+import 'package:Trebovanje/components/metode.dart';
+import 'package:Trebovanje/providers/orders_provider.dart';
 import 'package:provider/provider.dart';
 
 class KupovinaScreen extends StatelessWidget {
