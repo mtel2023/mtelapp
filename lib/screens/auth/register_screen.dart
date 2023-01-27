@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:mtelapp/components/button.dart';
-import 'package:mtelapp/components/inputField.dart';
-import 'package:mtelapp/components/metode.dart';
-import 'package:mtelapp/models/http_exception.dart';
-import 'package:mtelapp/providers/auth_provider.dart';
+import 'package:Trebovanje/components/button.dart';
+import 'package:Trebovanje/components/inputField.dart';
+import 'package:Trebovanje/components/metode.dart';
+import 'package:Trebovanje/models/http_exception.dart';
+import 'package:Trebovanje/providers/auth_provider.dart';
 import 'package:provider/provider.dart';
 
 class RegisterScreen extends StatefulWidget {

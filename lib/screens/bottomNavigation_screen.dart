@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 
-import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:mtelapp/providers/auth_provider.dart';
-import 'package:mtelapp/providers/market_provider.dart';
-import 'package:mtelapp/providers/orders_provider.dart';
+import 'package:Trebovanje/providers/auth_provider.dart';
+import 'package:Trebovanje/providers/market_provider.dart';
+import 'package:Trebovanje/providers/orders_provider.dart';
 
-import 'package:mtelapp/screens/marketi/marketi1_screen.dart';
-import 'package:mtelapp/screens/meni/meni1_screen.dart';
-import 'package:mtelapp/screens/statistika_screen.dart';
-import 'package:mtelapp/screens/trgovanje_screen.dart';
+import 'package:Trebovanje/screens/marketi/marketi1_screen.dart';
+import 'package:Trebovanje/screens/meni/meni1_screen.dart';
+import 'package:Trebovanje/screens/statistika_screen.dart';
+import 'package:Trebovanje/screens/trgovanje_screen.dart';
 import 'package:provider/provider.dart';
 
 class BottomNavigationScreen extends StatefulWidget {

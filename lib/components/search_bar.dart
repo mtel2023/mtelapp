@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:mtelapp/providers/market_provider.dart';
-import 'package:mtelapp/providers/proizvod_provider.dart';
-import 'package:mtelapp/screens/search_screen.dart';
+import 'package:Trebovanje/providers/market_provider.dart';
+import 'package:Trebovanje/providers/proizvod_provider.dart';
+import 'package:Trebovanje/screens/search_screen.dart';
 import 'package:provider/provider.dart';
 
 class SearchBar extends StatefulWidget {

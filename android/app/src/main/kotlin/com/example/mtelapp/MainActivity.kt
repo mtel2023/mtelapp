@@ -1,4 +1,4 @@
-package com.example.mtelapp
+package com.trebovanje
 
 import io.flutter.embedding.android.FlutterActivity
 

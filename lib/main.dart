@@ -1,26 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:mtelapp/components/customAppbar.dart';
-import 'package:mtelapp/models/order.dart';
-import 'package:mtelapp/providers/orders_provider.dart';
-import 'package:mtelapp/providers/auth_provider.dart';
-import 'package:mtelapp/providers/korpa_provider.dart';
-import 'package:mtelapp/providers/market_provider.dart';
-import 'package:mtelapp/providers/proizvod_provider.dart';
-import 'package:mtelapp/screens/auth/forgotten_password_screen.dart';
-import 'package:mtelapp/screens/auth/loginRegister_screen.dart';
-import 'package:mtelapp/screens/auth/login_screen.dart';
-import 'package:mtelapp/screens/auth/register_screen.dart';
-import 'package:mtelapp/screens/bottomNavigation_screen.dart';
-import 'package:mtelapp/screens/korpa_screen.dart';
-import 'package:mtelapp/screens/kupovina_screen.dart';
-import 'package:mtelapp/screens/marketi/marketi_info_screen.dart';
-import 'package:mtelapp/screens/marketi/marketi_lista_screen.dart';
-import 'package:mtelapp/screens/meni/meni2_screen.dart';
-import 'package:mtelapp/screens/meni/meni3_screen.dart';
-import 'package:mtelapp/screens/meni/meni4_screen.dart';
+import 'package:Trebovanje/components/customAppbar.dart';
+import 'package:Trebovanje/models/order.dart';
+import 'package:Trebovanje/providers/orders_provider.dart';
+import 'package:Trebovanje/providers/auth_provider.dart';
+import 'package:Trebovanje/providers/korpa_provider.dart';
+import 'package:Trebovanje/providers/market_provider.dart';
+import 'package:Trebovanje/providers/proizvod_provider.dart';
+import 'package:Trebovanje/screens/auth/forgotten_password_screen.dart';
+import 'package:Trebovanje/screens/auth/loginRegister_screen.dart';
+import 'package:Trebovanje/screens/auth/login_screen.dart';
+import 'package:Trebovanje/screens/auth/register_screen.dart';
+import 'package:Trebovanje/screens/bottomNavigation_screen.dart';
+import 'package:Trebovanje/screens/korpa_screen.dart';
+import 'package:Trebovanje/screens/kupovina_screen.dart';
+import 'package:Trebovanje/screens/marketi/marketi_info_screen.dart';
+import 'package:Trebovanje/screens/marketi/marketi_lista_screen.dart';
+import 'package:Trebovanje/screens/meni/meni2_screen.dart';
+import 'package:Trebovanje/screens/meni/meni3_screen.dart';
+import 'package:Trebovanje/screens/meni/meni4_screen.dart';
 
-import 'package:mtelapp/screens/podesavanja_screen.dart';
-import 'package:mtelapp/screens/search_screen.dart';
+import 'package:Trebovanje/screens/podesavanja_screen.dart';
+import 'package:Trebovanje/screens/search_screen.dart';
 
 import 'package:provider/provider.dart';
 
@@ -64,7 +64,7 @@ class MyApp extends StatelessWidget {
                 ),
             fontFamily: 'Poppins',
           ),
-          title: 'Mtel App',
+          title: 'Trebovanje',
           home: auth.isAuth
               ? BottomNavigationScreen()
               : FutureBuilder(

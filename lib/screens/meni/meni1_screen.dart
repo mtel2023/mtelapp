@@ -2,14 +2,14 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:mtelapp/components/customAppbar.dart';
-import 'package:mtelapp/components/kartica.dart';
-import 'package:mtelapp/components/metode.dart';
-import 'package:mtelapp/providers/auth_provider.dart';
-import 'package:mtelapp/screens/korpa_screen.dart';
-import 'package:mtelapp/screens/meni/meni2_screen.dart';
+import 'package:Trebovanje/components/customAppbar.dart';
+import 'package:Trebovanje/components/kartica.dart';
+import 'package:Trebovanje/components/metode.dart';
+import 'package:Trebovanje/providers/auth_provider.dart';
+import 'package:Trebovanje/screens/korpa_screen.dart';
+import 'package:Trebovanje/screens/meni/meni2_screen.dart';
 
-import 'package:mtelapp/screens/podesavanja_screen.dart';
+import 'package:Trebovanje/screens/podesavanja_screen.dart';
 import 'package:provider/provider.dart';
 
 class Meni1Screen extends StatefulWidget {

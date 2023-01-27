@@ -3,14 +3,14 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:mtelapp/components/button.dart';
-import 'package:mtelapp/components/customAppbar.dart';
-import 'package:mtelapp/components/metode.dart';
-import 'package:mtelapp/providers/orders_provider.dart';
-import 'package:mtelapp/models/proizvod.dart';
-import 'package:mtelapp/providers/korpa_provider.dart';
-import 'package:mtelapp/providers/market_provider.dart';
-import 'package:mtelapp/providers/proizvod_provider.dart';
+import 'package:Trebovanje/components/button.dart';
+import 'package:Trebovanje/components/customAppbar.dart';
+import 'package:Trebovanje/components/metode.dart';
+import 'package:Trebovanje/providers/orders_provider.dart';
+import 'package:Trebovanje/models/proizvod.dart';
+import 'package:Trebovanje/providers/korpa_provider.dart';
+import 'package:Trebovanje/providers/market_provider.dart';
+import 'package:Trebovanje/providers/proizvod_provider.dart';
 import 'package:provider/provider.dart';
 
 class KorpaScreen extends StatefulWidget {

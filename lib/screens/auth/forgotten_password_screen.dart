@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:mtelapp/components/button.dart';
-import 'package:mtelapp/components/inputField.dart';
-import 'package:mtelapp/screens/auth/login_screen.dart';
+import 'package:Trebovanje/components/button.dart';
+import 'package:Trebovanje/components/inputField.dart';
+import 'package:Trebovanje/screens/auth/login_screen.dart';
 
 class ForgottenPasswordScreen extends StatelessWidget {
   static const String routeName = '/forgotten-password';

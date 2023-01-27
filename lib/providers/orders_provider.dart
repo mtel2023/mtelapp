@@ -1,12 +1,12 @@
 import 'package:flutter/foundation.dart';
 import 'package:intl/intl.dart';
-import 'package:mtelapp/models/http_exception.dart';
-import 'package:mtelapp/models/korpa_item.dart';
+import 'package:Trebovanje/models/http_exception.dart';
+import 'package:Trebovanje/models/korpa_item.dart';
 import 'package:http/http.dart' as http;
-import 'package:mtelapp/models/order.dart';
+import 'package:Trebovanje/models/order.dart';
 import 'dart:convert';
 
-import 'package:mtelapp/models/proizvod.dart';
+import 'package:Trebovanje/models/proizvod.dart';
 
 class OrderItem {
   final String id;
@@ -44,7 +44,7 @@ class Orders with ChangeNotifier {
 
   OrderItem get lastOrder {
     _lastOrder = _orders[0];
-    // _orders.removeAt(0);
+
     return _lastOrder;
   }
 
@@ -54,9 +54,7 @@ class Orders with ChangeNotifier {
 
   List<ChartSampleData> get getStatistikaOders {
     _statistikaOrders.sort((a, b) => b.x.compareTo(a.x));
-    // _statistikaOrders.forEach((element) {
-    //   print(element.x);
-    // });
+
     return [..._statistikaOrders];
   }
 
@@ -66,9 +64,7 @@ class Orders with ChangeNotifier {
     Map<String, int>? danVrijeme;
     _statistikaOrders = [];
     _orders.sort((a, b) => a.vrijeme.compareTo(b.vrijeme));
-    // _orders.forEach((element) {
-    //   print('${element.vrijeme.day} = ${element.total}');
-    // });
+
     _orders.forEach((order) {
       if (order.vrijeme.isAfter(startDate) && order.vrijeme.isBefore(endDate)) {
         if (danVrijeme == null) {

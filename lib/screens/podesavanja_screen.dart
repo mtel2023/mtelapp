@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:mtelapp/components/button.dart';
-import 'package:mtelapp/components/customAppbar.dart';
-import 'package:mtelapp/providers/auth_provider.dart';
+import 'package:Trebovanje/components/button.dart';
+import 'package:Trebovanje/components/customAppbar.dart';
+import 'package:Trebovanje/providers/auth_provider.dart';
 import 'package:provider/provider.dart';
 
 class PodesavanjaScreen extends StatefulWidget {
